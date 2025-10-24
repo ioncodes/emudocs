@@ -100,7 +100,7 @@ v0 --- v1        Triangle 1: v0 -> v1 -> v2
 v2 --- v3        Note: 0-indexed, see below
 ```
 
-> *Quads are internally processed as two triangles, the first consisting of vertices 1,2,3, and the second of vertices 2,3,4.* [Source](https://psx-spx.consoledev.net/graphicsprocessingunitgpu/#gpu-render-polygon-commands
+> *Quads are internally processed as two triangles, the first consisting of vertices 1,2,3, and the second of vertices 2,3,4.* [Source](https://psx-spx.consoledev.net/graphicsprocessingunitgpu/#gpu-render-polygon-commands)
 
 ```rust
 fn rasterize_polygon(vertices: &[(i16, i16)], colors: &[u32], vram: &mut [u8]) {
