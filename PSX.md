@@ -191,6 +191,7 @@ let pixel = (b5 << 10) | (g5 << 5) | r5;
 The Japanese BIOS versions (? need to verify this pattern) seem to get the background wrong (for example `SCPH1000.BIN` and `SCPH3000.BIN`. No idea why, noticed this at Git commit `12a9d2716ceff315957238c8590fbffd31c52db9`. Other BIOS versions like `SCPH1001.BIN` work fine.
 
 # Textured Polygon only half textured
+![[Pasted image 20251025135438.png]]
 ```
 rasterize_polygon
  -> rasterize_triangle
@@ -219,3 +220,24 @@ rasterize_triangle(
 // Wont work!! need to get CLUT and Texpage before call rasterize_trinalgle since those are always inside uv0 and uv1
 ```
 
+# Sony Logo no colors
+![[Pasted image 20251025135631.png]]
+In my case CLUT got overwritten!!
+> *Polygons are displayed up to \<excluding> their lower-right coordinates.* [Source](https://psx-spx.consoledev.net/graphicsprocessingunitgpu/#notes)
+
+Should be able to see them just below the grey area as white-ish dots. That disappears eventually. Bounding box needs to be exclusive.
+
+```rust
+let min_x = x0.min(x1).min(x2).max(0);
+let max_x = x0.max(x1).max(x2).min(VRAM_WIDTH as i32);
+let min_y = y0.min(y1).min(y2).max(0);
+let max_y = y0.max(y1).max(y2).min(VRAM_HEIGHT as i32);
+
+for y in min_y..max_y {
+	for x in min_x..max_x {
+		// rasterize
+	}
+}
+```
+
+Honory mention: Chicho
