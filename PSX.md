@@ -189,3 +189,32 @@ let pixel = (b5 << 10) | (g5 << 5) | r5;
 
 # Background Polygon Missing
 The Japanese BIOS versions (? need to verify this pattern) seem to get the background wrong (for example `SCPH1000.BIN` and `SCPH3000.BIN`. No idea why, noticed this at Git commit `12a9d2716ceff315957238c8590fbffd31c52db9`. Other BIOS versions like `SCPH1001.BIN` work fine.
+
+# Textured Polygon only half textured
+```
+rasterize_polygon
+ -> rasterize_triangle
+```
+
+If `rasterize_triangle` extracts CLUT and Texpage from UVs then that won't work as uv0 is uv1 and uv1 is uv2.
+```rust
+rasterize_triangle(
+	// ...
+	if textured {
+		[uvs[0], uvs[1], uvs[2]]
+	} else {
+		[0, 0, 0]
+	},
+	// ...
+);
+rasterize_triangle(
+	// ...
+	if textured {
+		[uvs[1], uvs[2], uvs[3]]
+	} else {
+		[0, 0, 0]
+	},
+	// ...
+);
+// Wont work!! need to get CLUT and Texpage before call rasterize_trinalgle since those are always inside uv0 and uv1
+```
