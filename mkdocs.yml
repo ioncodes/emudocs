@@ -1,0 +1,55 @@
+site_name: emudocs
+site_url: https://emudocs.layle.dev/
+repo_url: https://github.com/ioncodes/emudocs
+
+theme:
+  name: material
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep-purple
+      accent: deep-purple
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep-purple
+      accent: deep-purple
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  
+  icon:
+    logo: material/nintendo-game-boy
+
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - toc.integrate
+    - content.code.annotate
+    - content.code.copy
+    - content.tabs.link
+    - header.autohide
+    - palette.toggle
+    - navigation.sections
+    - navigation.instant
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.highlight
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.superfences
+  - pymdownx.tasklist
+  - pymdownx.tilde
+

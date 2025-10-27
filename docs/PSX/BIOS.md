@@ -1,5 +1,3 @@
-# BIOS
-
 random PSX notes using `SCPH1000.BIN` and `SCPH1001.BIN`
 
 ## BIOS Stuck in Loop

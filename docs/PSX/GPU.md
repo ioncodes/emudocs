@@ -1,7 +1,3 @@
-# GPU
-
-random GPU related notes
-
 ## Background Polygon Missing
 
 The Japanese BIOS versions (? need to verify this pattern) seem to get the background wrong (for example `SCPH1000.BIN` and `SCPH3000.BIN`. No idea why, noticed this at Git commit `12a9d2716ceff315957238c8590fbffd31c52db9`. Other BIOS versions like `SCPH1001.BIN` work fine.
