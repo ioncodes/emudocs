@@ -51,3 +51,104 @@ It checks bit 19, if it's not 0 it will start waiting for something. This bit in
 So if the vertical resolution is 480 lines it will start waiting for a new frame presumably? Since the next bit change (bit 31) would be during VBLANK (???). Since `GPUSTAT` is stubbed it will always think we are in 480 lines mode. `0x1480_2000` seems to work better as an early stub (reset value?) but breaks the amidog CPU tests unless bit 27 which indicates VRAM to CPU DMA readiness is forcefully set as well.
 
 Note: BIOS does swap to 480-lines mode eventually, so can't really escape it for long.
+
+## Getting to Shell
+In my testing a few things are required to be able to progress to the BIOS shell:
+
+* Being at the diamond screen (duh...)
+* Timer or at least forcing `0xFF` on reads
+* VBLANK IRQ (kind of... without it I get stuck in a blue screen)
+* CDROM with a few basic commands and IRQ
+
+Note: unmapped reads return `0xFF` for me!! Depending on that value results may differ.
+
+### CDROM Commands
+The following commands seem to be required as a bare minimum:
+
+```
+cmd     subcmd  irq     result fifo
+----------------------------------------------
+0x01            INT3    Status
+0x19    0x20    INT3    Get cdrom BIOS date/version (yy,mm,dd,ver)
+```
+
+### Further Notes & Code
+
+* I return `[0x69, 0x69, 0x69, 0x69]` for the CDROM version
+* I set *only* the "Shell Open" bit for status
+* I send both "acknowledge" and "complete" IRQs (with an arbitrary 1000 cycle delay inbetween)
+* I update parameter readiness bits on every tick
+
+```rs
+fn execute_command(&mut self, command: u8) {
+    match command {
+        // 0x01 	Nop 		INT3: status
+        0x01 => {
+            self.pending_command = Some(command);
+            self.send_status(&[]);
+            self.trigger_irq(DiskIrq::CommandAcknowledged);
+        }
+        // 0x19 	Test * 	sub, ... 	INT3: ...
+        0x19 => {
+            let subcommand = self.parameter_fifo.pop_front().unwrap();
+            self.execute_subcommand(subcommand);
+        }
+        _ => {
+            tracing::error!(
+                target: "psx_core::cdrom",
+                command = format!("{:02X}", command),
+                "Unimplemented CDROM command",
+            );
+        }
+    }
+
+    self.address.set_busy_status(true);
+}
+
+fn execute_subcommand(&mut self, subcommand: u8) {
+    match subcommand {
+        0x20 => {
+            self.result_fifo.push_back(0x69); // year
+            self.result_fifo.push_back(0x69); // month
+            self.result_fifo.push_back(0x69); // day
+            self.result_fifo.push_back(0x69); // version
+            self.trigger_irq(DiskIrq::CommandAcknowledged);
+        }
+    }
+}
+
+pub fn tick(&mut self, cycles: usize) {
+    self.address.set_parameter_empty(self.parameter_fifo.is_empty());
+    self.address.set_parameter_write_ready(self.parameter_fifo.len() < 16);
+    self.cycles += cycles;
+
+    if self.cycles >= CYCLE_DELAY {
+        self.cycles -= CYCLE_DELAY;
+
+        if let Some(command) = self.pending_command.take() {
+            self.parameter_fifo.clear();
+            self.address.set_busy_status(false);
+            self.address.set_data_request(true);
+            self.address.set_result_read_ready(true);
+
+            self.trigger_irq(DiskIrq::CommandCompleted);
+        }
+    }
+}
+```
+
+My TTY logs (VSync timeouts omitted):
+
+```
+ INFO psx_core::tty:
+ INFO psx_core::tty: PS-X Realtime Kernel Ver.2.5
+ INFO psx_core::tty: Copyright 1993,1994 (C) Sony Computer Entertainment Inc.
+ INFO psx_core::tty: KERNEL SETUP!
+ INFO psx_core::tty:
+ INFO psx_core::tty: Configuration : EvCB       0x10            TCB     0x04
+ INFO psx_core::tty: System ROM Version 2.2 12/04/95 A
+ INFO psx_core::tty: Copyright 1993,1994,1995 (C) Sony Computer Entertainment Inc.
+ INFO psx_core::tty: ResetCallback: _96_remove ..
+ INFO psx_core::tty: System Controller ROM Version 69/69/69 69
+ INFO psx_core::tty: PS-X Control PAD Driver  Ver 3.0
+ ```

@@ -194,4 +194,4 @@ for y in min_y..max_y {
 }
 ```
 
-Honorory mention: Chicho
+Honorary mention: Chicho
