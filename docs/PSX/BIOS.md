@@ -127,7 +127,7 @@ Basically waits for bit 31 to change.
 
 Seems to be 240-lines mode in my case. We get here because of the start of that routine:
 
-```
+```mips
 sub_8004FE08:
 lw      $v0, 0($a1)
 bne     $a0, $zero, loc_8004FF00
