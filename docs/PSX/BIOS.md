@@ -14,7 +14,7 @@ beq     $a6, $zero, loc_8004FE44
 nop
 ```
 
-where:
+where:  
 * `a0` is `0x8000_0000`
 * `a1` points to `GPUSTAT` register
 * `v0` is original `GPUSTAT` value
