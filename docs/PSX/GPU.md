@@ -19,6 +19,7 @@ pub struct DrawPolygonCommand(pub u32) {
 ```
 
 Base count of extra data words is either 4 or 3 (will call the count `vertices`). 4 if `vertices_count` is set.
+
 * If `gouraud` is set, then `vertices - 1` on top of that
 * If `textured` is set, then `vertices`
 
@@ -79,12 +80,14 @@ let max_x = x0.max(x1).max(x2).min(VRAM_WIDTH as i32 - 1);
 let min_y = y0.min(y1).min(y2).max(0);
 let max_y = y0.max(y1).max(y2).min(VRAM_HEIGHT as i32 - 1);
 ```
+
 - **`min_x`**: The leftmost point of any corner
 - **`max_x`**: The rightmost point of any corner
 - **`min_y`**: The topmost point of any corner
 - **`max_y`**: The bottommost point of any corner
 
 Now to fill a triangle we'll have to go through each point in the bounding box (?) and check whether this point is:
+
 * to the left of a line A to B
 * to the right of a line A to B
 * on top of a line A to B

@@ -14,7 +14,8 @@ beq     $a6, $zero, loc_8004FE44
 nop
 ```
 
-where:  
+where:
+
 * `a0` is `0x8000_0000`
 * `a1` points to `GPUSTAT` register
 * `v0` is original `GPUSTAT` value
@@ -43,6 +44,7 @@ if ( (*GPUSTAT & 0x80000) != 0 ) {
 ```
 
 It checks bit 19, if it's not 0 it will start waiting for something. This bit indicates vertical resolution:
+
 * 0 = 240 lines (what it should be according to my emulator atm)
 * 1 = 480 lines
 
