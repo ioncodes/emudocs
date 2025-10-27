@@ -1,56 +1,12 @@
-random psx notes using `SCPH1000.BIN`
+# GPU
 
-# BIOS Stuck
+random GPU related notes
 
-Stubbed `GPUSTAT` (`0xFFFF_FFFF`) will eventually lead to this:
+## Background Polygon Missing
 
-```mips
-loc_8004FE44:
-lw      $a4, 0($a1)
-addiu   $v1, $v1, 1
-xor     $a5, $v0, $a4
-and     $a6, $a5, $a0
-beq     $a6, $zero, loc_8004FE44
-nop
-```
+The Japanese BIOS versions (? need to verify this pattern) seem to get the background wrong (for example `SCPH1000.BIN` and `SCPH3000.BIN`. No idea why, noticed this at Git commit `12a9d2716ceff315957238c8590fbffd31c52db9`. Other BIOS versions like `SCPH1001.BIN` work fine.
 
-where:
-* `a0` is `0x8000_0000`
-* `a1` points to `GPUSTAT` register
-* `v0` is original `GPUSTAT` value
-
-Basically waits for bit 31 to change.
-
-> *In 480-lines mode, bit31 changes per frame. And in 240-lines mode, the bit changes per scanline. The bit is always zero during Vblank (vertical retrace and upper/lower screen border).*
-
-Seems to be 240-lines mode in my case. We get here because of the start of that routine:
-
-```
-sub_8004FE08:
-lw      $v0, 0($a1)
-bne     $a0, $zero, loc_8004FF00
-lui     $at, 8
-and     $t6, $v0, $at
-beq     $t6, $zero, loc_8004FE64
-nop
-```
-
-Roughly translates to (same register meaning as above):
-```c
-if ( (*GPUSTAT & 0x80000) != 0 ) {
-  // Deadlock here...
-}
-```
-
-It checks bit 19, if it's not 0 it will start waiting for something. This bit indicates vertical resolution:
-* 0 = 240 lines (what it should be according to my emulator atm)
-* 1 = 480 lines
-
-So if the vertical resolution is 480 lines it will start waiting for a new frame presumably? Since the next bit change (bit 31) would be during VBLANK (???). Since `GPUSTAT` is stubbed it will always think we are in 480 lines mode. `0x1480_2000` seems to work better as an early stub (reset value?) but breaks the amidog CPU tests unless bit 27 which indicates VRAM to CPU DMA readiness is forcefully set as well.
-
-Note: BIOS does swap to 480-lines mode eventually, so can't really escape it for long.
-
-# GPU Polygon Data Count
+## Calculating Polygon Word Count
 
 Polygon primitive base count is calculated based on vertices count bit:
 
@@ -90,7 +46,7 @@ Gp0Command::PolygonPrimitive(cmd) => {
 }
 ```
 
-# Rasterizer
+## Rasterizer
 
 Given vertices v0, v1, v2, v3 to draw a rectangle/quad:
 ```
@@ -186,12 +142,9 @@ let b5 = ((b >> 3) & 0x1F) as u16;
 let pixel = (b5 << 10) | (g5 << 5) | r5;
 ```
 
+## Half Textured Polygons
+![](<../attachments/Pasted image 20251025135438.png>)
 
-# Background Polygon Missing
-The Japanese BIOS versions (? need to verify this pattern) seem to get the background wrong (for example `SCPH1000.BIN` and `SCPH3000.BIN`. No idea why, noticed this at Git commit `12a9d2716ceff315957238c8590fbffd31c52db9`. Other BIOS versions like `SCPH1001.BIN` work fine.
-
-# Textured Polygon only half textured
-![[Pasted image 20251025135438.png]]
 ```
 rasterize_polygon
  -> rasterize_triangle
@@ -220,8 +173,10 @@ rasterize_triangle(
 // Wont work!! need to get CLUT and Texpage before call rasterize_trinalgle since those are always inside uv0 and uv1
 ```
 
-# Sony Logo no colors
-![[Pasted image 20251025135631.png]]
+
+## Missing Sony Logo Colors
+![](<../attachments/Pasted image 20251025135631.png>)
+
 In my case CLUT got overwritten!!
 > *Polygons are displayed up to \<excluding> their lower-right coordinates.* [Source](https://psx-spx.consoledev.net/graphicsprocessingunitgpu/#notes)
 
@@ -240,4 +195,4 @@ for y in min_y..max_y {
 }
 ```
 
-Honory mention: Chicho
+Honorory mention: Chicho
