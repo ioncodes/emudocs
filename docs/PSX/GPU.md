@@ -204,3 +204,7 @@ This happens when the "Quick Rectangle Fill" GP0 command (Misc. Commands, subcom
 ## Main Menu Grey Rectangle
 
 This happens when you **only sample textures for polygons**. (see above image)
+
+## Missing White Text Color
+
+This happens when I return transparency if the texel **index** is 0 as opposed to the texel itself. (see above)
