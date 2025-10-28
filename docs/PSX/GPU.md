@@ -198,7 +198,7 @@ Honorary mention: Chicho
 
 ## Rainbows Behind Balls
 
-![[Pasted image 20251028213713.png]]
+![](<../attachments/Pasted image 20251028213713.png>)
 This happens when the "Quick Rectangle Fill" GP0 command (Misc. Commands, subcommand `0x02`) is **not** implemented.
 
 ## Main Menu Grey Rectangle
