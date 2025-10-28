@@ -195,3 +195,12 @@ for y in min_y..max_y {
 ```
 
 Honorary mention: Chicho
+
+## Rainbows Behind Balls
+
+![[Pasted image 20251028213713.png]]
+This happens when the "Quick Rectangle Fill" GP0 command (Misc. Commands, subcommand `0x02`) is **not** implemented.
+
+## Main Menu Grey Rectangle
+
+This happens when you **only sample textures for polygons**. (see above image)
