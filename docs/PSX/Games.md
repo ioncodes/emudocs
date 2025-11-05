@@ -49,6 +49,15 @@ match tx_byte {
 }
 ```
 
+When SIO0_CTRL is written, I also check whether the port number changed to 2 and reset the state machine if necessary:
+```rust
+if matches!(self.active_device, ActiveDevice::None | ActiveDevice::Controller)
+    && self.control.port_number() == 2
+{
+    self.reset_devices();
+}
+```
+
 Honorary mention: Chicho
 
 
