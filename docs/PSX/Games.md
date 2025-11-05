@@ -64,7 +64,7 @@ Honorary mention: Chicho
 ## Mortal Kombat II
 
 ### Fragmented Graphics
-![alt text](<../attachments/mk2menu.png>) ![alt text](<../attachments/mk2title.png>)
+![alt text](<../attachments/mk2menu.png>)
 
 Polygon commands must propagate their texpage to the global texpage.
 
@@ -93,7 +93,7 @@ Honorary mention: Lycoder
 
 ### Missing Graphics
 
-![alt text](<../attachments/mk2select.png>) ![alt text](<../attachments/mk2text.png>)
+![alt text](<../attachments/mk2select.png>) ![alt text](<../attachments/mk2text.png>) ![alt text](<../attachments/mk2title.png>)
 
 Missing VRAM to VRAM Blit command, something along the lines of:
 
