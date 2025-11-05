@@ -49,6 +49,9 @@ match tx_byte {
 }
 ```
 
+Honorary mention: Chicho
+
+
 ## Mortal Kombat II
 
 ### Fragmented Graphics
@@ -75,6 +78,9 @@ if uvs.len() > 1 {
     self.gp.gp1_status.set_texture_page_y_base_2(texture_page_y_base_2);
 }
 ```
+
+Honorary mention: Lycoder
+
 
 ### Missing Graphics
 
