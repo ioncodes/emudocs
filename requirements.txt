@@ -1,0 +1,2 @@
+zensical==0.0.71
+ghp-import==2.1.0

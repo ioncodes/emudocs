@@ -6,6 +6,9 @@ on:
       - main
 permissions:
   contents: write
+concurrency:
+  group: docs-deploy
+  cancel-in-progress: false
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,13 +20,7 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
-      - uses: actions/cache@v4
-        with:
-          key: mkdocs-material-${{ env.cache_id }}
-          path: ~/.cache 
-          restore-keys: |
-            mkdocs-material-
-      - run: pip install mkdocs-material 
-      - run: mkdocs gh-deploy --force
+          python-version: '3.14'
+      - run: python -m pip install -r requirements.txt
+      - run: zensical build --clean
+      - run: ghp-import --no-jekyll --push --force --branch gh-pages site
