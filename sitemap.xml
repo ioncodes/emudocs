@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>https://emudocs.layle.dev/</loc>
+      </url>
+      <url>
+        <loc>https://emudocs.layle.dev/GBA/PPU/</loc>
+      </url>
+      <url>
+        <loc>https://emudocs.layle.dev/GameCube%20%26%20Wii/GX/</loc>
+      </url>
+      <url>
+        <loc>https://emudocs.layle.dev/GameCube%20%26%20Wii/Games/</loc>
+      </url>
+      <url>
+        <loc>https://emudocs.layle.dev/GameCube%20%26%20Wii/Memory/</loc>
+      </url>
+      <url>
+        <loc>https://emudocs.layle.dev/GameCube%20%26%20Wii/Starlet/</loc>
+      </url>
+      <url>
+        <loc>https://emudocs.layle.dev/GameCube%20%26%20Wii/Starlet/boot0/</loc>
+      </url>
+      <url>
+        <loc>https://emudocs.layle.dev/GameCube%20%26%20Wii/Starlet/nand/</loc>
+      </url>
+      <url>
+        <loc>https://emudocs.layle.dev/PSX/BIOS/</loc>
+      </url>
+      <url>
+        <loc>https://emudocs.layle.dev/PSX/GPU/</loc>
+      </url>
+      <url>
+        <loc>https://emudocs.layle.dev/PSX/Games/</loc>
+      </url>
+</urlset>
