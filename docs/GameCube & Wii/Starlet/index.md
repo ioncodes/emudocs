@@ -39,11 +39,11 @@ With boot ROM enabled and [`HW_SRNPROT[SM]`](#hw_srnprot) = `0`:
 
 OTP (one-time programmable memory) stores 128 bytes inside Hollywood. It is programmed during manufacturing and cannot be erased or rewritten. Its contents include the expected boot1 hash and cryptographic keys (TODO: anything else?).
 
-The first 20 bytes hold the expected boot1 hash, see [boot0](<Starlet/boot0.md#loading-and-verification>) reads this field during verification.
+The first 20 bytes hold the expected boot1 hash, see [boot0](<boot0.md#loading-and-verification>) reads this field during verification.
 
 ## Boot sequence
 
-1. [boot0](<Starlet/boot0.md>) decrypts and verifies boot1
+1. [boot0](<boot0.md>) decrypts and verifies boot1
 2. boot1 loads, decrypts and verifies boot2
 3. boot2 hands off into IOS
 4. IOS does whatever bullshit for System Menu, probably also EXI stuff

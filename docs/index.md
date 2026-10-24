@@ -7,7 +7,7 @@ Notes, gotchas and game fixes collected while writing my emulators. Longer write
 - [GX](<GameCube & Wii/GX.md>): Vertex skip, z-freeze and TEV wrapping
 - [Memory](<GameCube & Wii/Memory.md>): Write-gather pipe (WPAR) and ARAM DMA
 - [Games](<GameCube & Wii/Games.md>): Game-specific bugs and fixes
-- [Starlet](<GameCube & Wii/Starlet.md>): Starlet LLE stuff
+- [Starlet](<GameCube & Wii/Starlet/index.md>): Starlet LLE stuff
 
 ## Game Boy Advance (GBA)
 

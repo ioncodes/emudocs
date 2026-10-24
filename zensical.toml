@@ -16,6 +16,7 @@ features = [
   "palette.toggle",
   "navigation.sections",
   "navigation.instant",
+  "navigation.indexes",
 ]
 
 [project.theme.icon]

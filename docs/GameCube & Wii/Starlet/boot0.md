@@ -1,6 +1,6 @@
 # boot0
 
-Boot0 reads boot1 from NAND into SRAM, corrects read errors, decrypts it and checks its hash against OTP before handing over execution. See the [Starlet memory map](<../Starlet.md#memory-map>) for SRAM and ROM mappings.
+Boot0 reads boot1 from NAND into SRAM, corrects read errors, decrypts it and checks its hash against OTP before handing over execution. See the [Starlet memory map](<index.md#memory-map>) for SRAM and ROM mappings.
 
 ## Entry and buffers
 
@@ -17,7 +17,7 @@ Boot0 reads boot1 from NAND into SRAM, corrects read errors, decrypts it and che
 
 ## Loading and verification
 
-`load_boot1` writes `7` to [`HW_SRNPROT`](<../Starlet.md#hw_srnprot>), enabling SRAM access for NAND, SHA-1 and AES while leaving `SM` clear. It loads the AES key and IV from ROM and reads five OTP words, starting at index 0, as the expected hash.
+`load_boot1` writes `7` to [`HW_SRNPROT`](<index.md#hw_srnprot>), enabling SRAM access for NAND, SHA-1 and AES while leaving `SM` clear. It loads the AES key and IV from ROM and reads five OTP words, starting at index 0, as the expected hash.
 
 ```c
 expected_hash = OTP_ReadWords(0, 5);
