@@ -1,6 +1,6 @@
 # NAND
 
-All of this is written assuming a `HY27UF084G2M` NAND chip.
+The storage layout and page operations assume a `HY27UF084G2M` NAND chip.
 
 ## Makeup
 
@@ -79,4 +79,29 @@ int NAND_EraseCluster(uint cluster) {
 
 Pretty simple. For NAND status, it seems like returning `0xE0` is good enough for `Boot2` to think that your commands have completed successfully.
 
+## boot2 initialization
 
+### NAND completion events
+
+During boot2 startup, the filesystem process (process 2) registers event `1` on a message queue with message value `1`. It then writes `0xC0FF8000` to the NAND control register (`0x0D010000`) to reset the chip and waits for the completion message.
+
+The kernel's `irq_handler` (`0xFFFF1F14`) handles NAND completion when bit 1 is set in both [`HW_ARMIRQFLAG` and `HW_ARMIRQMASK`](<index.md#arm-interrupts>). It writes `0x7FFFFFFF` to the NAND control register and `0x00000002` to `HW_ARMIRQFLAG` (`0x0D800038`). It then calls `deliver_event` (`0xFFFF1E34`) with event `1`.
+
+`deliver_event` appends the event's registered message to its queue. If a thread is waiting on that queue, the thread moves to the ready queue with a successful wait result. Events without a registered queue and events whose queue is full are dropped. Once resumed, the filesystem thread receives the message and continues NAND initialization.
+
+### NAND command results
+
+The filesystem process submits NAND commands with `send_nand_command` (`0x20000110`, process 2 virtual address). A completion message alone does not mean that the command succeeded, so the routine also reads the NAND control register (`0x0D010000`) and checks its error bit:
+
+| Bit | Field | Firmware use                                        |
+| --- | ----- | --------------------------------------------------- |
+| 31  | Busy  | Polls until clear when waiting without an interrupt |
+| 29  | Error | Returns `-1` if set after completion                |
+
+For an interrupt-driven command, the result is `-9` if the receive fails or the message value is not `1`. After this failure or a controller error, the routine writes `0x80FF8000` to reset the chip, waits for busy to clear and returns the original error.
+
+### NAND chip identification
+
+After reset succeeds, `init_nand` (`0x20000318`, process 2 virtual address) sends Read ID (`0x90`) with column address zero and reads 64 bytes into `nand_chip_id` (`0x200091C0`). It compares the first two bytes with the manufacturer and device bytes of each entry in `nand_chip_table` (`0x20008000`). The table holds ten 68 byte entries.
+
+The accepted manufacturer/device pairs are `AD 76`, `AD F1`, `AD DC`, `EC 76`, `EC F1`, `EC DA`, `EC DC`, `98 76`, `98 F1` and `98 DA`. If no entry matches, initialization releases its event and queues, disables the NAND interface and returns `-9`.

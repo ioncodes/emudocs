@@ -16,7 +16,7 @@ Addresses are Starlet physical addresses.
 
 ### SRAM and boot ROM mapping
 
-SRAM consists of a 64 KiB bank A and a 32 KiB bank B. The 8 KiB boot ROM repeats every `0x2000` bytes throughout the ranges where it is mapped. Two controls decide what appears in the windows. [`HW_SRNPROT[SM]`](#hw_srnprot) selects the bank arrangement and [`HW_BOOT0[12]`](#hw_boot0) hides the boot ROM when set. Switching either control only changes the mapping. The SRAM contents stay where they are.
+SRAM consists of a 64 KiB bank A and a 32 KiB bank B. The 8 KiB boot ROM repeats every `0x2000` bytes throughout the ranges where it is mapped. Two controls decide what appears in the windows. [`HW_SRNPROT[SM]`](#hw_srnprot) (`0x0D800060`) selects the bank arrangement and [`HW_BOOT0[12]`](#hw_boot0) (`0x0D80018C`) hides the boot ROM when set. Switching either control only changes the mapping. The SRAM contents stay where they are.
 
 With the boot ROM enabled (`HW_BOOT0[12] = 0`):
 
@@ -69,7 +69,34 @@ Bit 0 is the least significant bit.
 
 While bit 12 is set, the ranges that would otherwise show the boot ROM expose SRAM according to `HW_SRNPROT[SM]`, as listed in [SRAM and boot ROM mapping](#sram-and-boot-rom-mapping).
 
-boot1 polls bits `3:0` while it changes `HW_SPARE0`. [Status wait before device synchronization](<boot1.md#status-wait-before-device-synchronization>) describes the firmware sequence.
+boot1 polls bits `3:0` while it changes `HW_SPARE0` (`0x0D800188`). [Status wait before device synchronization](<boot1.md#status-wait-before-device-synchronization>) describes the firmware sequence.
+
+## ARM interrupts
+
+Addresses are Starlet physical addresses. Bit 0 is the least significant bit.
+
+| Address      | Width   | Access | Name            | Purpose                |
+| ------------ | ------- | ------ | --------------- | ---------------------- |
+| `0x0D800038` | 32 bits | R/W    | `HW_ARMIRQFLAG` | Pending ARM interrupts |
+| `0x0D80003C` | 32 bits | R/W    | `HW_ARMIRQMASK` | ARM interrupt mask     |
+
+### HW_ARMIRQFLAG - `0x0D800038` (32 bits, R/W)
+
+| Bit | Name  | Description                        |
+| --- | ----- | ---------------------------------- |
+| 1   | NAND  | Pending NAND completion interrupt  |
+| 2   | AES   | Pending AES completion interrupt   |
+| 3   | SHA-1 | Pending SHA-1 completion interrupt |
+
+### HW_ARMIRQMASK - `0x0D80003C` (32 bits, R/W)
+
+| Bit | Name  | Description                   |
+| --- | ----- | ----------------------------- |
+| 1   | NAND  | Mask bit for NAND completion  |
+| 2   | AES   | Mask bit for AES completion   |
+| 3   | SHA-1 | Mask bit for SHA-1 completion |
+
+The boot2 kernel's `irq_handler` (`0xFFFF1F14`) reads `HW_ARMIRQFLAG`, ANDs it with `HW_ARMIRQMASK` and handles each interrupt whose bit is set in the result. It acknowledges an interrupt by writing a value with only that interrupt's bit set to `HW_ARMIRQFLAG`.
 
 ## OTP
 
@@ -82,4 +109,4 @@ The first 20 bytes hold the expected boot1 hash, see [boot0](<boot0.md#loading-a
 1. [boot0](<boot0.md>) decrypts and verifies boot1
 2. [boot1](<boot1.md>) loads, decrypts and verifies boot2
 3. [boot2](<boot2.md>) hands off into IOS
-4. IOS does whatever bullshit for System Menu, probably also EXI stuff
+4. [IOS](<ios.md>) starts its kernel and service modules

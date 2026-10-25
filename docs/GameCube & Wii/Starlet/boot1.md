@@ -6,7 +6,7 @@ boot1 is a 94 KiB (`0x17800` byte) image. It starts executing through the `0xFFF
 
 ## Entry
 
-boot1 starts in ARM state at `0xFFF00000`. The entry code prepares the caches and the stack, calls the loader and then jumps to whatever address the loader returns. The instruction cache is enabled by bit 12 (`I`) of the CP15 control register, as described in [boot2 kernel entry](<boot2.md#kernel-entry>). It stays enabled only while the loader runs:
+Execution starts at `start` (`0xFFF00000`) in ARM state. The entry code prepares the caches and the stack, calls the loader and then jumps to the address the loader returns. Its call to `memset32` (`0xFFF0005C`) writes nothing because both ends of the range are `0x0D404320`. Bit 12 (`I`) of the CP15 control register enables the instruction cache, as described in [boot2 kernel entry](<boot2.md#kernel-entry>). boot1 keeps the cache enabled only while the loader runs:
 
 ```c
 void start(void)
@@ -24,7 +24,7 @@ void start(void)
 
 ## Loader
 
-`load_boot2` does all the work. It writes progress code `0x11` to bits 23:16 of `0x0D8000E0` (the same GPIO field that boot0 uses for its [error codes](<boot0.md#errors>)). It reads the byte at `0x0D800217` and writes `0x47` to [`HW_SRNPROT`](<index.md#hw_srnprot>) if the upper four bits of that byte are zero or `0x07` otherwise.
+`load_boot2` (`0xFFF00494`) does all the work. It writes progress code `0x11` to bits 23:16 of `0x0D8000E0`, the same GPIO field that boot0 uses for its [error codes](<boot0.md#errors>). It then writes `0x47` to [`HW_SRNPROT`](<index.md#hw_srnprot>) (`0x0D800060`) if the upper four bits of the byte at `0x0D800217` are zero. Otherwise it writes `0x07`.
 
 After that, boot1 makes up to two attempts to load boot2. The first attempt searches NAND blocks 1 to 7 in ascending order. If it fails, boot1 waits for the NAND, AES and SHA-1 engines to finish and tries again, this time searching from block 7 down to block 1. If the second attempt also fails, boot1 shows the error code forever.
 
@@ -61,7 +61,7 @@ void *load_boot2(void)
 }
 ```
 
-`debug_out(code)` writes the low byte of `code` to bits 23:16 of `0x0D8000E0`.
+`debug_out(code)` (`0xFFF0007C`) writes the low byte of `code` to bits 23:16 of `0x0D8000E0`. The final error loop alternates the error code with its complement and calls `delay` (`0xFFF03CD4`) after each write.
 
 ## Finding boot2
 
@@ -91,7 +91,7 @@ boot1 reads a page by programming the NAND engine with these writes:
 2. Wait until bit 31 of `0x0D010000` reads as 0.
 3. `0x0D010010` = data buffer address, `0x0D010014` = spare buffer address, `0x0D010000` = `0x8030B840`.
 
-The function returns right away. boot1 waits for bit 31 of `0x0D010000` to clear before it uses the page and corrects every header and content page with [`ecc_correct`](#ecc-correction).
+The function returns right away. boot1 waits for bit 31 of `0x0D010000` to clear before it uses the page and corrects every header and content page with [`ecc_correct`](#ecc-correction) (`0xFFF00254`).
 
 ## boot2 layout
 
@@ -118,7 +118,7 @@ boot1 reads pages 0 up to `content_offset / 0x800` of the block into MEM1 at `0x
 
 ## Signature checks
 
-boot1 checks five signed blobs. Each check copies the blob to MEM1 at `0x000AC000`, compares the 64 byte issuer field with the expected issuer string, hashes everything from the issuer field to the end of the blob with SHA-1 and checks an RSA signature over that hash:
+boot1 checks five signed blobs with `verify_signed` (`0xFFF003A4`). Each check copies the blob to MEM1 at `0x000AC000` with `mem_copy` (`0xFFF03ABC`) and compares its 64 byte issuer field with the expected issuer string using `memcmp` (`0xFFF039D4`). It then hashes everything from the issuer field to the end of the blob with SHA-1 and checks an RSA signature over that hash:
 
 ```c
 int verify_signed(const u8 *blob, const char *issuer, const u8 *modulus,
@@ -128,7 +128,7 @@ int verify_signed(const u8 *blob, const char *issuer, const u8 *modulus,
     u32 body    = kind == 1 ? 0x240 : 0x140;  // kind 1: RSA-4096, kinds 2-4: RSA-2048
     u32 key_len = kind == 1 ? 0x200 : 0x100;
 
-    memcpy(copy, blob, size);
+    mem_copy(copy, blob, size);
     if (memcmp(copy + body, issuer, 64) != 0)
         return -8;
 
@@ -146,7 +146,7 @@ The signature starts at offset 4 of the blob. The 32 bit value at offset 0 is no
 The check has two vulns:
 
 1. Only the last 20 bytes of `m` are compared with the hash. The padding in front of them is ignored.
-2. The comparison uses `strncmp`, which stops at the first position where both strings contain a zero byte. If the first byte of the hash is `0x00` and the matching byte of `m` is also `0x00`, the check passes no matter what the remaining 19 bytes are.
+2. The comparison uses `strncmp` (`0xFFF03C74`), which stops at the first position where both strings contain a zero byte. If the first byte of the hash is `0x00` and the matching byte of `m` is also `0x00`, the check passes no matter what the remaining 19 bytes are.
 
 The checks run in this order. Offsets are relative to the start of the certificate chain:
 
@@ -207,7 +207,7 @@ int ecc_correct(u8 *data, u8 *spare)
 
 ## Engine handshake
 
-Before every AES or SHA-1 command and after every NAND read or AES command, boot1 runs a handshake that its error message calls `ahbMemFlush`. It writes a mask to the 16 bit register at `0x0D8B4228` and then reads the 16 bit register at `0x0D8B422A` until it returns the same mask, calling `udelay(1)` between reads. When the register matches or after 1,000,000 failed reads, boot1 writes `0` back to `0x0D8B4228`.
+Before every AES or SHA-1 command and after every NAND read or AES command, boot1 runs the `ahb_mem_flush` (`0xFFF01744`) handshake. It writes a mask to the 16 bit register at `0x0D8B4228` and then reads the 16 bit register at `0x0D8B422A` until it returns the same mask, calling `udelay(1)` (`0xFFF024DC`) between reads. When the register matches or after 1,000,000 failed reads, boot1 writes `0` back to `0x0D8B4228`.
 
 | When                          | Mask |
 | ----------------------------- | ---- |
@@ -219,7 +219,7 @@ If the register never matches, boot1 prints `ERROR: ahbMemFlush(0x%x) did not ac
 
 ### Synchronization after a register read
 
-Each acknowledgement poll goes through `memreg_read_sync(0x22A)`. This helper reads the 16 bit register at `0x0D8B422A`, calls `ahb_sync_dev(0)` and then returns the value it read before that call.
+Each acknowledgement poll goes through `memreg_read_sync(0x22A)` (`0xFFF01724`). This helper reads the 16 bit register at `0x0D8B422A`, calls `ahb_sync_dev(0)` (`0xFFF014EC`) and then returns the value it read before that call.
 
 `ahb_sync_dev(0)` works on bit 15 of the 32 bit register at `0x0D8B0008`. Bit 0 is the least significant bit.
 
@@ -231,9 +231,9 @@ If bit 15 already reads as one, the call returns without writing the register. O
 
 ### Status wait before device synchronization
 
-Before it submits SHA-1 input, boot1 calls `ahb_sync(5)`, which runs `ahb_sync_dev(5)` and then `ahb_sync_dev(0)`. Devices 2 through 10 share one branch of `ahb_sync_dev`. Each selects mask `1 << (device - 2)` in the 32 bit register at `0x0D8B0008`, so device 5 selects bit 3 (`0x00000008`). If the selected bit already reads as one, the call returns immediately.
+Before it submits SHA-1 input, boot1 calls `ahb_sync(5)` (`0xFFF01800`), which runs `ahb_sync_dev(5)` and then `ahb_sync_dev(0)`. Devices 2 through 10 share one branch of `ahb_sync_dev`. Each selects mask `1 << (device - 2)` in the 32 bit register at `0x0D8B0008`, so device 5 selects bit 3 (`0x00000008`). If the selected bit already reads as one, the call returns immediately.
 
-Otherwise boot1 polls the low four bits of [`HW_BOOT0`](<index.md#hw_boot0>) at `0x0D80018C` while it changes `HW_SPARE0` at `0x0D800188` and several other control registers:
+Otherwise boot1 polls the low four bits of [`HW_BOOT0`](<index.md#hw_boot0>) (`0x0D80018C`) while it changes `HW_SPARE0` (`0x0D800188`) and several other control registers. It reads `0x0D8B0008` through `mc_read` (`0xFFF014A0`):
 
 | Register                                         | Bits   | Use by boot1                                                                          |
 | ------------------------------------------------ | ------ | ------------------------------------------------------------------------------------- |
@@ -298,7 +298,7 @@ if (ticks < 2)
     ticks = 2;
 ```
 
-`scale` is a word stored in boot1 at `0x0D404314` and its value is `1`. The wait handles the counter wrapping around.
+`scale` (`0x0D404314`) is a word in boot1's data that holds `1`. The wait handles the counter wrapping around.
 
 ## SEEPROM
 
