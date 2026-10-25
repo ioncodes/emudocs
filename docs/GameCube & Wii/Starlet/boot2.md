@@ -55,4 +55,4 @@ Once the tables are built, `init_mmu` clears the data fault status, instruction 
 
 ## Kernel services
 
-The [IOS](<ios/index.md>) page describes the services of boot2's kernel: [thread waits](<ios/index.md#thread-waits>), [AES completion](<ios/index.md#aes-completion>), [SHA-1 completion](<ios/index.md#sha-1-completion>) and [syscalls](<ios/index.md#syscalls>). [NAND initialization](<nand.md#boot2-initialization>) describes how boot2 submits NAND commands and handles their completion.
+The [IOS](<ios/index.md>) page describes kernel services and module interfaces. [NAND initialization](<nand.md#boot2-initialization>) describes how boot2 submits NAND commands and handles their completion.

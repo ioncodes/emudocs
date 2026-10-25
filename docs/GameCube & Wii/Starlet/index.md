@@ -69,6 +69,17 @@ While bit 12 is set, the ranges that would otherwise show the boot ROM expose SR
 
 boot1 polls bits `3:0` while it changes `HW_SPARE0` (`0x0D800188`). [Status wait before device synchronization](<boot1.md#status-wait-before-device-synchronization>) describes the firmware sequence.
 
+## Timer alarm
+
+| Physical address | Width   | Access | Name       | Purpose        |
+| ---------------- | ------- | ------ | ---------- | -------------- |
+| `0x0D800010`     | 32 bits | R      | `HW_TIMER` | Timer counter  |
+| `0x0D800014`     | 32 bits | W      | `HW_ALARM` | Alarm deadline |
+
+Software reads the counter and writes a future counter value to `HW_ALARM` to request a timer interrupt. The timer interrupt uses bit 0 of [`HW_ARMIRQFLAG` and `HW_ARMIRQMASK`](#arm-interrupts). Writing `0x00000001` to `HW_ARMIRQFLAG` acknowledges it. A subsequent alarm is scheduled by writing another deadline.
+
+The [IOS alarm programming sequence](<ios/index.md#timer-alarm>) clamps short delays before adding them to the counter.
+
 ## ARM interrupts
 
 Addresses are Starlet physical addresses.
@@ -82,17 +93,21 @@ Addresses are Starlet physical addresses.
 
 | Bit | Name  | Description                        |
 | --- | ----- | ---------------------------------- |
+| 0   | Timer | Pending timer alarm interrupt      |
 | 1   | NAND  | Pending NAND completion interrupt  |
 | 2   | AES   | Pending AES completion interrupt   |
 | 3   | SHA-1 | Pending SHA-1 completion interrupt |
+| 31  | IPC   | Pending Broadway IPC interrupt     |
 
 ### HW_ARMIRQMASK - `0x0D80003C` (32 bits, R/W)
 
 | Bit | Name  | Description                   |
 | --- | ----- | ----------------------------- |
+| 0   | Timer | Mask bit for timer alarms     |
 | 1   | NAND  | Mask bit for NAND completion  |
 | 2   | AES   | Mask bit for AES completion   |
 | 3   | SHA-1 | Mask bit for SHA-1 completion |
+| 31  | IPC   | Mask bit for Broadway IPC     |
 
 The boot2 kernel's `irq_handler` (`0xFFFF1F14`) reads `HW_ARMIRQFLAG`, ANDs it with `HW_ARMIRQMASK` and handles each interrupt whose bit is set in the result. It acknowledges an interrupt by writing a value with only that interrupt's bit set to `HW_ARMIRQFLAG`.
 

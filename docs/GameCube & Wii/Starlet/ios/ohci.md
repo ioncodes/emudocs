@@ -19,3 +19,13 @@ After the revision and controller-state checks succeed, OH0 requests a reset thr
 | 0    | Host controller reset | Set to request reset. Wait for the controller to clear it. |
 
 OH0 calls `delay` (`0x138A0048`) with 10000 microseconds before checking completion. This helper restarts an IOS timer and waits for a message on its completion queue. If the reset request remains set, OH0 waits 2 microseconds between further checks for up to 10000 iterations. A request that remains set after those checks causes initialization to report `-10`.
+
+### Frame timing
+
+After reset completes, OH0 writes `0x27782EDF` to `HcFmInterval` (`0x0D050034`) using a 32 bit store. TODO: Figure out what the fuck this even does bro
+
+| Bits    | Field   | Written value    | Meaning                                           |
+| ------- | ------- | ---------------- | ------------------------------------------------- |
+| `31`    | `FIT`   | `0`              | Frame interval toggle                             |
+| `30:16` | `FSMPS` | `0x2778` (10104) | Initial largest data packet counter value in bits |
+| `13:0`  | `FI`    | `0x2EDF` (11999) | Nominal frame interval encoding at 12 MHz         |
