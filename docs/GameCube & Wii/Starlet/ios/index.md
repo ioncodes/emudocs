@@ -1,6 +1,6 @@
 # IOS
 
-IOS is the operating system that runs on Starlet. It provides the filesystem, ES (eTicket Services) and device drivers. [boot2](<boot2.md>) loads IOS from the NAND filesystem. The loaded IOS starts its own kernel and modules, including the DI (Disc Interface) and OHCI (USB Open Host Controller Interface) drivers.
+IOS is the operating system that runs on Starlet. It provides the filesystem, ES (eTicket Services) and device drivers. [boot2](<../boot2.md>) loads IOS from the NAND filesystem. The loaded IOS starts its own kernel and modules, including the DI (Disc Interface) and OHCI (USB Open Host Controller Interface) drivers.
 
 ## IOS80 modules
 
@@ -9,7 +9,7 @@ IOS80 v6944 contains the following module tags in its embedded `IOSVersion` stri
 | Content ID   | Tag                  |
 | ------------ | -------------------- |
 | `0x00000001` | DIP                  |
-| `0x00000002` | [OH0](<ios/ohci.md>) |
+| `0x00000002` | [OH0](<ohci.md>) |
 | `0x00000003` | OH1                  |
 | `0x00000004` | SDI                  |
 | `0x00000005` | SO                   |
@@ -33,13 +33,13 @@ Once the service threads are started, the initialization thread lowers its own p
 
 The AES service thread `aes_worker` (`0x13A741AC`) registers event `2` with message value `0` on its completion queue. It submits the AES command with the completion interrupt enabled and waits on that queue.
 
-The kernel IRQ handler acknowledges the AES interrupt by writing `0x00000004` to [`HW_ARMIRQFLAG`](<index.md#arm-interrupts>) (`0x0D800038`) and then delivers event `2`.
+The kernel IRQ handler acknowledges the AES interrupt by writing `0x00000004` to [`HW_ARMIRQFLAG`](<../index.md#arm-interrupts>) (`0x0D800038`) and then delivers event `2`.
 
 ## SHA-1 completion
 
 The SHA-1 service thread `sha_worker` (`0x13A746EC`) registers event `3` with message value `0` on its completion queue. `process_sha` (`0x13A7449C`) submits whole input blocks with the completion interrupt enabled and waits on that queue. For a single 64 byte block, it writes `0xC0000000` to the SHA-1 control register (`0x0D030000`).
 
-The kernel IRQ handler acknowledges the SHA-1 interrupt by writing `0x00000008` to [`HW_ARMIRQFLAG`](<index.md#arm-interrupts>) (`0x0D800038`) and then delivers event `3`.
+The kernel IRQ handler acknowledges the SHA-1 interrupt by writing `0x00000008` to [`HW_ARMIRQFLAG`](<../index.md#arm-interrupts>) (`0x0D800038`) and then delivers event `3`.
 
 ## Syscalls
 

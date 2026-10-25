@@ -107,4 +107,4 @@ The first 20 bytes hold the expected boot1 hash, see [boot0](<boot0.md#loading-a
 1. [boot0](<boot0.md>) decrypts and verifies boot1
 2. [boot1](<boot1.md>) loads, decrypts and verifies boot2
 3. [boot2](<boot2.md>) hands off into IOS
-4. [IOS](<ios.md>) starts its kernel and service modules
+4. [IOS](<ios/index.md>) starts its kernel and service modules
