@@ -6,7 +6,7 @@ boot1 is a 94 KiB (`0x17800` byte) image. It starts executing through the `0xFFF
 
 ## Entry
 
-boot1 starts in ARM state at `0xFFF00000`. The entry code prepares the caches and the stack, calls the loader and then jumps to whatever address the loader returns:
+boot1 starts in ARM state at `0xFFF00000`. The entry code prepares the caches and the stack, calls the loader and then jumps to whatever address the loader returns. The instruction cache is enabled by bit 12 (`I`) of the CP15 control register, as described in [boot2 kernel entry](<boot2.md#kernel-entry>). It stays enabled only while the loader runs:
 
 ```c
 void start(void)
@@ -216,6 +216,75 @@ Before every AES or SHA-1 command and after every NAND read or AES command, boot
 | After an AES command          | `2`  |
 
 If the register never matches, boot1 prints `ERROR: ahbMemFlush(0x%x) did not ack!` and carries on. The message goes out through ARM semihosting, never had to deal with this so take it with a grain of salt pls: a Thumb `SVC 0xAB` with `R0 = 4` (`SYS_WRITE0`) and `R1` pointing at the text. boot1 sends the text in pieces of up to 15 characters.
+
+### Synchronization after a register read
+
+Each acknowledgement poll goes through `memreg_read_sync(0x22A)`. This helper reads the 16 bit register at `0x0D8B422A`, calls `ahb_sync_dev(0)` and then returns the value it read before that call.
+
+`ahb_sync_dev(0)` works on bit 15 of the 32 bit register at `0x0D8B0008`. Bit 0 is the least significant bit.
+
+| Register     | Bit | Use by boot1                                                           |
+| ------------ | --- | ---------------------------------------------------------------------- |
+| `0x0D8B0008` | 15  | Skips the device 0 sequence when set. Otherwise pulsed as shown below. |
+
+If bit 15 already reads as one, the call returns without writing the register. Otherwise boot1 makes four 32 bit writes based on the value it read: one with bit 15 clear, followed by three with bit 15 set. The other bits keep their values from that original read.
+
+### Status wait before device synchronization
+
+Before it submits SHA-1 input, boot1 calls `ahb_sync(5)`, which runs `ahb_sync_dev(5)` and then `ahb_sync_dev(0)`. Devices 2 through 10 share one branch of `ahb_sync_dev`. Each selects mask `1 << (device - 2)` in the 32 bit register at `0x0D8B0008`, so device 5 selects bit 3 (`0x00000008`). If the selected bit already reads as one, the call returns immediately.
+
+Otherwise boot1 polls the low four bits of [`HW_BOOT0`](<index.md#hw_boot0>) at `0x0D80018C` while it changes `HW_SPARE0` at `0x0D800188` and several other control registers:
+
+| Register                                         | Bits   | Use by boot1                                                                          |
+| ------------------------------------------------ | ------ | ------------------------------------------------------------------------------------- |
+| `HW_SPARE0` (`0x0D800188`)                       | 25     | Set before the second wait. Cleared during cleanup.                                   |
+| `HW_SPARE0` (`0x0D800188`)                       | 16     | Set on every pass of the first wait while `HW_BOOT0[3:0]` is 9. Cleared afterwards.   |
+| [`HW_BOOT0`](<index.md#hw_boot0>)                | `3:0`  | Polled until it leaves 9, then polled again after setup until it reaches 9.           |
+| `0x0D800124`                                     | `10:6` | Set to 10 during setup and to 3 during cleanup. Bit 10 is clear in both values.       |
+| `0x0D800134`                                     | 10     | Set before the second wait. Cleared during cleanup.                                   |
+| `0x0D800100` through `0x0D800120`, every 4 bytes | 10     | Set in each register after the second wait. Cleared during cleanup.                   |
+| `0x0D8B0008`                                     | `8:0`  | Devices 2 through 10 select bits 0 through 8. A set bit skips the sequence.           |
+| `0x0D800214`                                     | `7:4`  | Tested by `mc_read` to decide whether it sets and later restores `0x0D800130`.        |
+| `0x0D800130`                                     | 10     | Set by `mc_read` before four discarded reads of `0x0D800138` when that path is taken. |
+
+All accesses in the sequence are 32 bits at Starlet physical addresses. `set32` and `clear32` each read the register fresh and write it back with only the given bits changed. `replace32` reads the register, clears the mask and inserts the given value:
+
+```c
+void ahb_sync_dev(u32 device)  // devices 2 through 10
+{
+    u32 mask = 1u << (device - 2);
+    if ((mc_read(8) & mask) != 0)
+        return;
+
+    while ((read32(HW_BOOT0) & 0xF) == 9)
+        set32(HW_SPARE0, 0x00010000);
+
+    clear32(HW_SPARE0, 0x00010000);
+    set32(HW_SPARE0, 0x02000000);
+    replace32(0x0D800124, 0x000007C0, 0x00000280);
+    set32(0x0D800134, 0x00000400);
+
+    while ((read32(HW_BOOT0) & 0xF) != 9) {}
+
+    for (u32 address = 0x0D800100; address <= 0x0D800120; address += 4)
+        set32(address, 0x00000400);
+
+    write32(0x0D8B0008, mc_read(8) & ~mask);
+    write32(0x0D8B0008, mc_read(8) | mask);
+
+    clear32(0x0D800134, 0x00000400);
+    for (u32 address = 0x0D800100; address <= 0x0D800120; address += 4)
+        clear32(address, 0x00000400);
+    clear32(HW_SPARE0, 0x02000000);
+    replace32(0x0D800124, 0x000007C0, 0x000000C0);
+}
+```
+
+The first loop waits for `HW_BOOT0[3:0]` to leave 9 and the second waits for it to reach 9. Both compare against 9 for every device in this branch. Neither loop has a timeout or calls `udelay`. boot1 never writes `HW_BOOT0` during the sequence. The two writes to `0x0D8B0008` happen only after the second wait. The SHA-1 command is issued after `ahb_sync` returns.
+
+Both writes to `0x0D800124` clear bit 10. The setup write puts 10 into bits `9:6` and the cleanup write puts 3 there. Cleanup clears the bits that setup set instead of restoring their entry values. It returns without polling `HW_BOOT0` again.
+
+`mc_read(offset)` reads the word at `0x0D8B0000 | offset`. If bits `7:4` of `0x0D800214` read as zero on entry, it first saves `0x0D800130`, sets bit 10 there and reads `0x0D800138` four times, discarding the values. After reading the requested word, it reads `0x0D800214` twice. If bits `7:4` of the second read are zero, it writes the saved value back to `0x0D800130`. When the entry test found a nonzero field, nothing was saved and this restore writes zero.
 
 ### udelay
 

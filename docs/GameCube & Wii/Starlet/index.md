@@ -4,36 +4,72 @@ Shoutout to Zayd :)
 
 ## Memory Map
 
-| Start        | End          | Size           | Mapping                                    |
-| ------------ | ------------ | -------------- | ------------------------------------------ |
-| `0x00000000` | `0x017FFFFF` | 24 MiB         | MEM1                                       |
-| `0x10000000` | `0x13FFFFFF` | 64 MiB         | MEM2; Broadway access can be restricted    |
-| `0x0D400000` | `0x0D41FFFF` | 128 KiB window | SRAM/boot ROM mapping; not 128 KiB of SRAM |
-| `0xFFFE0000` | `0xFFFFFFFF` | 128 KiB window | SRAM/boot ROM mapping                      |
+Addresses are Starlet physical addresses.
 
-With boot ROM enabled and [`HW_SRNPROT[SM]`](#hw_srnprot) = `0`:
+| Start        | End (inclusive) | Size                  | Mapping                                |
+| ------------ | --------------- | --------------------- | -------------------------------------- |
+| `0x00000000` | `0x017FFFFF`    | 24 MiB                | MEM1                                   |
+| `0x10000000` | `0x13FFFFFF`    | 64 MiB                | MEM2 with configurable Broadway access |
+| `0x0D400000` | `0x0D41FFFF`    | 128 KiB window        | SRAM/boot ROM mapping                  |
+| `0xFFF00000` | `0xFFFDFFFF`    | Seven 128 KiB windows | Mirrors of the window at `0x0D400000`  |
+| `0xFFFE0000` | `0xFFFFFFFF`    | 128 KiB window        | SRAM/boot ROM mapping                  |
 
-| Starlet address | Mapping               | Use                                  |
-| --------------- | --------------------- | ------------------------------------ |
-| `0xFFFF0000`    | Boot ROM              | boot0 execution                      |
-| `0x0D400000`    | SRAM                  | boot1 load destination and execution |
-| `0xFFF00000`    | Alias of `0x0D400000` | boot1 execution                      |
+### SRAM and boot ROM mapping
+
+SRAM consists of a 64 KiB bank A and a 32 KiB bank B. The 8 KiB boot ROM repeats every `0x2000` bytes throughout the ranges where it is mapped. Two controls decide what appears in the windows. [`HW_SRNPROT[SM]`](#hw_srnprot) selects the bank arrangement and [`HW_BOOT0[12]`](#hw_boot0) hides the boot ROM when set. Switching either control only changes the mapping. The SRAM contents stay where they are.
+
+With the boot ROM enabled (`HW_BOOT0[12] = 0`):
+
+| `SM` | Start        | End (inclusive) | Mapping  |
+| ---- | ------------ | --------------- | -------- |
+| 0    | `0x0D400000` | `0x0D40FFFF`    | SRAM A   |
+| 0    | `0x0D410000` | `0x0D417FFF`    | SRAM B   |
+| 0    | `0xFFFE0000` | `0xFFFEFFFF`    | SRAM A   |
+| 0    | `0xFFFF0000` | `0xFFFFFFFF`    | Boot ROM |
+| 1    | `0x0D400000` | `0x0D41FFFF`    | Boot ROM |
+| 1    | `0xFFFE0000` | `0xFFFEFFFF`    | Boot ROM |
+| 1    | `0xFFFF0000` | `0xFFFFFFFF`    | SRAM A   |
+
+With the boot ROM disabled (`HW_BOOT0[12] = 1`), the windows at `0x0D400000` and `0xFFFE0000` share one arrangement. Offsets are relative to the start of either window:
+
+| `SM` | Start offset | End offset (inclusive) | Mapping |
+| ---- | ------------ | ---------------------- | ------- |
+| 0    | `0x00000`    | `0x0FFFF`              | SRAM A  |
+| 0    | `0x10000`    | `0x17FFF`              | SRAM B  |
+| 1    | `0x00000`    | `0x07FFF`              | SRAM B  |
+| 1    | `0x10000`    | `0x1FFFF`              | SRAM A  |
+
+Each SRAM range maps its bank starting at byte zero. The seven windows from `0xFFF00000` through `0xFFFDFFFF` mirror the window at `0x0D400000` in every configuration.
 
 ## SRAM control
 
 | Starlet physical address | Width   | Name         | Purpose                 |
 | ------------------------ | ------- | ------------ | ----------------------- |
 | `0x0D800060`             | 32 bits | `HW_SRNPROT` | SRAM access and mapping |
+| `0x0D80018C`             | 32 bits | `HW_BOOT0`   | Boot ROM visibility     |
+
+Bit 0 is the least significant bit.
 
 ### HW_SRNPROT
 
-| Bits | Name           | Description                         |
-| ---- | -------------- | ----------------------------------- |
-| 5    | `SM` / `IOUEN` | Selects the SRAM/ROM mapping        |
-| 3    | `U3` / `AHPEN` | Enables Broadway access to SRAM     |
-| 2    | `C` / `FLAEN`  | Enables NAND engine access to SRAM  |
-| 1    | `B` / `SHAEN`  | Enables SHA-1 engine access to SRAM |
-| 0    | `A` / `AESEN`  | Enables AES engine access to SRAM   |
+| Bits | Name           | Description                                                    |
+| ---- | -------------- | -------------------------------------------------------------- |
+| 5    | `SM` / `IOUEN` | Selects the [SRAM/ROM arrangement](#sram-and-boot-rom-mapping) |
+| 3    | `U3` / `AHPEN` | Enables Broadway access to SRAM                                |
+| 2    | `C` / `FLAEN`  | Enables NAND engine access to SRAM                             |
+| 1    | `B` / `SHAEN`  | Enables SHA-1 engine access to SRAM                            |
+| 0    | `A` / `AESEN`  | Enables AES engine access to SRAM                              |
+
+### HW_BOOT0
+
+| Bits  | Description                                                    |
+| ----- | -------------------------------------------------------------- |
+| 12    | Disables the boot ROM mappings when set.                       |
+| `3:0` | Polled by boot1 for the value 9 during device synchronization. |
+
+While bit 12 is set, the ranges that would otherwise show the boot ROM expose SRAM according to `HW_SRNPROT[SM]`, as listed in [SRAM and boot ROM mapping](#sram-and-boot-rom-mapping).
+
+boot1 polls bits `3:0` while it changes `HW_SPARE0`. [Status wait before device synchronization](<boot1.md#status-wait-before-device-synchronization>) describes the firmware sequence.
 
 ## OTP
 
@@ -45,5 +81,5 @@ The first 20 bytes hold the expected boot1 hash, see [boot0](<boot0.md#loading-a
 
 1. [boot0](<boot0.md>) decrypts and verifies boot1
 2. [boot1](<boot1.md>) loads, decrypts and verifies boot2
-3. boot2 hands off into IOS
+3. [boot2](<boot2.md>) hands off into IOS
 4. IOS does whatever bullshit for System Menu, probably also EXI stuff
