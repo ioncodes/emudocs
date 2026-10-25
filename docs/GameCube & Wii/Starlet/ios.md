@@ -2,6 +2,27 @@
 
 IOS is the operating system that runs on Starlet. It provides the filesystem, ES (eTicket Services) and device drivers. [boot2](<boot2.md>) loads IOS from the NAND filesystem. The loaded IOS starts its own kernel and modules, including the DI (Disc Interface) and OHCI (USB Open Host Controller Interface) drivers.
 
+## IOS80 modules
+
+IOS80 v6944 contains the following module tags in its embedded `IOSVersion` strings:
+
+| Content ID   | Tag              |
+| ------------ | ---------------- |
+| `0x00000001` | DIP              |
+| `0x00000002` | OH0              |
+| `0x00000003` | OH1              |
+| `0x00000004` | SDI              |
+| `0x00000005` | SO               |
+| `0x00000006` | KD               |
+| `0x00000007` | WD               |
+| `0x00000010` | WL               |
+| `0x00000009` | NCD              |
+| `0x0000000A` | ETH              |
+| `0x0000000B` | STM              |
+| `0x0000000C` | KBD              |
+| `0x0000000D` | SSL              |
+| `0x0000000E` | IOSP, FSP and ES |
+
 ## Thread waits
 
 `receive_queued_message` (`0xFFFF27A8`) blocks when the queue is empty and its nonblocking argument is zero. It marks the current thread as waiting and yields to the scheduler. After a successful wakeup, it checks the queue again before it reads a message.
