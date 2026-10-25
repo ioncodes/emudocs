@@ -6,22 +6,22 @@ IOS is the operating system that runs on Starlet. It provides the filesystem, ES
 
 IOS80 v6944 contains the following module tags in its embedded `IOSVersion` strings:
 
-| Content ID   | Tag              |
-| ------------ | ---------------- |
-| `0x00000001` | DIP              |
-| `0x00000002` | OH0              |
-| `0x00000003` | OH1              |
-| `0x00000004` | SDI              |
-| `0x00000005` | SO               |
-| `0x00000006` | KD               |
-| `0x00000007` | WD               |
-| `0x00000010` | WL               |
-| `0x00000009` | NCD              |
-| `0x0000000A` | ETH              |
-| `0x0000000B` | STM              |
-| `0x0000000C` | KBD              |
-| `0x0000000D` | SSL              |
-| `0x0000000E` | IOSP, FSP and ES |
+| Content ID   | Tag                  |
+| ------------ | -------------------- |
+| `0x00000001` | DIP                  |
+| `0x00000002` | [OH0](<ios/ohci.md>) |
+| `0x00000003` | OH1                  |
+| `0x00000004` | SDI                  |
+| `0x00000005` | SO                   |
+| `0x00000006` | KD                   |
+| `0x00000007` | WD                   |
+| `0x00000010` | WL                   |
+| `0x00000009` | NCD                  |
+| `0x0000000A` | ETH                  |
+| `0x0000000B` | STM                  |
+| `0x0000000C` | KBD                  |
+| `0x0000000D` | SSL                  |
+| `0x0000000E` | IOSP, FSP and ES     |
 
 ## Thread waits
 
@@ -43,7 +43,7 @@ The kernel IRQ handler acknowledges the SHA-1 interrupt by writing `0x00000008` 
 
 ## Syscalls
 
-Syscalls are undefined ARM instructions. Executing one raises an Undefined Instruction exception and the vector at `0xFFFF0004` jumps to `syscall_handler` (`0xFFFF1D64`). The handler accepts the instruction word only if every bit outside the index field matches `0xE6000010`. Bit 0 is the least significant bit.
+Syscalls are undefined ARM instructions. Executing one raises an Undefined Instruction exception and the vector at `0xFFFF0004` jumps to `syscall_handler` (`0xFFFF1D64`). The handler accepts the instruction word only if every bit outside the index field matches `0xE6000010`.
 
 | Bits    | Field | Value                |
 | ------- | ----- | -------------------- |

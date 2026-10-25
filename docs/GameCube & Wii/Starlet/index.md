@@ -48,8 +48,6 @@ Each SRAM range maps its bank starting at byte zero. The seven windows from `0xF
 | `0x0D800060`             | 32 bits | `HW_SRNPROT` | SRAM access and mapping |
 | `0x0D80018C`             | 32 bits | `HW_BOOT0`   | Boot ROM visibility     |
 
-Bit 0 is the least significant bit.
-
 ### HW_SRNPROT
 
 | Bits | Name           | Description                                                    |
@@ -73,7 +71,7 @@ boot1 polls bits `3:0` while it changes `HW_SPARE0` (`0x0D800188`). [Status wait
 
 ## ARM interrupts
 
-Addresses are Starlet physical addresses. Bit 0 is the least significant bit.
+Addresses are Starlet physical addresses.
 
 | Address      | Width   | Access | Name            | Purpose                |
 | ------------ | ------- | ------ | --------------- | ---------------------- |

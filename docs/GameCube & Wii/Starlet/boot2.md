@@ -10,7 +10,7 @@ The loader then walks the ELF program headers. For each header of type `PT_LOAD`
 
 ## Kernel entry
 
-The kernel starts at `0xFFFF0000` with a jump to `init_kernel` (`0xFFFF0054`). This routine invalidates the instruction and data caches. It then sets two bits in the CP15 control register `c1`, where bit 0 is the least significant bit:
+The kernel starts at `0xFFFF0000` with a jump to `init_kernel` (`0xFFFF0054`). This routine invalidates the instruction and data caches. It then sets two bits in the CP15 control register `c1`:
 
 | Bit | Name | Description                                   |
 | --- | ---- | --------------------------------------------- |

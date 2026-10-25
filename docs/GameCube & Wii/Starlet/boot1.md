@@ -221,7 +221,7 @@ If the register never matches, boot1 prints `ERROR: ahbMemFlush(0x%x) did not ac
 
 Each acknowledgement poll goes through `memreg_read_sync(0x22A)` (`0xFFF01724`). This helper reads the 16 bit register at `0x0D8B422A`, calls `ahb_sync_dev(0)` (`0xFFF014EC`) and then returns the value it read before that call.
 
-`ahb_sync_dev(0)` works on bit 15 of the 32 bit register at `0x0D8B0008`. Bit 0 is the least significant bit.
+`ahb_sync_dev(0)` works on bit 15 of the 32 bit register at `0x0D8B0008`.
 
 | Register     | Bit | Use by boot1                                                           |
 | ------------ | --- | ---------------------------------------------------------------------- |
