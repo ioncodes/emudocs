@@ -75,6 +75,18 @@ int NAND_EraseCluster(uint cluster) {
 }
 ```
 
+## Filesystem page programming
+
+The filesystem programs a page in three transfers. It sets the row address to the target page and uses the column address to select the data or spare area.
+
+| Step | Command | Column    | Transfer length | Control value | Operation                                                                    |
+| ---- | ------- | --------- | --------------- | ------------- | ---------------------------------------------------------------------------- |
+| 1    | `0x80`  | `0x000`   | `0x800` bytes   | `0xDF805800`  | Transfers page data from `NAND_DATABUF`.                                     |
+| 2    | `0x85`  | `0x800`   | `0x40` bytes    | `0xC3854040`  | Transfers spare data from `NAND_DATABUF` after changing that buffer address. |
+| 3    | `0x10`  | Unchanged | 0 bytes         | `0xC0108000`  | Confirms programming.                                                        |
+
+The filesystem waits for completion between commands and reads status after the confirm command. The spare transfer supplies the page metadata separately from the `0x800` byte data transfer.
+
 ## ReadStatus
 
 Pretty simple. For NAND status, it seems like returning `0xE0` is good enough for `Boot2` to think that your commands have completed successfully.
