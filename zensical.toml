@@ -20,6 +20,7 @@ nav = [
         "GameCube & Wii/Starlet/ios/index.md",
         "GameCube & Wii/Starlet/ios/ohci.md",
         "GameCube & Wii/Starlet/ios/wl.md",
+        "GameCube & Wii/Starlet/ios/ncd.md",
       ] },
     ] },
   ] },
