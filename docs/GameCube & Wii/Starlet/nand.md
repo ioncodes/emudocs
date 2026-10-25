@@ -6,8 +6,8 @@ All of this is written assuming a `HY27UF084G2M` NAND chip.
 
 The NAND is made up of a list of clusters. Each cluster is made of 64 pages, and each page is made up of 2K (`0x800`) bytes, plus an additional spare 64 bytes. The spare can be used for various purposes, for example being able to tell if a block is bad, or detecting corruption using ECC. The first byte of the spare is `0xFF` iff the block is valid. The last 16 bytes of spare seem to contain the software-calculated ECC for the page.
 
-> [!WARNING]
-> On startup, boot2 will do an initial scan of all blocks. For any blocks it detects are bad (by reading the first byte of spare), it will clear out the cluster.
+!!! warning
+    On startup, boot2 will do an initial scan of all blocks. For any blocks it detects are bad (by reading the first byte of spare), it will clear out the cluster.
 
 ## Reads
 
@@ -27,9 +27,9 @@ Well, actually **THREE** buffers, because there's a hidden third buffer at `NAND
 2. The next `0x40` bytes, if they are read, must be the spare. And so they go in `NAND_ECCBUF`. Notably, there is an issue in nomenclature and this should probably be called `NAND_SPAREBUF` but I digress.
 3. And finally, `0x10` bytes of hardware-calculated ECC are written to `NAND_ECCBUF ^ 0x40`. 
 
-> [!TIP]
-> If you happen to be writing an emulator... just write the last 0x10 bytes of the spare out to NAND_ECCBUF ^ 0x40. Saves you from having to do an ECC calculation yourself :)
-> <small> I honestly just discovered that I can create these cool Tip / Warning blocks and am getting a kick out of it.</small>
+!!! tip
+    If you happen to be writing an emulator... just write the last 0x10 bytes of the spare out to NAND_ECCBUF ^ 0x40. Saves you from having to do an ECC calculation yourself :)
+    <small> I honestly just discovered that I can create these cool Tip / Warning blocks and am getting a kick out of it.</small>
 
 ## Cluster Erases
 

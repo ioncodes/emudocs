@@ -44,6 +44,6 @@ The first 20 bytes hold the expected boot1 hash, see [boot0](<boot0.md#loading-a
 ## Boot sequence
 
 1. [boot0](<boot0.md>) decrypts and verifies boot1
-2. boot1 loads, decrypts and verifies boot2
+2. [boot1](<boot1.md>) loads, decrypts and verifies boot2
 3. boot2 hands off into IOS
 4. IOS does whatever bullshit for System Menu, probably also EXI stuff

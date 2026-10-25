@@ -39,6 +39,7 @@ toggle = { icon = "material/toggle-switch", name = "Switch to light mode" }
 [project.plugins.search]
 
 [project.markdown_extensions]
+"admonition" = {}
 "pymdownx.caret" = {}
 "pymdownx.critic" = {}
 "pymdownx.highlight" = {}

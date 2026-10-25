@@ -44,4 +44,4 @@ jump(0xFFF00000);
 | `0xF1` | Uncorrectable ECC error |
 | `0xF2` | boot1 hash mismatch     |
 
-`fatal_error` repeatedly writes the code to GPIO bits 23:16, delays, writes zero, and delays again.
+`fatal_error` repeatedly writes the code to GPIO bits 23:16, delays, writes zero and delays again.
