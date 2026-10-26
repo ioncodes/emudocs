@@ -48,6 +48,8 @@ During startup, `es_worker` (`0x201015E8`) reads this file, obtains the title me
 
 `reset_broadway` (`0xFFFF678C`) performs the reset sequence after loading the executable. The uploaded stub runs from Broadway's reset vector at `0xFFF00100` and transfers execution to the loaded title.
 
+Once the System Menu is running, it uses DIP to [detect discs and read Disc Channel data](<dip.md#system-menu-disc-detection>).
+
 ## Thread waits
 
 `receive_queued_message` (`0xFFFF2968`) blocks when the queue is empty and its nonblocking argument is zero. It marks the current thread as waiting and yields to the scheduler. After a successful wakeup, it checks the queue again before it reads a message.
