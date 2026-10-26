@@ -8,7 +8,7 @@ IOS80 v6944 contains the following module tags in its embedded `IOSVersion` stri
 
 | Content ID   | Tag                                 |
 | ------------ | ----------------------------------- |
-| `0x00000001` | DIP                                 |
+| `0x00000001` | [DIP](<dip.md>)                     |
 | `0x00000002` | [OH0](<ohci.md>)                    |
 | `0x00000003` | [OH1](<ohci.md#oh1-initialization>) |
 | `0x00000004` | SDI                                 |
@@ -181,3 +181,4 @@ For example, `0xE6000130` selects index 9. Arguments are passed in `r0` through 
 | Index  | Function                             | Arguments                                                        | Result                                                       |
 | ------ | ------------------------------------ | ---------------------------------------------------------------- | ------------------------------------------------------------ |
 | `0x09` | `set_thread_priority` (`0xFFFF07B0`) | `r0` = thread ID (0 selects the current thread), `r1` = priority | `0` on success or `-4` if the thread or priority is rejected |
+| `0x15` | `get_timer` (`0xFFFF4530`)           | None                                                             | Current 32 bit `HW_TIMER` value                              |

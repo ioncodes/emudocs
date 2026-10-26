@@ -161,6 +161,36 @@ After command completion, the polling path waits for Buffer Write Ready. It uses
 
 The routine then polls Transfer Complete with another counter initialized to 5000. It leaves this loop when completion arrives or the counter expires. It acknowledges the set normal status flags except Card Interrupt and returns `0`, including when this second counter expires.
 
+### Backplane access helpers
+
+`read_backplane` (`0x13F1C8C4`) and `write_backplane` (`0x13F1C958`) subtract `0x18000000` from the chip address and access SDIO function 1 through `transfer_card` (`0x13F1D7AC`). A successful read returns the low 8, 16 or 32 bits according to the requested size. A failed read returns `0xFFFFFFFF`. The write helper returns `0` on success or `-1` on failure.
+
+For CMD53 accesses, the card helpers store the transfer size at byte offset `0x64` in the host object. The byte at `0x3A` selects polling. With polling enabled, a successful read stores its result as a 32 bit word at the supplied output pointer. A 16 bit result occupies the low halfword of that word.
+
+`transfer_card` reverses the four bytes of the data word for chip addresses `0x18001304`, `0x1800130C`, `0x18001314`, `0x1800131C`, `0x18001324`, `0x1800132C`, `0x18001334`, `0x1800133C`, `0x18001344`, `0x1800134C`, `0x18001354` and `0x1800135C`. It changes the caller's data word in place before a write or after a read.
+
+### Card interrupt masking
+
+`begin_card_access` (`0x13F1CE48`) masks the card interrupt then increments the host object's access depth. `end_card_access` (`0x13F1CE70`) decrements the depth. If the result is zero and interrupts are enabled in the host object, it unmasks the card interrupt.
+
+The host object uses native big endian fields:
+
+| Byte offset | Size    | Field                                                                      |
+| ----------- | ------- | -------------------------------------------------------------------------- |
+| `0x0C`      | 4 bytes | Virtual address of the host register block                                 |
+| `0x10`      | 4 bytes | Access depth                                                               |
+| `0x14`      | 1 byte  | Nonzero requests interrupt unmasking when the access depth returns to zero |
+| `0x28`      | 2 bytes | Normal interrupt signal mask                                               |
+| `0x3A`      | 1 byte  | Nonzero selects polling for command and data completion                    |
+| `0x3D`      | 1 byte  | Nonzero enables the mask/unmask register writes                            |
+| `0x64`      | 4 bytes | Transfer size in bytes                                                     |
+
+`mask_card_interrupt` (`0x13F1CC0C`) and `unmask_card_interrupt` (`0x13F1CBE8`) return without changing the mask when the byte at `0x3D` is zero. Otherwise they update the Card Interrupt field in the stored mask then write it to the low halfword of Signal Enable at `0x0D080038`, preserving the upper halfword.
+
+| Bits | Field          | Firmware use                                               |
+| ---- | -------------- | ---------------------------------------------------------- |
+| `8`  | Card Interrupt | Clear to mask and set to unmask the card interrupt signal. |
+
 ## PHY and radio identification
 
 `attach_phy` (`0x13EFD5BC`) reads the physical-layer hardware's version and radio identity before returning a PHY object. The following offsets are relative to the wireless core's base on the chip's internal backplane. WL accesses these registers through SDIO function 1.
@@ -216,6 +246,8 @@ WL accesses the wireless chip's MAC registers through SDIO function 1. These add
 
 `init_mac` (`0x13EDF148`) writes `0x00000404` to MAC control before loading microcode. `load_microcode` (`0x13ED4CE0`) writes object address `0x03000000` then streams the microcode through object data. `load_pcm` (`0x13ED4D48`) writes object address `0x000301EA` and data `0x00004000` then selects `0x000301EB` and streams the PCM data.
 
+Every call to `init_mac` uploads both blocks. It does not check whether a previous call uploaded them. Each upload sends one 32 bit word per backplane write through `write_card`, producing a separate CMD53 transfer for each word. `load_microcode` uses the supplied byte count divided by four as its word count and returns the result of the final write. `init_mac` ignores the return values from both upload routines.
+
 After uploading both blocks, initialization writes `0xFFFFFFFF` to interrupt status and `0x00020402` to MAC control. It polls the following status field:
 
 | Bits | Field         | Firmware use                   |
@@ -224,6 +256,33 @@ After uploading both blocks, initialization writes `0xFFFFFFFF` to interrupt sta
 
 The polling loop starts with a budget of `1000009`. After each unsuccessful read, it subtracts `10` from the budget. If the previous budget exceeds `9`, it delays for 10 microseconds before reading again. Otherwise it exits the loop. Initialization continues after either a set status bit or budget exhaustion.
 
+### HLE microcode upload shortcut
+
+WL spams microcode upload which really messes with performance so it's possible to HLE the microcode load mechanism (`0x13ED4D1C`) to counteract that!
+
+```c
+int __fastcall load_microcode(int wireless, const unsigned int *data, unsigned int size)
+{
+  unsigned int word_count; // r5
+  unsigned int index; // r4
+  int result; // r0
+  unsigned int word; // r3
+
+  word_count = size >> 2;
+  index = 0;
+  for ( result = write_backplane(sdio: 0, address: *(_DWORD *)(wireless + 1956) + 352, size: 4u, value: 0x3000000u);
+        index < word_count;
+        result = write_backplane(sdio: 0, address: *(_DWORD *)(wireless + 1956) + 356, size: 4u, value: word) )
+  {
+    word = data[index++];
+  }
+  return result;
+}
+```
+
+Basically you just do `cpu.registers[4] = cpu.registers[5] - 1;` lol.
+
+
 ### MAC suspension
 
 `suspend_mac` (`0x13ED0EDC`) clears MAC control's enable field then polls the same MAC suspended status field. It delays for 10 microseconds between unsuccessful reads and stops after 3500 delays even if the status remains clear. It then reads MAC control and returns its value.
@@ -231,3 +290,17 @@ The polling loop starts with a budget of `1000009`. After each unsuccessful read
 | Register                   | Bits | Field       | Firmware use                         |
 | -------------------------- | ---- | ----------- | ------------------------------------ |
 | MAC control (`0x18001120`) | `0`  | MAC enabled | Clear before waiting for suspension. |
+
+## Delays
+
+`delay` uses a timer and a message queue for requests above 1,000 microseconds. It creates a queue with one message slot, starts a one-shot timer and blocks waiting for its message. It destroys the timer and queue before returning.
+
+For requests of at most 1,000 microseconds, it polls [timer syscall `0x15`](<index.md#syscalls>). It converts the requested duration to ticks as follows:
+
+```c
+uint32_t ticks = microseconds * 19 / 10;
+if (ticks <= 20)
+    ticks -= ticks / 4;
+```
+
+It reads a starting counter value. If `ticks` is zero, it returns without polling. Otherwise each poll computes `current - start` with 32 bit unsigned wraparound. If the signed 32 bit value of `current` is less than or equal to the signed value of `start`, it subtracts one more tick from that difference. Polling ends when the adjusted unsigned difference is at least `ticks`. Equal counter samples therefore produce `0xFFFFFFFF` and end the wait.
