@@ -6,22 +6,22 @@ IOS is the operating system that runs on Starlet. It provides the filesystem, ES
 
 IOS80 v6944 contains the following module tags in its embedded `IOSVersion` strings:
 
-| Content ID   | Tag              |
-| ------------ | ---------------- |
-| `0x00000001` | DIP              |
-| `0x00000002` | [OH0](<ohci.md>) |
-| `0x00000003` | OH1              |
-| `0x00000004` | SDI              |
-| `0x00000005` | SO               |
-| `0x00000006` | KD               |
-| `0x00000007` | WD               |
-| `0x00000010` | [WL](<wl.md>)    |
-| `0x00000009` | [NCD](<ncd.md>)  |
-| `0x0000000A` | ETH              |
-| `0x0000000B` | STM              |
-| `0x0000000C` | KBD              |
-| `0x0000000D` | SSL              |
-| `0x0000000E` | IOSP, FSP and ES |
+| Content ID   | Tag                                 |
+| ------------ | ----------------------------------- |
+| `0x00000001` | DIP                                 |
+| `0x00000002` | [OH0](<ohci.md>)                    |
+| `0x00000003` | [OH1](<ohci.md#oh1-initialization>) |
+| `0x00000004` | SDI                                 |
+| `0x00000005` | SO                                  |
+| `0x00000006` | KD                                  |
+| `0x00000007` | WD                                  |
+| `0x00000010` | [WL](<wl.md>)                       |
+| `0x00000009` | [NCD](<ncd.md>)                     |
+| `0x0000000A` | ETH                                 |
+| `0x0000000B` | STM                                 |
+| `0x0000000C` | KBD                                 |
+| `0x0000000D` | SSL                                 |
+| `0x0000000E` | IOSP, FSP and ES                    |
 
 ## System Menu launch
 
