@@ -1,5 +1,7 @@
 # BootMii
 
+BootMii consists of the MINI firmware on Starlet and a graphical interface on Broadway. [HackMii Installer](<hackmii.md#sd-files>) prepares their SD files.
+
 ## USB Gecko detection
 
 MINI's `gecko_init` (`0xFFFF1728`) clears the EXI channel status registers at `0x0D806800`, `0x0D806814` and `0x0D806828` then calls `gecko_isalive` (`0xFFFF165C`). The detection routine probes EXI channel 1 with 32 bit accesses:
@@ -77,7 +79,7 @@ The GUI's `gecko_init` (`0x800090E8`) probes EXI channel 1 through `0xCD806814`,
 
 ## Launching installed titles
 
-The GUI's `launch_menu_title` (`0x8000E46C`) picks the title ID for the Wii or Homebrew Channel icon. `boot_title` (`0x8000B2C8`) then sends MINI request `0x00050000` with the high and low words of the title ID as its two arguments.
+The GUI's `launch_menu_title` (`0x8000E46C`) picks the title ID for the Wii or [Homebrew Channel](<homebrew-channel.md>) icon. `boot_title` (`0x8000B2C8`) then sends MINI request `0x00050000` with the high and low words of the title ID as its two arguments.
 
 | Menu item        | Title ID            |
 | ---------------- | ------------------- |

@@ -38,3 +38,21 @@ Offsets are relative to the selected slot's register base. Command completion an
 `start_command` (`0x20400534`) turns a `CMD18` read with a block count of one into `CMD17` before submitting it. Reads of more than one block keep `CMD18`.
 
 For a data transfer it writes the DMA buffer address at offset `0x00`, the block size at `0x04` and the block count at `0x06`. It then writes the command argument at `0x08` and submits the combined transfer mode and command word at `0x0C`. These offsets are relative to the selected slot's register base.
+
+## Block writes
+
+`start_command` turns a `CMD25` write with a block count of one into `CMD24`. Writes of more than one block keep `CMD25`. Writes use the same DMA, block-size and block-count registers as [reads](#block-reads).
+
+### Write protection
+
+The routine reads Present State before submitting a data transfer:
+
+| Physical address | Width   | Access | Name          |
+| ---------------- | ------- | ------ | ------------- |
+| `0x0D070024`     | 32 bits | R      | Present State |
+
+| Bit | Field             | Firmware use                                       |
+| --- | ----------------- | -------------------------------------------------- |
+| 19  | Write protect pin | A clear bit rejects writes. A set bit allows them. |
+
+If bit 19 is clear, a write data transfer returns `-10` before programming the DMA address or submitting the command. Reads are permitted regardless of this bit.

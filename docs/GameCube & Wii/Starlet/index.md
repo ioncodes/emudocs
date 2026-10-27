@@ -115,9 +115,31 @@ The boot2 kernel's `irq_handler` (`0xFFFF1F14`) reads `HW_ARMIRQFLAG`, ANDs it w
 
 ## OTP
 
-OTP (one-time programmable memory) stores 128 bytes inside Hollywood. It is programmed during manufacturing and cannot be erased or rewritten. Its contents include the expected boot1 hash and cryptographic keys (TODO: anything else?).
+OTP (one-time programmable memory) stores 128 bytes inside Hollywood. Its contents include the expected boot1 hash, the device ID and cryptographic keys. The first 20 bytes hold the boot1 hash used during [boot0 verification](<boot0.md#loading-and-verification>).
 
-The first 20 bytes hold the expected boot1 hash, see [boot0](<boot0.md#loading-and-verification>) reads this field during verification.
+### OTP registers
+
+Addresses are physical. `R` means read and `W` means write.
+
+| Address      | Width   | Access | Name           | Purpose                               |
+| ------------ | ------- | ------ | -------------- | ------------------------------------- |
+| `0x0D8001EC` | 32 bits | W      | `HW_EFUSEADDR` | Select an OTP word and request a read |
+| `0x0D8001F0` | 32 bits | R      | `HW_EFUSEDATA` | Read the selected OTP word            |
+
+`HW_EFUSEADDR` fields:
+
+| Bits  | Name         | Access | Description                               |
+| ----- | ------------ | ------ | ----------------------------------------- |
+| 31    | Read request | W      | Set to 1 when selecting the word to read. |
+| `4:0` | Word index   | W      | Selects one of the 32 words in OTP.       |
+
+`HW_EFUSEDATA` fields:
+
+| Bits   | Name | Access | Description                   |
+| ------ | ---- | ------ | ----------------------------- |
+| `31:0` | Data | R      | The selected 32 bit OTP word. |
+
+Software writes `0x80000000 | word_index` to `HW_EFUSEADDR` then reads `HW_EFUSEDATA`. Word 9 contains the device ID. Broadway software with hardware access uses these same registers through the uncached effective addresses `0xCD8001EC` and `0xCD8001F0`.
 
 ## SEEPROM
 
@@ -131,3 +153,5 @@ The first 20 bytes hold the expected boot1 hash, see [boot0](<boot0.md#loading-a
 4. [IOS](<ios/index.md>) starts its kernel and service modules
 
 [BootMii](<bootmii.md>) runs its own Starlet firmware, MINI, in place of IOS.
+
+[Homebrew Channel](<homebrew-channel.md>) runs applications through IOS. [HackMii Installer](<hackmii.md>) prepares BootMii's SD files.
