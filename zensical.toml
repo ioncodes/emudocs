@@ -5,7 +5,9 @@ repo_url = "https://github.com/ioncodes/emudocs"
 
 nav = [
   "index.md",
-  { "GBA" = ["GBA/PPU.md"] },
+  { "GBA" = [
+    "GBA/PPU.md",
+  ] },
   { "GameCube & Wii" = [
     "GameCube & Wii/Games.md",
     "GameCube & Wii/GX.md",
@@ -15,16 +17,23 @@ nav = [
       "GameCube & Wii/Starlet/boot0.md",
       "GameCube & Wii/Starlet/boot1.md",
       "GameCube & Wii/Starlet/boot2.md",
+      "GameCube & Wii/Starlet/bootmii.md",
       "GameCube & Wii/Starlet/nand.md",
       { "IOS" = [
         "GameCube & Wii/Starlet/ios/index.md",
         "GameCube & Wii/Starlet/ios/ohci.md",
+        "GameCube & Wii/Starlet/ios/ehci.md",
+        "GameCube & Wii/Starlet/ios/sdi.md",
         "GameCube & Wii/Starlet/ios/wl.md",
         "GameCube & Wii/Starlet/ios/ncd.md",
       ] },
     ] },
   ] },
-  { "PSX" = ["PSX/BIOS.md", "PSX/Games.md", "PSX/GPU.md"] },
+  { "PSX" = [
+    "PSX/BIOS.md",
+    "PSX/Games.md",
+    "PSX/GPU.md",
+  ] },
 ]
 
 [project.theme]

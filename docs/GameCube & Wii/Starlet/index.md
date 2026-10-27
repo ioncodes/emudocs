@@ -97,17 +97,19 @@ Addresses are Starlet physical addresses.
 | 1   | NAND  | Pending NAND completion interrupt  |
 | 2   | AES   | Pending AES completion interrupt   |
 | 3   | SHA-1 | Pending SHA-1 completion interrupt |
+| 7   | SDHC  | Pending front SD slot interrupt    |
 | 31  | IPC   | Pending Broadway IPC interrupt     |
 
 ### HW_ARMIRQMASK - `0x0D80003C` (32 bits, R/W)
 
-| Bit | Name  | Description                   |
-| --- | ----- | ----------------------------- |
-| 0   | Timer | Mask bit for timer alarms     |
-| 1   | NAND  | Mask bit for NAND completion  |
-| 2   | AES   | Mask bit for AES completion   |
-| 3   | SHA-1 | Mask bit for SHA-1 completion |
-| 31  | IPC   | Mask bit for Broadway IPC     |
+| Bit | Name  | Description                    |
+| --- | ----- | ------------------------------ |
+| 0   | Timer | Mask bit for timer alarms      |
+| 1   | NAND  | Mask bit for NAND completion   |
+| 2   | AES   | Mask bit for AES completion    |
+| 3   | SHA-1 | Mask bit for SHA-1 completion  |
+| 7   | SDHC  | Mask bit for the front SD slot |
+| 31  | IPC   | Mask bit for Broadway IPC      |
 
 The boot2 kernel's `irq_handler` (`0xFFFF1F14`) reads `HW_ARMIRQFLAG`, ANDs it with `HW_ARMIRQMASK` and handles each interrupt whose bit is set in the result. It acknowledges an interrupt by writing a value with only that interrupt's bit set to `HW_ARMIRQFLAG`.
 
@@ -123,3 +125,5 @@ The first 20 bytes hold the expected boot1 hash, see [boot0](<boot0.md#loading-a
 2. [boot1](<boot1.md>) loads, decrypts and verifies boot2
 3. [boot2](<boot2.md>) hands off into IOS
 4. [IOS](<ios/index.md>) starts its kernel and service modules
+
+[BootMii](<bootmii.md>) runs its own Starlet firmware, MINI, in place of IOS.

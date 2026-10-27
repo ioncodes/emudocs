@@ -2,6 +2,8 @@
 
 IOS is the operating system that runs on Starlet. It provides the filesystem, ES (eTicket Services) and device drivers. [boot2](<../boot2.md>) loads IOS from the NAND filesystem. The loaded IOS starts its own kernel and modules, including the DI (Disc Interface) and OHCI (USB Open Host Controller Interface) drivers.
 
+IOS58 also includes an [EHCI](<ehci.md>) (USB 2.0) driver.
+
 ## IOS80 modules
 
 IOS80 v6944 contains the following module tags in its embedded `IOSVersion` strings:
@@ -11,7 +13,7 @@ IOS80 v6944 contains the following module tags in its embedded `IOSVersion` stri
 | `0x00000001` | [DIP](<dip.md>)                     |
 | `0x00000002` | [OH0](<ohci.md>)                    |
 | `0x00000003` | [OH1](<ohci.md#oh1-initialization>) |
-| `0x00000004` | SDI                                 |
+| `0x00000004` | [SDI](<sdi.md>)                     |
 | `0x00000005` | SO                                  |
 | `0x00000006` | KD                                  |
 | `0x00000007` | WD                                  |
@@ -140,6 +142,8 @@ For an event message with value `9`, the worker checks the control register. It 
 If neither `X2` nor `X1` is set when the worker processes the event message, it returns to waiting for queue messages without rearming the IPC interrupt.
 
 For a new request, it writes the preserved interrupt enables together with `0x0C` to `ARMCTRL`: clear `X1` and set `Y2`. If 47 requests are already pending, it writes `0x04` instead and withholds the receipt acknowledgement for the next request.
+
+Open requests block the worker despite the asynchronous interface. `open_async` (`0xFFFF31D0`) calls `open_device` (`0xFFFF3020`), which waits for the device service to reply. If another IPC interrupt arrives in the meantime, the IRQ handler masks the source and queues its event. The worker cannot process that event or rearm IPC until the open returns.
 
 `queue_ipc_reply` (`0xFFFF4A0C`) places a completed request pointer in a ring with 48 entries. `send_ipc_reply` (`0xFFFF4994`) publishes a queued reply only when the reply mailbox is available. It flushes the 32 byte request header, writes the pointer to `ARMMSG` and sets `Y1` through `ARMCTRL`. It then marks the reply mailbox unavailable until Broadway signals `X2`.
 

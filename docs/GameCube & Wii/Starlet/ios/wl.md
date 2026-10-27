@@ -2,11 +2,13 @@
 
 ## SDIO initialization
 
-The WL wireless driver uses the SDIO host controller at `0x0D080000`. `init_sdio_card` (`0x13F1DD90`) reads the 32 bit Present State register at `0x0D080024` and checks Card Inserted before continuing initialization.
+The WL wireless driver talks to the internal Wi-Fi chip through the SDIO host controller at `0x0D080000`. In SDIO terms the chip is the card, so card selection, card interrupts and Card Inserted on this page all refer to it rather than the removable SD card.
 
-| Bits | Field         | Meaning                                                                       |
-| ---- | ------------- | ----------------------------------------------------------------------------- |
-| `16` | Card Inserted | `1` indicates a card is present. `0` prevents initialization from continuing. |
+`init_sdio_card` (`0x13F1DD90`) reads the 32 bit Present State register at `0x0D080024` and checks Card Inserted before continuing initialization.
+
+| Bits | Field         | Meaning                                                       |
+| ---- | ------------- | ------------------------------------------------------------- |
+| `16` | Card Inserted | `1` when the Wi-Fi chip is present. `0` stops initialization. |
 
 When Card Inserted is clear, the routine returns `1`. `attach_sdio_host` (`0x13F1E9D4`) retries initialization once. If both attempts fail, it releases the host object and returns a null pointer. This failure propagates through the attachment routines.
 
@@ -157,7 +159,7 @@ After command completion, the polling path waits for Buffer Read Ready in the [i
 
 For writes larger than one byte to a nonzero function, `write_card` submits CMD53 with the same byte count and address fields as a read. It sets the Write field. For a 4 byte write, the host command word is `0x353A0000`.
 
-After command completion, the polling path waits for Buffer Write Ready. It uses a counter initialized to 5000 and returns `1` if that counter expires. It acknowledges Buffer Write Ready before writing the data at `0x0D080020`. A 2 byte write uses the low halfword of that register.
+After command completion, the polling path waits for Buffer Write Ready. It uses a counter initialized to 5000 and returns `1` if that counter expires. It acknowledges Buffer Write Ready before writing the data at `0x0D080020`. A 2 byte write uses the low halfword of that register. `write_host_halfword` (`0x13F1CB18`) does this as a 32 bit read-modify-write: it reads Buffer Data, replaces the low 16 bits and writes the whole word back. Buffer Data is therefore read in the middle of a write transfer.
 
 The routine then polls Transfer Complete with another counter initialized to 5000. It leaves this loop when completion arrives or the counter expires. It acknowledges the set normal status flags except Card Interrupt and returns `0`, including when this second counter expires.
 
@@ -232,6 +234,20 @@ A rejected radio number makes attachment release its allocation and return a nul
 `read_phy` (`0x13EF54E0`) writes a 16 bit register index to `0x3FC` then reads 16 bits from `0x3FE`. `write_phy` (`0x13EF552C`) writes the index followed by the value. Selecting an index and writing its data are separate operations.
 
 `set_phy_bits` (`0x13EF55DC`) selects a register, reads its value and writes the bitwise OR of that value and its mask. `mask_phy_bits` (`0x13EF557C`) performs the corresponding bitwise AND. Both operate on 16 bit values.
+
+## Wireless core reset
+
+`reset_core` (`0x13F24ADC`) resets the selected core through its Target State Low register at backplane offset `0xF98`:
+
+| Bits | Field        | Firmware use                                          |
+| ---- | ------------ | ----------------------------------------------------- |
+| `0`  | Reset        | Set during reset and cleared before the core is used. |
+| `16` | Clock enable | Kept set when releasing reset.                        |
+| `17` | Force clocks | Set during reset and cleared after reset is released. |
+
+After disabling the core, the routine writes the caller's core flags ORed with `0x00030001`. It then clears any detected error conditions, writes the flags ORed with `0x00030000` and finally ORed with `0x00010000`. After each of these three writes it reads Target State Low back and waits one microsecond.
+
+During attachment, `test_wireless_registers` (`0x13ED2D58`) checks object data readback and the 16 bit views of the CFP start register. It then requires MAC control to read `0x00000400` or `0x80000400`. Any other value fails the register test and with it the wireless core attachment.
 
 ## MAC initialization
 

@@ -16,6 +16,25 @@ Opening a partition returns its title metadata and makes it the target of subseq
 
 [Drive-register initialization](<#status-initialization>) and [cover interrupt handling](<#disc-cover-handling>) are still required, but a cover status response alone does not supply the disc contents the Disc Channel needs.
 
+## Partition verification
+
+`open_partition` (`0x20202F34`) only works after the disc ID has been read, because that read sets up the encryption and hash flags it uses. It also refuses to open a second partition while one is already open.
+
+Opening a partition reads the partition header, title metadata (TMD) and certificates from the disc. `verify_partition` (`0x20202D14`) then passes the ticket, TMD and certificate chain to ES through ioctlv `0x1C`, which takes four input vectors and two output vectors:
+
+| Vector | Direction | Contents                                        |
+| ------ | --------- | ----------------------------------------------- |
+| 0      | Input     | Certificate chain                               |
+| 1      | Input     | Certificate revocation list, empty in this path |
+| 2      | Input     | 676 byte ticket                                 |
+| 3      | Input     | TMD                                             |
+| 4      | Output    | 4 byte key handle                               |
+| 5      | Output    | 20 byte hash for each TMD content               |
+
+ES reports its result separately from DIP's. A nonzero ES result fails the open. Successful verification is also what sets up the disc's title context in ES, so returning a TMD without going through ES is not enough.
+
+For an encrypted partition, `verify_partition_hashes` (`0x20202BF8`) then reads the `0x18000` byte H3 table and checks its SHA-1 digest against the content hashes from ES. The partition is only marked open once this check passes. The partition data address must be aligned to `0x8000` bytes.
+
 ## Request dispatch
 
 `dvd_driver` (`0x2020062C`) registers `/dev/di`. It passes ioctl arguments to `di_ioctl` (`0x20200400`) and vector arguments to `di_ioctlv` (`0x20200284`). After the handler returns, the driver passes its result to `reply_request` (`0x20205E88`).
@@ -89,3 +108,20 @@ This virtual address maps to physical address `0x0D806000`.
 | `4`  | Transfer-complete status           | Test for command completion and write `1` to acknowledge it.               |
 
 `clear_device_error` (`0x20200B80`) acknowledges the device error while preserving the interrupt enables.
+
+## Raw disc transfers
+
+`handle_command` (`0x20200EF8`) programs raw reads through these 32 bit registers, which map to physical `0x0D806008` through `0x0D80601C`:
+
+| Virtual address | Purpose          | Raw-read value                                              |
+| --------------- | ---------------- | ----------------------------------------------------------- |
+| `0x0D006008`    | Command word 0   | `0xA8000000` for a raw read or `0xA8000040` for the disc ID |
+| `0x0D00600C`    | Command word 1   | Disc offset in units of 4 bytes, zero for the disc ID       |
+| `0x0D006010`    | Command word 2   | Transfer length in bytes                                    |
+| `0x0D006014`    | DMA destination  | Output buffer address                                       |
+| `0x0D006018`    | DMA length       | Transfer length in bytes                                    |
+| `0x0D00601C`    | Transfer control | `3` to start the DMA read                                   |
+
+A disc ID read transfers 32 bytes. Raw reads need a 32 byte aligned destination and a length that is a multiple of 32. `start_timed_transfer` (`0x20200E4C`) expects the transfer-complete interrupt to be enabled when it writes transfer control. It starts a command timeout timer right after that write.
+
+The driver then waits for messages on its transaction queue. When the transfer-complete interrupt arrives, it stops the timer, acknowledges the status and checks for a device error before reporting success. The data transfer alone does not complete a read. The driver also needs that interrupt message.

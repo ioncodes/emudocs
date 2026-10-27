@@ -49,3 +49,11 @@ control = written_control & (0x8000_0000 | ARAM_DMA_MASK);
 * Apply on every register write
 * Apply on savestate load too (older states may contain unmasked values)
 * Writing the lower half of the length register starts the transfer, upper half alone doesn't
+
+## Uncached byte stores
+
+An uncached byte store to RAM doesn't just change one byte: it overwrites **both words** of the aligned 8 byte block containing the address. Each word gets the full 32 bit source register rotated right by `8 * ((address & 3) + 1)` bits (modulo 32).
+
+Storing `0x12345678` to `0xD0080001` writes `0x56781234` to both `0xD0080000` and `0xD0080004`. Cached byte stores only change the addressed byte.
+
+[BootMii's PPC loader](<Starlet/bootmii.md#ppc-payload-unpacking>) relies on this when deriving its payload decryption key.

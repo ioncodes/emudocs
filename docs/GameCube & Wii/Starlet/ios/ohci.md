@@ -1,5 +1,9 @@
 # OHCI
 
+## Kernel USB initialization
+
+Before the OHCI modules initialize their controllers, the kernel's `init_usb` (`0xFFFF6BD8`) writes `0xFE`, `0xF6`, `0xF4`, `0xF0`, `0x70`, `0x60`, `0x40` and finally `0x00` to physical address `0x0D800088`. Each write is 32 bits wide and followed by a delay.
+
 ## OH0 initialization
 
 `ohci_core` (`0x138A00AC`) initializes the OH0 controller at `0x0D050000`. It writes `0x80000000` to `0x0D050014` then reads a 32 bit value from `0x0D050000` and checks its revision field.
@@ -9,6 +13,17 @@
 | `7:0` | Revision | `0x10`         |
 
 If the revision does not match, initialization reports `-4` through `ohci_core: OHCI initialization failed: %d` and takes the exit path before resetting the controller. The comparison ignores the upper 24 bits of the revision register.
+
+### Controller state checks
+
+Before requesting a host-controller reset, OH0 reads `HcControl` at `0x0D050004`:
+
+| Bits  | Field             | Firmware use                                                |
+| ----- | ----------------- | ----------------------------------------------------------- |
+| `7:6` | Functional state  | Must be `0` before requesting reset.                        |
+| `8`   | Interrupt routing | If set, OH0 requests ownership and the bit must then clear. |
+
+If either check fails, initialization returns `-10`. The reset request alone cannot recover a controller left running by an earlier driver instance, so the USB block has to be reset before OH0 starts again.
 
 ### Controller reset
 
