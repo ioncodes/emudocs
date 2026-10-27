@@ -19,6 +19,7 @@ nav = [
       "GameCube & Wii/Starlet/boot2.md",
       "GameCube & Wii/Starlet/bootmii.md",
       "GameCube & Wii/Starlet/nand.md",
+      "GameCube & Wii/Starlet/seeprom.md",
       { "IOS" = [
         "GameCube & Wii/Starlet/ios/index.md",
         "GameCube & Wii/Starlet/ios/ohci.md",

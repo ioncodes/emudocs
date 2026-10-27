@@ -119,6 +119,10 @@ OTP (one-time programmable memory) stores 128 bytes inside Hollywood. It is prog
 
 The first 20 bytes hold the expected boot1 hash, see [boot0](<boot0.md#loading-and-verification>) reads this field during verification.
 
+## SEEPROM
+
+[SEEPROM](<seeprom.md>) is a serial EEPROM connected through GPIO. It holds console certificate data and boot version records.
+
 ## Boot sequence
 
 1. [boot0](<boot0.md>) decrypts and verifies boot1

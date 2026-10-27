@@ -302,18 +302,7 @@ if (ticks < 2)
 
 ## SEEPROM
 
-boot1 reads the SEEPROM, a small serial EEPROM, by toggling GPIO lines in software:
-
-| Register     | Bit | Use                                 |
-| ------------ | --- | ----------------------------------- |
-| `0x0D8000E0` | 10  | Chip select, high during a transfer |
-| `0x0D8000E0` | 11  | Clock                               |
-| `0x0D8000E0` | 12  | Data sent to the SEEPROM            |
-| `0x0D8000E8` | 13  | Data received from the SEEPROM      |
-
-For every bit, boot1 sets the clock low and chip select high, puts the next bit on the data line, calls `delay(125)`, sets the clock high and calls `delay(125)` again. Incoming bits are read at the end of that sequence, while the clock is still high. Bits are sent and received most significant bit first.
-
-To read a 16 bit word, boot1 sends the 11 bits `0x600 + word_address`, receives 16 bits and then ends the transfer by clearing chip select and toggling the clock two more times.
+boot1 accesses [SEEPROM through GPIO](<seeprom.md#gpio-connection>). It calls `delay(125)` before and after raising the clock for each bit.
 
 ### SEEPROM version record
 

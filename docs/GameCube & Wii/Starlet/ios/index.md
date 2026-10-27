@@ -52,6 +52,18 @@ During startup, `es_worker` (`0x201015E8`) reads this file, obtains the title me
 
 Once the System Menu is running, it uses DIP to [detect discs and read Disc Channel data](<dip.md#system-menu-disc-detection>).
 
+## Certificate identity
+
+`read_certificate_identity` (`0xFFFF1E20`) reads the MS identifier, CA identifier, NG key identifier and NG certificate signature from [SEEPROM](<../seeprom.md#certificate-data>) when OTP keys are present. It formats the issuer components as `MS%08x` and `CA%08x`.
+
+`read_device_id` (`0xFFFF1CE0`) reads OTP word 9 for the device identifier. The certificate name is formatted as `NG%08x` using this value. These kernel addresses refer to IOS80.
+
+## Signature verification
+
+IOS80's `verify_rsa_sha1` (`0x13A75514`) imports the signature, public modulus and exponent as big integers. It computes `signature^exponent mod modulus` in software through `bigint_power_modulo` (`0x13A77A40`), using multiplication and division for modular reduction. It converts the result back to bytes and checks the signature padding, SHA-1 identifier and supplied 20 byte digest. It returns `0` on success or `7` on failure.
+
+`verify_rsa2048` (`0x13A75664`) selects a 256 byte modulus and `verify_rsa4096` (`0x13A75680`) selects a 512 byte modulus. [Disc partition verification](<dip.md#partition-verification>) uses this path before the partition is marked open.
+
 ## Thread waits
 
 `receive_queued_message` (`0xFFFF2968`) blocks when the queue is empty and its nonblocking argument is zero. It marks the current thread as waiting and yields to the scheduler. After a successful wakeup, it checks the queue again before it reads a message.
@@ -107,7 +119,7 @@ On success, `set_ipc_access_rights` (`0xFFFF2ED4`) writes `0x38` to `ARMCTRL` af
 
 Broadway requests an IOS reload through `/dev/es` with IPC command `7` (`ioctlv`) and ES operation `0x08`. The request has two input vectors and no output vectors: an 8 byte title ID and a `0xD8` byte ticket view.
 
-The old IOS acknowledges receipt with `Y2` before executing the reload. A successful reload does not return a normal `Y1` reply from the old IOS. The new IOS sets `Y2` again through its [startup notification](#startup-notification). These are two separate notifications: request receipt followed by initialization of the new IOS's IPC access rights.
+The old IOS acknowledges receipt with `Y2` before executing the reload. The input vectors remain in use after this acknowledgement. A successful reload does not return a normal `Y1` reply from the old IOS. The new IOS sets `Y2` again through its [startup notification](#startup-notification). These are two separate notifications: request receipt followed by initialization of the new IOS's IPC access rights.
 
 ### Request layout
 

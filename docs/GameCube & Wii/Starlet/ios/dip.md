@@ -12,6 +12,8 @@ The System Menu accesses the drive through `/dev/di`. To recognize an inserted d
 4. Open the update partition with ioctlv `0x8B`, read from it with ioctl `0x71` then close it with ioctl `0x8C`.
 5. Open the game partition with ioctlv `0x8B` and read from it with ioctl `0x71`. These reads supply the data the System Menu uses to populate the Disc Channel and show its banner before the user selects Start.
 
+System Menu v513 can perform this detection and partition verification while the health and safety screen is displayed, before the user presses A.
+
 Opening a partition returns its title metadata and makes it the target of subsequent partition reads. These reads must come from the currently open partition, not always from the game partition. Unencrypted reads take offsets relative to the start of the disc while partition reads take offsets into the open partition's decrypted data.
 
 [Drive-register initialization](<#status-initialization>) and [cover interrupt handling](<#disc-cover-handling>) are still required, but a cover status response alone does not supply the disc contents the Disc Channel needs.
@@ -32,6 +34,8 @@ Opening a partition reads the partition header, title metadata (TMD) and certifi
 | 5      | Output    | 20 byte hash for each TMD content               |
 
 ES reports its result separately from DIP's. A nonzero ES result fails the open. Successful verification is also what sets up the disc's title context in ES, so returning a TMD without going through ES is not enough.
+
+The verification path invokes IOS's [software RSA signature verification](<index.md#signature-verification>).
 
 For an encrypted partition, `verify_partition_hashes` (`0x20202BF8`) then reads the `0x18000` byte H3 table and checks its SHA-1 digest against the content hashes from ES. The partition is only marked open once this check passes. The partition data address must be aligned to `0x8000` bytes.
 
