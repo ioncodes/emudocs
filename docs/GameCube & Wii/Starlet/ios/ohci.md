@@ -79,3 +79,93 @@ For device transfer IOCTLV commands `0`, `1` and `2`, a nonnegative submission r
 The length in vector 1 must equal the size of vector 2. The endpoint and length pointers must be nonzero. A nonzero transfer length also requires a nonzero data pointer. Invalid vector counts or these validation failures return `-4`.
 
 Control command `0` uses a different layout. `submit_control_transfer` (`0x138B14B4`) requires six input vectors and one output vector. Its transfer length is the LE 16 bit value in vector 4 and must equal the size of the data buffer in vector 6.
+
+## USB Command Format
+
+USB commands are sent to the controller as this extremely cursed double nested linked list. Two linked lists are provided in `hcctrlhd` and `hcblkhd`, for Control transfers and Bulk transfers respectively.
+
+For both `hcctrlhd` and `hcblkhd`, the first level of linked list contains `EndpointDescriptor`s. These are defined as:
+
+Each endpoint descriptor occupies 16 bytes and is aligned to 16 bytes. Its words are little endian, and its pointers refer to physical addresses in guest RAM.
+
+(The fields that are irrelevant for emulation have their descriptions omitted)
+
+| Byte offset | Size    | Field           | Meaning                                                        |
+| ----------- | ------- | --------------- | -------------------------------------------------------------- |
+| `0x00`      | 4 bytes | `flags`         | Device address, endpoint number and transfer settings.          |
+| `0x04`      | 4 bytes | `tail_pointer`  | Address of the dummy `TransferDescriptor` marking the end of the queue.           |
+| `0x08`      | 4 bytes | `head_pointer`  | Address of the next `TransferDescriptor` to process, plus endpoint state bits.    |
+| `0x0C`      | 4 bytes | `next_endpoint` | Address of the next `EndpointDescriptor`. Zero terminates the endpoint list.      |
+
+The flags word contains:
+
+| Bits    | Field                 | Meaning                                                                 |
+| ------- | --------------------- | ----------------------------------------------------------------------- |
+| `6:0`   | Device address        | USB address assigned to the device.                                     |
+| `10:7`  | Endpoint number       | Endpoint on that device.                                                |
+| `12:11` | Direction             | `1`: OUT. `2`: IN. `0` or `3`: use the direction provided by the `TransferDescriptor`s.               |
+| `13`    | Low speed             |                         |
+| `14`    | Skip                  |                             |
+| `15`    | Isochronous           |          |
+| `26:16` | Maximum packet size   |       |
+| `31:27` | Reserved              |                                                          |
+
+The head pointer word contains:
+
+| Bits   | Field        | Meaning                                                        |
+| ------ | ------------ | -------------------------------------------------------------- |
+| `0`    | Halted       | Processing of this endpoint's `TransferDescriptor` queue has halted.              |
+| `1`    | Toggle carry | Saved toggle for the next data packet: `0` means DATA0, `1` means DATA1. |
+| `3:2`  | Reserved     | Reserved.                                                      |
+| `31:4` | TD address   | Address bits `31:4` of the next `TransferDescriptor` to process.                    |
+
+USB labels data packets DATA0 or DATA1 and alternates between them after each acknowledged packet. This lets the receiver recognize a retransmitted packet instead of accepting its data twice. See [OHCI section 4.3.1.3.4, Sequence Bits](https://ftp.zx.net.nz/pub/archive/ftp.compaq.com/pub/supportinformation/papers/hcir1_0a.pdf#page=36).
+
+Mask off the low four bits when extracting descriptor addresses. The low four bits of `tail_pointer` and `next_endpoint` are reserved.
+
+You keep going until `next_endpoint` is null. Each `EndpointDescriptor` contains within it another linked list, defined by `head_pointer` and `tail_pointer,` of `TransferDescriptor`s. Notably, `tail_pointer` is not the address of the last `TransferDescriptor` to process, it is a sentinel value. It is to be ignored once reached.
+
+Logically, `EndpointDescriptor` can be thought of as a header that tells you what endpoint we are currently talking to, and how we're going to talk to it. `TransferDescriptor` then tells you "what" we're going to do it and what commands we want to do. A `TransferDescriptor` looks like this:
+
+A general transfer descriptor occupies 16 bytes and is aligned to 16 bytes. Its words are little endian. Control, bulk and interrupt transfers use this layout; isochronous transfers use a different layout.
+
+| Byte offset | Size    | Field                    | Meaning                                                              |
+| ----------- | ------- | ------------------------ | -------------------------------------------------------------------- |
+| `0x00`      | 4 bytes | `flags`                  | Direction, completion status and transfer settings.                   |
+| `0x04`      | 4 bytes | `current_buffer_pointer` | Physical address of the next data byte. Zero means no bytes remain.   |
+| `0x08`      | 4 bytes | `next_transfer`          | Physical address of the next `TransferDescriptor`. Bits `3:0` are reserved.             |
+| `0x0C`      | 4 bytes | `buffer_end`             | Physical address of the last byte in the buffer, inclusive.           |
+
+The flags word contains:
+
+| Bits    | Field           | Meaning                                                                           |
+| ------- | --------------- | --------------------------------------------------------------------------------- |
+| `17:0`  | Reserved        | Reserved.                                                                         |
+| `18`    | Buffer rounding | ???              |
+| `20:19` | Direction       | `0`: SETUP. `1`: OUT. `2`: IN. `3`: reserved. Used when the ED defers to the TD.     |
+| `23:21` | Interrupt delay | Completion interrupt delay in frames, `0`–`6`. `7` requests no interrupt for this TD. |
+| `25:24` | Data toggle     | `0` or `1`: use the ED's toggle carry. `2`: DATA0. `3`: DATA1.                      |
+| `27:26` | Error count     | Count of consecutive transaction errors.                                          |
+| `31:28` | Condition code  | Transfer completion status.                                                       |
+
+A condition code of zero indicates success to the IOS.
+
+## Transfer completion
+
+The controller walks the `EndpointDescriptor` list, processing each endpoint's `TransferDescriptor`s one by one. If a device needs more time, the current descriptor stays pending and is retried later. Other endpoints can still make progress.
+
+When a `TransferDescriptor` completes, the controller writes its condition code, advances the endpoint's head pointer, and adds it to the done list.
+
+Its interrupt-delay field controls when to notify software: `0` means the next USB frame boundary, `1`-`6` adds that many milliseconds, and `7` requests no notification of its own. Multiple completions can share one notification. To notify software, the controller writes the done-list pointer into `HCCA.done_head`, a field in a shared structure in memory, and raises the **Writeback Done Head** interrupt.
+
+## Initial USB requests
+
+IOS initializes the Bluetooth module through control transfers on endpoint `0`. The initial request types are:
+
+| Request | Name                | Meaning |
+| ------- | ------------------- | ------- |
+| `5`     | `SET_ADDRESS`       | Assign the device a USB address. IOS assigns `1`; later `EndpointDescriptor`s use that address to select it. |
+| `6`     | `GET_DESCRIPTOR`    | Read the device's identity and its available configuration, interfaces and endpoints. IOS can issue this request several times. |
+| `9`     | `SET_CONFIGURATION` | Activate a configuration advertised by the device. IOS selects configuration `1`. |
+
+Each request starts with an 8-byte request header in a `SETUP` `TransferDescriptor`. For `GET_DESCRIPTOR`, subsequent IN `TransferDescriptor`s receive the requested bytes, followed by an empty OUT transfer acknowledging completion. `SET_ADDRESS` and `SET_CONFIGURATION` have no data stage and finish with an empty IN transfer. The new USB address takes effect after that final transfer completes, and thus concludes initialization.
