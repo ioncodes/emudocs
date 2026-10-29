@@ -41,6 +41,8 @@ boot2's kernel enables the MMU in `init_mmu` (`0xFFFF5184`). It first disables t
 | Coarse table | 1                 | `31:10`           |
 | Small page   | 2                 | `31:12`           |
 
+A first-level descriptor with type `0` raises a section translation fault. The processor writes status `5` to the data fault status register and writes the faulting virtual address to the fault address register before taking a Data Abort.
+
 Once the tables are built, `init_mmu` clears the data fault status, instruction fault status and fault address registers. It writes `0x13850000` to the translation table base register (CP15 `c2`) and calls `enable_mmu` (`0xFFFF237C`), which performs these steps in order:
 
 1. Writes `0x55555555` to the domain access control register (CP15 `c3`), which makes all 16 domains clients.

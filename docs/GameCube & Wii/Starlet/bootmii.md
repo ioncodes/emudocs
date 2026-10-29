@@ -42,6 +42,25 @@ MINI's `sdhc_init` (`0xFFFF3F24`) enables ARM interrupt 7 and initializes the fr
 | 1                    | Transfer complete | Finishes the data transfer          |
 | 3                    | DMA boundary      | Writes the current DMA address back |
 
+### Card capacity
+
+MINI's `sdmmc_needs_discover` (`0xFFFF67D0`) reads the card-specific data (CSD) with `CMD9`. For a standard-capacity card it uses these fields:
+
+| CSD bits | Field         | Meaning                                                    |
+| -------- | ------------- | ---------------------------------------------------------- |
+| 83:80    | `READ_BL_LEN` | Base-2 logarithm of the maximum read block length in bytes |
+| 73:62    | `C_SIZE`      | Device size factor minus one                               |
+| 49:47    | `C_SIZE_MULT` | Base-2 capacity multiplier exponent minus two              |
+
+The routine computes the capacity with unsigned 32 bit arithmetic:
+
+```text
+capacity_bytes = (C_SIZE + 1) * (4 << C_SIZE_MULT) * (1 << READ_BL_LEN)
+sector_count = capacity_bytes >> 9
+```
+
+It then selects the card and sends `CMD16` with argument 512. The transfer block length is therefore 512 bytes even when `READ_BL_LEN` describes a larger maximum block. For example, `C_SIZE = 4095`, `C_SIZE_MULT = 7` and `READ_BL_LEN = 10` describe 2 GiB and produce 4194304 sectors.
+
 ## Idle wait
 
 MINI's `ipc_process_slow` (`0xFFFF05F8`) processes queued IPC requests. Once the queue is empty it saves the interrupt mask and masks IRQ and FIQ through `irq_kill` (`0xFFFF49A8`). It checks the queue once more and then executes wait-for-interrupt. After waking up it restores the saved mask through `irq_restore` (`0xFFFF49BC`).

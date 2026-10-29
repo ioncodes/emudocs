@@ -70,6 +70,8 @@ IOS80's `verify_rsa_sha1` (`0x13A75514`) imports the signature, public modulus a
 
 Once the service threads are started, the initialization thread lowers its own priority to zero and enters an idle loop at `0xFFFF0C6A`. It polls `g_debug_requests` (`0xFFFF9ECC`). A nonzero value selects diagnostic output through `print_debug_state` (`0xFFFF6084`) then the loop clears the word.
 
+IOS35 v3608 enters this loop at `0xFFFF0C4C` and polls `g_debug_requests` (`0xFFFF9BCC`). The loop repeatedly reads the word while it is zero. It does not execute a wait-for-interrupt instruction.
+
 For an undefined instruction that does not match the syscall encoding, `undefined_exception` (`0xFFFF1F24`) saves the exception return address, marks the current thread as faulted with state `6` and calls `dispatch_thread` (`0xFFFF2340`). The faulted thread is no longer runnable. The idle loop can therefore run while a service thread is faulted and other services are waiting for messages.
 
 ## IPC requests
@@ -181,6 +183,8 @@ The kernel IRQ handler acknowledges the AES interrupt by writing `0x00000004` to
 ## SHA-1 completion
 
 The SHA-1 service thread `sha_worker` (`0x13A746EC`) registers event `3` with message value `0` on its completion queue. `process_sha` (`0x13A7449C`) submits whole input blocks with the completion interrupt enabled and waits on that queue. For a single 64 byte block, it writes `0xC0000000` to the SHA-1 control register (`0x0D030000`).
+
+IOCTLV command `0` requires one input vector and two output vectors. The first output vector supplies the SHA-1 context address. Its declared length is not checked. Operation `0` writes the five SHA-1 initial state words followed by two zero length words to this address even when the input length is zero. A zero length request returns after these 28 bytes are written without starting the SHA-1 engine or writing the digest output vector.
 
 The kernel IRQ handler acknowledges the SHA-1 interrupt by writing `0x00000008` to [`HW_ARMIRQFLAG`](<../index.md#arm-interrupts>) (`0x0D800038`) and then delivers event `3`.
 

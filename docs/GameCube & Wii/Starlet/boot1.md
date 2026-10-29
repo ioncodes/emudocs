@@ -24,7 +24,7 @@ void start(void)
 
 ## Loader
 
-`load_boot2` (`0xFFF00494`) does all the work. It writes progress code `0x11` to bits 23:16 of `0x0D8000E0`, the same GPIO field that boot0 uses for its [error codes](<boot0.md#errors>). It then writes `0x47` to [`HW_SRNPROT`](<index.md#hw_srnprot>) (`0x0D800060`) if the upper four bits of the byte at `0x0D800217` are zero. Otherwise it writes `0x07`.
+`load_boot2` (`0xFFF00494` in boot1b and `0xFFF004F4` in boot1d) does all the work. It writes progress code `0x11` to bits 23:16 of `0x0D8000E0`, the same GPIO field that boot0 uses for its [error codes](<boot0.md#errors>). It then writes `0x47` to [`HW_SRNPROT`](<index.md#hw_srnprot>) (`0x0D800060`) if the upper four bits of the byte at `0x0D800217` are zero. Otherwise it writes `0x07`.
 
 After that, boot1 makes up to two attempts to load boot2. The first attempt searches NAND blocks 1 to 7 in ascending order. If it fails, boot1 waits for the NAND, AES and SHA-1 engines to finish and tries again, this time searching from block 7 down to block 1. If the second attempt also fails, boot1 shows the error code forever.
 
@@ -61,7 +61,7 @@ void *load_boot2(void)
 }
 ```
 
-`debug_out(code)` (`0xFFF0007C`) writes the low byte of `code` to bits 23:16 of `0x0D8000E0`. The final error loop alternates the error code with its complement and calls `delay` (`0xFFF03CD4`) after each write.
+`debug_out(code)` (`0xFFF0007C`) writes the low byte of `code` to bits 23:16 of `0x0D8000E0`. The final error loop alternates the error code with its complement and calls `delay` (`0xFFF03CD4` in boot1b and `0xFFF031AC` in boot1d) after each write.
 
 ## Finding boot2
 
@@ -91,7 +91,7 @@ boot1 reads a page by programming the NAND engine with these writes:
 2. Wait until bit 31 of `0x0D010000` reads as 0.
 3. `0x0D010010` = data buffer address, `0x0D010014` = spare buffer address, `0x0D010000` = `0x8030B840`.
 
-The function returns right away. boot1 waits for bit 31 of `0x0D010000` to clear before it uses the page and corrects every header and content page with [`ecc_correct`](#ecc-correction) (`0xFFF00254`).
+The function returns right away. boot1 waits for bit 31 of `0x0D010000` to clear before it uses the page and corrects every header and content page with [`ecc_correct`](#ecc-correction) (`0xFFF00254` in boot1b and `0xFFF00288` in boot1d).
 
 ## boot2 layout
 
@@ -105,7 +105,7 @@ Page 0 of the boot2 block starts with a 32 byte header. All values are big-endia
 | `0x0C` | Size of the ticket                                          |
 | `0x10` | Size of the TMD                                             |
 
-The content offset must not be larger than `0x20000` and must be a multiple of 64. Otherwise boot1 fails with error `-5`.
+The content offset must not be larger than `0x20000` and must be a multiple of 64. Otherwise boot1 fails with error `-5`. boot1d also requires a `0xA00` byte certificate chain, a `0x2A4` byte ticket and a `0x208` byte TMD. boot1b accepts the three sizes from the header without these equality checks.
 
 boot1 reads pages 0 up to `content_offset / 0x800` of the block into MEM1 at `0x00028000`. The certificate chain follows the header, the ticket follows the certificate chain and the TMD follows the ticket:
 
@@ -118,7 +118,23 @@ boot1 reads pages 0 up to `content_offset / 0x800` of the block into MEM1 at `0x
 
 ## Signature checks
 
-boot1 checks five signed blobs with `verify_signed` (`0xFFF003A4`). Each check copies the blob to MEM1 at `0x000AC000` with `mem_copy` (`0xFFF03ABC`) and compares its 64 byte issuer field with the expected issuer string using `memcmp` (`0xFFF039D4`). It then hashes everything from the issuer field to the end of the blob with SHA-1 and checks an RSA signature over that hash:
+### Certificate chain
+
+boot1 checks five signed blobs. The checks run in this order. Offsets are relative to the start of the certificate chain:
+
+| Blob                   | Size     | Expected issuer                          | Key                                     |
+| ---------------------- | -------- | ---------------------------------------- | --------------------------------------- |
+| Certificate at `0x000` | `0x400`  | `Root`                                   | Root key stored in boot1 (RSA-4096)     |
+| Certificate at `0x400` | `0x300`  | `Root-` + name of the first certificate  | Modulus at `0x2C8`, exponent at `0x3C8` |
+| TMD                    | TMD size | `Root-` + first name + `-` + second name | Modulus at `0x5C8`, exponent at `0x6C8` |
+| Certificate at `0x700` | `0x300`  | `Root-` + name of the first certificate  | Modulus at `0x2C8`, exponent at `0x3C8` |
+| Ticket                 | `0x2A4`  | `Root-` + first name + `-` + third name  | Modulus at `0x8C8`, exponent at `0x9C8` |
+
+The certificate names are stored at `0x284`, `0x584` and `0x884`. Before a name is used, boot1 checks its first two characters. They must be `CA`, `CP` and `XS` respectively or the attempt fails with error `-9`.
+
+### Vulnerable verifier
+
+boot1b checks each blob with `verify_signed` (`0xFFF003A4`). The function copies the blob to MEM1 at `0x000AC000` with `mem_copy` (`0xFFF03ABC`) and compares its 64 byte issuer field with the expected issuer string using `memcmp` (`0xFFF039D4`). It then hashes everything from the issuer field to the end of the blob with SHA-1 and checks an RSA signature over that hash:
 
 ```c
 int verify_signed(const u8 *blob, const char *issuer, const u8 *modulus,
@@ -143,22 +159,22 @@ int verify_signed(const u8 *blob, const char *issuer, const u8 *modulus,
 
 The signature starts at offset 4 of the blob. The 32 bit value at offset 0 is not looked at. The public exponent is stored as 4 big-endian bytes. boot1 drops any trailing zero bytes before using it.
 
-The check has two vulns:
+The boot1b check has two flaws:
 
 1. Only the last 20 bytes of `m` are compared with the hash. The padding in front of them is ignored.
 2. The comparison uses `strncmp` (`0xFFF03C74`), which stops at the first position where both strings contain a zero byte. If the first byte of the hash is `0x00` and the matching byte of `m` is also `0x00`, the check passes no matter what the remaining 19 bytes are.
 
-The checks run in this order. Offsets are relative to the start of the certificate chain:
+### Fixed verifier
 
-| Blob                   | Size     | Expected issuer                          | Key                                     |
-| ---------------------- | -------- | ---------------------------------------- | --------------------------------------- |
-| Certificate at `0x000` | `0x400`  | `Root`                                   | Root key stored in boot1 (RSA-4096)     |
-| Certificate at `0x400` | `0x300`  | `Root-` + name of the first certificate  | Modulus at `0x2C8`, exponent at `0x3C8` |
-| TMD                    | TMD size | `Root-` + first name + `-` + second name | Modulus at `0x5C8`, exponent at `0x6C8` |
-| Certificate at `0x700` | `0x300`  | `Root-` + name of the first certificate  | Modulus at `0x2C8`, exponent at `0x3C8` |
-| Ticket                 | `0x2A4`  | `Root-` + first name + `-` + third name  | Modulus at `0x8C8`, exponent at `0x9C8` |
+boot1d checks each blob with `verify_signed` (`0xFFF003D8`). The blob must start from `0x00028000` through `0x00048000` and its size must not exceed `0x3FFF`. The function copies it to `0x000AC000` with `mem_copy` (`0xFFF028CC`) then checks the issuer with `memcmp` (`0xFFF02ED0`) and hashes the signed body. A failed issuer or RSA check returns error `-8`.
 
-The certificate names are stored at `0x284`, `0x584` and `0x884`. Before a name is used, boot1 checks its first two characters: they must be `CA`, `CP` and `XS` respectively or the attempt fails with error `-9`.
+`rsa_verify` (`0xFFF034D8`) checks the complete EMSA-PKCS1-v1_5 encoded message. It requires the initial `0x00 0x01`, every `0xFF` padding byte, the `0x00` separator, the SHA-1 DigestInfo encoding and all 20 digest bytes. The accepted message is:
+
+```text
+00 01 FF ... FF 00 30 21 30 09 06 05 2B 0E 03 02 1A 05 00 04 14 <20 byte SHA-1>
+```
+
+The first root certificate uses a 512 byte encoded message. The remaining four blobs use 256 byte encoded messages. A zero signature decodes to zero and fails the initial bytes, padding and digest checks.
 
 ## Decryption and hashing
 
@@ -171,7 +187,7 @@ Once all signatures pass, boot1 decrypts the content key, checks the TMD and loa
 
 The content then streams from NAND into MEM1. The page that contains the content offset is loaded to `0x00028000`, so the content itself starts at `0x00028000 + (content_offset & 0x7FF)`. Later pages follow in order. When boot1 reaches the end of a block, it continues with the next block in the direction of the current attempt, skipping blocks the same way as before. The content size is rounded up to a multiple of 16 bytes and the spare buffers are placed right behind the content. If `round_up(0x00028800 + (content_offset & 0x7FF) + padded_size, 128) + 256` is larger than `0x7FFFF` or if boot1 runs out of blocks, the attempt fails with error `-6`.
 
-The pages go through msht like a instruciton pipeline: while the NAND engine reads one page, the previous page is corrected and decrypted in place and the page before that is hashed. All of the content is decrypted as one AES-128-CBC stream with the decrypted content key. The first AES command written to `0x0D020000` is `0x98000000 | (length / 16 - 1)` and every following one is `0x98001000 | (length / 16 - 1)`. The SHA-1 hash covers exactly the content size (not the padding to 16 bytes) and uses standard SHA-1 padding. If the hash does not match the TMD, the attempt fails with error `-7`.
+The pages move through a three-stage pipeline. While the NAND engine reads one page, the previous page is corrected and decrypted in place and the page before that is hashed. All of the content is decrypted as one AES-128-CBC stream with the decrypted content key. The first AES command written to `0x0D020000` is `0x98000000 | (length / 16 - 1)` and every following one is `0x98001000 | (length / 16 - 1)`. The SHA-1 hash covers exactly the content size rather than the padding to 16 bytes and uses standard SHA-1 padding. If the hash does not match the TMD, the attempt fails with error `-7`.
 
 ### SHA-1
 
