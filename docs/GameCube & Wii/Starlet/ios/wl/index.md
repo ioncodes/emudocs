@@ -260,7 +260,7 @@ WL accesses the wireless chip's MAC registers through SDIO function 1. These add
 | `0x18001160` | 32 bits | Object address   | Select the destination for uploaded words. |
 | `0x18001164` | 32 bits | Object data      | Write microcode and PCM data.              |
 
-`init_mac` (`0x13EDF148`) writes `0x00000404` to MAC control before loading microcode. `load_microcode` (`0x13ED4CE0`) writes object address `0x03000000` then streams the microcode through object data. `load_pcm` (`0x13ED4D48`) writes object address `0x000301EA` and data `0x00004000` then selects `0x000301EB` and streams the PCM data.
+`init_mac` (`0x13EDF148`) writes `0x00000404` to MAC control before loading the [microcode](<microcode-hle.md>). `load_microcode` (`0x13ED4CE0`) writes object address `0x03000000` then streams the microcode through object data. `load_pcm` (`0x13ED4D48`) writes object address `0x000301EA` and data `0x00004000` then selects `0x000301EB` and streams the PCM data.
 
 Every call to `init_mac` uploads both blocks. It does not check whether a previous call uploaded them. Each upload sends one 32 bit word per backplane write through `write_card`, producing a separate CMD53 transfer for each word. `load_microcode` uses the supplied byte count divided by four as its word count and returns the result of the final write. `init_mac` ignores the return values from both upload routines.
 
@@ -307,11 +307,215 @@ Basically you just do `cpu.registers[4] = cpu.registers[5] - 1;` lol.
 | -------------------------- | ---- | ----------- | ------------------------------------ |
 | MAC control (`0x18001120`) | `0`  | MAC enabled | Clear before waiting for suspension. |
 
+## MAC interrupts
+
+The wireless chip signals MAC events through the SDIO card interrupt. The host controller reports it in Card Interrupt (bit `8`) of Normal Interrupt Status at `0x0D080030`. It forwards it to Hollywood ARM interrupt 8 only while Card Interrupt is also set in Normal Interrupt Status Enable (`0x0D080034`) and Signal Enable (`0x0D080038`).
+
+`interrupt_worker` (`0x13F0A1B0`) handles messages of type `2` by calling `handle_host_interrupt` (`0x13F1EC14`), which passes the host object to `dispatch_card_interrupt` (`0x13F1E390`). That routine returns early if Card Interrupt is clear in Normal Interrupt Status. Otherwise it saves Normal Interrupt Status Enable and clears its Card Interrupt bit. If the bytes at host object offsets `0x14` and `0x3D` are both nonzero, it calls the card handler registered in the host object. It then restores the saved value, so Card Interrupt is disabled only while the handler runs.
+
+| Bits | Field          | Firmware use                                                         |
+| ---- | -------------- | -------------------------------------------------------------------- |
+| `8`  | Card Interrupt | Checked in `0x0D080030` and cleared in `0x0D080034` during handling. |
+
+The card handler `card_interrupt` (`0x13F0A2A4`) calls `read_mac_interrupts` (`0x13ED7194`), which does the following:
+
+1. It reads interrupt status at `0x18001128` and ANDs it with the driver's interrupt mask. If the read fails or the result is zero, it stops.
+2. It writes the masked value back to `0x18001128`.
+3. If bit `15` is set in that value, it writes `0x00010000` to `0x18001020`.
+4. It saves the masked value for `process_mac_interrupts` (`0x13EF468C`).
+
+| Bits | Field   | Firmware use                                               |
+| ---- | ------- | ---------------------------------------------------------- |
+| `15` | Receive | Read frames through the [receive FIFO](#pio-receive-fifo). |
+
+## Channel selection
+
+The 16 bit register at `0x180013F0` holds the current channel, encoded as its center frequency minus 2400 MHz. Channel 1 is `0x000C`, channel 6 is `0x0025` and channel 13 is `0x0048`.
+
+During an access point search, WL tunes to each channel as follows:
+
+1. Write `0x04020402` to MAC control, clearing MAC enabled.
+2. Write the channel value to `0x180013F0`.
+3. Write `0x04020403` to MAC control, setting MAC enabled.
+
+## PIO receive FIFO
+
+WL receives frames through a programmed I/O receive FIFO in the wireless core.
+
+| Address      | Width   | Name                 | Firmware use                        |
+| ------------ | ------- | -------------------- | ----------------------------------- |
+| `0x18001308` | 32 bits | Receive FIFO control | Detect, accept and discard frames.  |
+| `0x1800130C` | 32 bits | Receive FIFO data    | Read the receive record of a frame. |
+
+| Bits | Field       | Firmware use                                                                 |
+| ---- | ----------- | ---------------------------------------------------------------------------- |
+| `0`  | Frame ready | Read as `1` when a frame is waiting. Written as `1` to accept it.            |
+| `1`  | Data ready  | Polled until set after accepting a frame. Written as `1` to discard a frame. |
+
+`pio_receive` (`0x13F0D284`) reads one frame as follows:
+
+1. It reads receive FIFO control and returns without a frame if Frame ready is clear.
+2. It writes `1` to receive FIFO control.
+3. It polls receive FIFO control for Data ready, reading up to 11 times with a 10 microsecond delay between reads. If Data ready never sets, it returns without a frame and without discarding it.
+4. It reads the first data word, takes the frame size from it and allocates a packet buffer with a packet length of the frame size plus 30.
+5. It stores the first word at buffer offset `0x00` and reads four more words into offsets `0x04` to `0x13`.
+6. If bit `0` of the MAC status at offset `0x0C` is set, it discards the frame.
+7. It reads the frame data into the buffer at offset `0x1E`. If that address is not word aligned and the frame is longer than one byte, it first reads 2 bytes into `0x1E` and continues at `0x20`.
+8. It reads the remaining whole words, then one more word for any leftover bytes.
+
+To discard a frame, the routine writes `2` to receive FIFO control and releases the packet buffer. It also discards the frame if allocation or a bulk read fails.
+
+Depending on some random bullshit, the header and frame data are read either one 32 bit word at a time or with `read_backplane_bulk` (`0x13F1C9B8`). Every read targets `0x1800130C`. Each path stores the record bytes in the order the card sends them:
+
+- A single read passes through the [byte reversal](#backplane-access-helpers) in `transfer_card` and is stored as a native big endian word.
+- `read_backplane_bulk` calls `transfer_extended` (`0x13F1E434`) for a CMD53 read of function 1 at a fixed address. It uses byte mode for transfers shorter than function 1's block size or for all transfers when the host object disables block mode. The routine waits for Buffer Read Ready, acknowledges it, reads the words from Buffer Data at `0x0D080020` and reverses the bytes of each word itself.
+- A bulk transfer of at least one block uses block mode, with SDMA when the host object enables DMA. For SDMA, `send_command` writes the bounce buffer's address to `0x0D080000` and sets transfer mode bit `0`. After Transfer Complete, `transfer_extended` acknowledges Transfer Complete and DMA Interrupt by writing `0x000A` to `0x0D080030` and copies the bounce buffer to the destination without byte reversal.
+
+The transfer mode bits occupy the low halfword of the command word at `0x0D08000C`:
+
+| Bits | Field                   | Firmware use                                            |
+| ---- | ----------------------- | ------------------------------------------------------- |
+| `0`  | DMA Enable              | Set for block mode CMD53 transfers when DMA is enabled. |
+| `1`  | Block Count Enable      | Set when the block count exceeds one.                   |
+| `4`  | Data Transfer Direction | Set for reads.                                          |
+| `5`  | Multiple Block          | Set when the block count exceeds one.                   |
+
+A single block SDMA read therefore uses transfer mode `0x0011`. In block mode, `0x0D080004` holds the block size in its low halfword and the block count from the CMD53 argument in its upper halfword.
+
+### Receive record
+
+The receive record is a 20 byte header followed by the frame data. Header fields are 16 bit little endian values.
+
+| Offset | Size    | Firmware use                                                    |
+| ------ | ------- | --------------------------------------------------------------- |
+| `0x00` | 2 bytes | Frame size, the number of frame data bytes after the header.    |
+| `0x04` | 2 bytes | PHY status 0, used for the [signal strength](#signal-strength). |
+| `0x06` | 2 bytes | PHY status 1, used for the signal strength.                     |
+| `0x0A` | 2 bytes | PHY status 3, used for the signal strength.                     |
+| `0x0C` | 2 bytes | [MAC status](<microcode-hle.md#receive-header>).                |
+
+| MAC status bits | Firmware use                              |
+| --------------- | ----------------------------------------- |
+| `0`             | Discard the frame.                        |
+| `2`             | Two padding bytes precede the frame data. |
+
+The frame data starts with a 6 byte physical layer header, followed by the 802.11 frame and its frame check sequence. Before parsing, WL converts the header halfwords from little endian to native order. It then skips the 30 bytes that precede the frame data, plus 2 more if the padding bit is set.
+
+### Scan results
+
+WL finds and joins networks through 802.11 management frames such as beacons and probe responses. It passes them to `receive_management` (`0x13EF30F4`). A probe response is added to the scan results by `add_scan_result` (`0x13ED9170`) when both of these conditions hold:
+
+- The word at driver object offset `0x143C` is not `-1`.
+- The frame's first address equals the station address at driver object offset `0x24`.
+
+A beacon is added only when bit `2` of the byte at driver object offset `0x1442` is also set. `parse_bss_info` (`0x13ED8A18`) reads the advertised network's capability information, SSID, supported rates and DS parameter set.
+
+### Joining an open network
+
+For an open-system connection, WL authenticates before sending an association request. `set_association_state` (`0x13ED1160`) stores the current state at driver object offset `0xF7C`. The successful station path uses these states and events:
+
+| State | Expected response                                                | Successful event    | Next state |
+| ----- | ---------------------------------------------------------------- | ------------------- | ---------- |
+| `2`   | Open-system authentication response with transaction sequence 2. | `3`                 | `5`        |
+| `5`   | Association response.                                            | `7`                 | `6`        |
+| `6`   | Beacon from the selected BSSID.                                  | `1` followed by `0` | `0`        |
+
+`receive_management` checks the selected BSSID before accepting these responses. A successful association response stores its association ID at driver object offset `0x1A56`. `process_wireless_event` (`0x13EE02D4`) handles the success event through `activate_association` (`0x13EE1418`), which enters state `6` for the station connection.
+
+Association alone does not complete the join. In state `6`, a beacon from the selected BSSID reaches `complete_join_from_beacon` (`0x13EE39EC`). It emits event `1` with status zero. For an initial join, the event handler emits event `0` with status zero and returns the association state to `0`.
+
+### Signal strength
+
+`compute_rssi` (`0x13F02660`) derives a signed signal strength from the converted receive header. For radio `0x2050`, when bit `0` of PHY status 0 is set:
+
+```c
+int rssi = (int8_t)(phy_status_1 & 0xFF);
+if (phy_status_3 & 0x0400)
+    rssi += 17;
+else
+    rssi -= 4;
+```
+
+| Field        | Bits  | Firmware use                               |
+| ------------ | ----- | ------------------------------------------ |
+| PHY status 0 | `0`   | Select the direct signed sample when set.  |
+| PHY status 1 | `7:0` | Signed sample before the radio correction. |
+| PHY status 3 | `10`  | Add 17 when set. Subtract 4 when clear.    |
+
+### HLE frame reception
+
+A microcode HLE can deliver scan results through this receive path. The other interfaces it has to provide are covered under [Microcode HLE](<microcode-hle.md#hle>).
+
+To deliver a frame:
+
+1. Queue a receive record made of a 20 byte header, a 6 byte physical layer header, the 802.11 frame and a 4 byte frame check sequence. WL accepts a physical layer header and frame check sequence filled with zeros. The frame size covers everything after the 20 byte header.
+2. Set Frame ready in receive FIFO control and set bit `15` of interrupt status at `0x18001128`.
+3. If the MAC interrupt mask enables bit `15`, raise the SDIO card interrupt, subject to the host controller enables described under [MAC interrupts](#mac-interrupts).
+4. After WL writes `1` to receive FIFO control, report Data ready.
+5. Serve every read of `0x1800130C` from the next bytes of the record, whether it is a single word, a 16 byte read in byte mode or an SDMA read in block mode. Drop the record once its last byte has been read or when WL writes `2`.
+
+To make an access point appear in the search, send a probe response addressed to the station address while WL is tuned to the access point's channel and MAC enabled is set again. To report a signal strength on radio `0x2050`, set PHY status 0 bit `0`, clear PHY status 3 bit `10` and store the desired value plus 4 as a signed 8 bit value in PHY status 1 bits `7:0`.
+
+## Frame transmission
+
+WL uses six PIO FIFOs. For FIFO index `n` from 0 through 5, the transmit registers have these wireless backplane addresses:
+
+| Address                 | Width   | Access | Purpose           |
+| ----------------------- | ------- | ------ | ----------------- |
+| `0x18001300 + 0x10 * n` | 32 bits | R/W    | Transmit control. |
+| `0x18001304 + 0x10 * n` | 32 bits | W      | Transmit data.    |
+
+`pio_transmit` (`0x13F0CD8C`) submits a packet chain through the selected FIFO. It writes `0x00000080` to transmit control before copying data and writes `0x00000010` after the final fragment. Between these writes it selects the valid bytes of each data word through the low four control bits:
+
+| Bits  | Firmware use                                             |
+| ----- | -------------------------------------------------------- |
+| `3:0` | Byte enables. Bit `n` selects byte `n` of the data word. |
+| `4`   | Submit the accumulated frame.                            |
+| `7`   | Start writing a frame.                                   |
+
+For an unaligned fragment, WL enables only the occupied lanes of its first aligned word. It then enables all four lanes while transferring complete words and enables only the occupied lanes of the final word. Fragment boundaries do not submit the frame. `transfer_card` (`0x13F1D7AC`) reverses the byte order of individual PIO data writes so the FIFO receives packet bytes in memory order. Bulk transfers through `transfer_fifo` (`0x13F1CA18`) use fixed-address CMD53 writes to the same data register.
+
+`build_transmit_header` (`0x13ED5D04`) prepends a 100 byte transmit header and a 6 byte physical layer header to the 802.11 frame. Offsets are relative to the start of the transmit record. The frame ID and status are little endian:
+
+| Byte offset | Size     | Field                                 |
+| ----------- | -------- | ------------------------------------- |
+| `0x48`      | 2 bytes  | Frame ID.                             |
+| `0x4A`      | 2 bytes  | Initial transmit status, set to zero. |
+| `0x64`      | 6 bytes  | Physical layer header.                |
+| `0x6A`      | Variable | 802.11 frame.                         |
+
+The frame ID's low three bits select the FIFO. After submission, WL retains the packet in that FIFO's software queue until [transmit completion](<microcode-hle.md#transmit-completion>). `process_transmit_status` (`0x13EE17AC`) selects the queue from the returned frame ID and releases a completed packet. `release_pio_transmit` (`0x13F0CA7C`) decrements the queued frame count and subtracts the packet chain length rounded up to a multiple of four from the queued byte count.
+
+| Frame ID bits | Meaning              |
+| ------------- | -------------------- |
+| `2:0`         | Transmit FIFO index. |
+
+### FIFO capacity
+
+During `init_mac`, `write_initial_registers` (`0x13ED2268`) programs shared memory through the object registers. One sequence writes object address `0x03010025` then writes `0x00320000`, `0x090A0E09` and `0x0000060E` to object data. The streamed words occupy consecutive shared memory word pairs starting at byte offset `0x94`.
+
+`read_shm_bytes` (`0x13ED4DF4`) reads six bytes starting at shared memory byte offset `0x98`. `init_mac` multiplies each byte by 256 to initialize a FIFO's capacity when its software capacity is zero:
+
+| FIFO | Shared memory byte offset | Capacity byte | Capacity   |
+| ---- | ------------------------- | ------------- | ---------- |
+| 0    | `0x98`                    | `0x09`        | 2304 bytes |
+| 1    | `0x99`                    | `0x0E`        | 3584 bytes |
+| 2    | `0x9A`                    | `0x0A`        | 2560 bytes |
+| 3    | `0x9B`                    | `0x09`        | 2304 bytes |
+| 4    | `0x9C`                    | `0x0E`        | 3584 bytes |
+| 5    | `0x9D`                    | `0x06`        | 1536 bytes |
+
+`pio_has_space` (`0x13F0C9CC`) rejects a submission that would exceed 32 queued frames or the FIFO's byte capacity. For one frame it rounds the packet chain length up to a multiple of four bytes. It also rejects submission while transmit control bit `8` is set.
+
+| Transmit control bits | Firmware use                                                  |
+| --------------------- | ------------------------------------------------------------- |
+| `8`                   | Suspend transmission. A set bit prevents further submissions. |
+
 ## Delays
 
 `delay` uses a timer and a message queue for requests above 1,000 microseconds. It creates a queue with one message slot, starts a one-shot timer and blocks waiting for its message. It destroys the timer and queue before returning.
 
-For requests of at most 1,000 microseconds, it polls [timer syscall `0x15`](<index.md#syscalls>). It converts the requested duration to ticks as follows:
+For requests of at most 1,000 microseconds, it polls [timer syscall `0x15`](<../index.md#syscalls>). It converts the requested duration to ticks as follows:
 
 ```c
 uint32_t ticks = microseconds * 19 / 10;

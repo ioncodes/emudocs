@@ -17,7 +17,7 @@ IOS80 v6944 contains the following module tags in its embedded `IOSVersion` stri
 | `0x00000005` | SO                                  |
 | `0x00000006` | KD                                  |
 | `0x00000007` | WD                                  |
-| `0x00000010` | [WL](<wl.md>)                       |
+| `0x00000010` | [WL](<wl/index.md>)                 |
 | `0x00000009` | [NCD](<ncd.md>)                     |
 | `0x0000000A` | ETH                                 |
 | `0x0000000B` | STM                                 |
