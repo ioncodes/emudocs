@@ -27,6 +27,7 @@ nav = [
         "GameCube & Wii/Starlet/ios/ohci.md",
         "GameCube & Wii/Starlet/ios/ehci.md",
         "GameCube & Wii/Starlet/ios/sdi.md",
+        "GameCube & Wii/Starlet/ios/so.md",
         { "WL" = [
           "GameCube & Wii/Starlet/ios/wl/index.md",
           "GameCube & Wii/Starlet/ios/wl/microcode-hle.md",

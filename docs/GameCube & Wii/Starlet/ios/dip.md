@@ -45,7 +45,10 @@ For an encrypted partition, `verify_partition_hashes` (`0x20202BF8`) then reads 
 
 `dvd_driver` (`0x2020062C`) registers `/dev/di`. It passes ioctl arguments to `di_ioctl` (`0x20200400`) and vector arguments to `di_ioctlv` (`0x20200284`). After the handler returns, the driver passes its result to `reply_request` (`0x20205E88`).
 
-IOS35 v3608 uses `di_ioctl` (`0x202003B8`) and `di_ioctlv` (`0x20200254`). Both handlers execute Thumb code.
+| Firmware    | `di_ioctl`   | `di_ioctlv`  |
+| ----------- | ------------ | ------------ |
+| IOS80 v6944 | `0x20200400` | `0x20200284` |
+| IOS35 v3608 | `0x202003B8` | `0x20200254` |
 
 Both argument structures begin at byte offset `0x0C` in the IOS request. Each field is a 32 bit big endian value, and pointers are addresses in the driver's address space.
 

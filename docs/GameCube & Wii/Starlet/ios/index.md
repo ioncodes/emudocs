@@ -14,7 +14,7 @@ IOS80 v6944 contains the following module tags in its embedded `IOSVersion` stri
 | `0x00000002` | [OH0](<ohci.md>)                    |
 | `0x00000003` | [OH1](<ohci.md#oh1-initialization>) |
 | `0x00000004` | [SDI](<sdi.md>)                     |
-| `0x00000005` | SO                                  |
+| `0x00000005` | [SO](<so.md>)                       |
 | `0x00000006` | KD                                  |
 | `0x00000007` | WD                                  |
 | `0x00000010` | [WL](<wl/index.md>)                 |
@@ -68,9 +68,13 @@ IOS80's `verify_rsa_sha1` (`0x13A75514`) imports the signature, public modulus a
 
 `receive_queued_message` (`0xFFFF2968`) blocks when the queue is empty and its nonblocking argument is zero. It marks the current thread as waiting and yields to the scheduler. After a successful wakeup, it checks the queue again before it reads a message.
 
-Once the service threads are started, the initialization thread lowers its own priority to zero and enters an idle loop at `0xFFFF0C6A`. It polls `g_debug_requests` (`0xFFFF9ECC`). A nonzero value selects diagnostic output through `print_debug_state` (`0xFFFF6084`) then the loop clears the word.
+Once the service threads are started, the initialization thread lowers its own priority to zero and enters an idle loop at `0xFFFF0C6A`. The loop reads `g_debug_requests` (`0xFFFF9ECC`) repeatedly while it is zero. When the word is nonzero, the loop passes its value to `print_debug_state` (`0xFFFF6084`) to select diagnostic output then clears the word. The loop does not execute a wait-for-interrupt instruction.
 
-IOS35 v3608 enters this loop at `0xFFFF0C4C` and polls `g_debug_requests` (`0xFFFF9BCC`). The loop repeatedly reads the word while it is zero. It does not execute a wait-for-interrupt instruction.
+| Firmware    | Idle loop    | `g_debug_requests` | `print_debug_state` |
+| ----------- | ------------ | ------------------ | ------------------- |
+| IOS80 v6944 | `0xFFFF0C6A` | `0xFFFF9ECC`       | `0xFFFF6084`        |
+| IOS70 v6687 | `0xFFFF0C6A` | `0xFFFF9E8C`       | `0xFFFF6078`        |
+| IOS35 v3608 | `0xFFFF0C4C` | `0xFFFF9BCC`       | `0xFFFF5E24`        |
 
 For an undefined instruction that does not match the syscall encoding, `undefined_exception` (`0xFFFF1F24`) saves the exception return address, marks the current thread as faulted with state `6` and calls `dispatch_thread` (`0xFFFF2340`). The faulted thread is no longer runnable. The idle loop can therefore run while a service thread is faulted and other services are waiting for messages.
 
@@ -211,7 +215,14 @@ Syscalls are undefined ARM instructions. Executing one raises an Undefined Instr
 
 For example, `0xE6000130` selects index 9. Arguments are passed in `r0` through `r3` and the result is returned in `r0`. Execution then resumes at the instruction after the syscall. Indices above `0x7A` return immediately with `r0` unchanged.
 
-| Index  | Function                             | Arguments                                                        | Result                                                       |
-| ------ | ------------------------------------ | ---------------------------------------------------------------- | ------------------------------------------------------------ |
-| `0x09` | `set_thread_priority` (`0xFFFF07B0`) | `r0` = thread ID (0 selects the current thread), `r1` = priority | `0` on success or `-4` if the thread or priority is rejected |
-| `0x15` | `get_timer` (`0xFFFF4530`)           | None                                                             | Current 32 bit `HW_TIMER` value                              |
+| Index  | Function                             | Arguments                                                                      | Result                                                          |
+| ------ | ------------------------------------ | ------------------------------------------------------------------------------ | --------------------------------------------------------------- |
+| `0x03` | `get_thread_id` (`0xFFFF04A0`)       | None                                                                           | Current thread's index in the kernel thread table               |
+| `0x08` | `get_thread_priority` (`0xFFFF0760`) | `r0` = thread ID (0 selects the current thread)                                | Priority or `-4` if the thread ID or process access is rejected |
+| `0x09` | `set_thread_priority` (`0xFFFF07B0`) | `r0` = thread ID (0 selects the current thread), `r1` = priority               | `0` on success or `-4` if the thread or priority is rejected    |
+| `0x0C` | `send_message` (`0xFFFF27F8`)        | `r0` = queue ID, `r1` = message word, `r2` = nonblocking flag                  | `0` on success or a negative error                              |
+| `0x0E` | `receive_message` (`0xFFFF29E4`)     | `r0` = queue ID, `r1` = writable message-word pointer, `r2` = nonblocking flag | `0` on success or a negative error                              |
+| `0x15` | `get_timer` (`0xFFFF4530`)           | None                                                                           | Current 32 bit `HW_TIMER` value                                 |
+| `0x2A` | `reply_request` (`0xFFFF408C`)       | `r0` = dispatched request pointer, `r1` = signed service result                | Reply delivery result or `-4` for a rejected request            |
+
+The message queue calls accept a nonblocking flag of `0` or `1`. With `0`, a send to a full queue or a receive from an empty queue suspends the calling thread as described in [Thread waits](<#thread-waits>). With `1`, the call returns without suspending. Both calls check the queue's owning process. A receive also validates the 4 byte message destination before it accesses the queue.

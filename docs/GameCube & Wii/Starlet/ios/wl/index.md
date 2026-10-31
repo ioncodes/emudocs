@@ -524,3 +524,8 @@ if (ticks <= 20)
 ```
 
 It reads a starting counter value. If `ticks` is zero, it returns without polling. Otherwise each poll computes `current - start` with 32 bit unsigned wraparound. If the signed 32 bit value of `current` is less than or equal to the signed value of `start`, it subtracts one more tick from that difference. Polling ends when the adjusted unsigned difference is at least `ticks`. Equal counter samples therefore produce `0xFFFFFFFF` and end the wait.
+
+| Firmware    | `delay`      |
+| ----------- | ------------ |
+| IOS80 v6944 | `0x13F0AA28` |
+| IOS70 v6687 | `0x13F0A9F4` |
