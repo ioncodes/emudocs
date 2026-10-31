@@ -189,6 +189,37 @@ HW_ALARM = (now + delay_ticks) & 0xFFFFFFFF
 
 The conversion preserves the offset within the bank. MEM1 and MEM2 keep their translated physical addresses.
 
+## Cache and AHB flush
+
+Four syscalls keep the Starlet data cache and AHB device writes coherent. Each one disables interrupts while it runs. These addresses refer to IOS80.
+
+`invalidate_data_range` (`0xFFFF5BE0`) first calls `check_pointer_range` (`0xFFFF45C8`) to confirm that the calling process may write the range. If it may not, the syscall prints `bad invalidate requested` and returns without touching the cache. A zero length also returns immediately. Otherwise it invalidates every 32 byte line that covers the range. When the length exceeds `0x4000` bytes it cleans and invalidates the whole data cache instead. It then calls `flush_device_and_cpu(0)` (`0xFFFF6740`).
+
+`flush_data_range` (`0xFFFF5C50`) returns immediately for a zero length. Otherwise it cleans every line that covers the range. When the length exceeds `0x4000` bytes it cleans the whole data cache instead. It then drains the write buffer and calls `flush_device_writes(1)` (`0xFFFF6684`).
+
+`flush_from_device` (`0xFFFF5CC8`) only calls `flush_device_writes(device)`. `flush_to_device` (`0xFFFF5CE4`) only calls `flush_device_and_cpu(device)`.
+
+`flush_device_writes` looks up the mask for the device and writes it as a 16 bit value to `0x0D8B4228`. It then waits for the 16 bit register at `0x0D8B422A` to return the same mask. Each poll goes through `memreg_read_sync(0x22A)` (`0xFFFF6664`), which reads the register and runs `ahb_sync_dev(0)` (`0xFFFF642C`) before it returns the value. The function calls `delay(1)` (`0xFFFF7030`) between polls. After 1,000,000 polls it gives up and prints `ERROR: ahbMemFlush(0x%x) did not ack!`. Whether or not the mask arrives, it finishes by writing `0` to `0x0D8B4228`. boot1 performs the same [engine handshake](<../boot1.md#engine-handshake>).
+
+| Device             | Mask |
+| ------------------ | ---- |
+| 0, 1, 11, 13       | `1`  |
+| 4, 5, 12, 14       | `2`  |
+| 2, 6, 15           | `4`  |
+| 3, 7, 8, 9, 10, 16 | `8`  |
+| 17                 | `15` |
+| 18 and above       | `0`  |
+
+`flush_device_and_cpu` runs `ahb_sync_dev(device)`. For a nonzero device it then also runs `ahb_sync_dev(0)`. `ahb_sync_dev` selects one bit of the 32 bit register at `0x0D8B0008` and reads the register through `read_0d8b_register` (`0xFFFF63E0`). That helper behaves exactly like boot1's [`mc_read`](<../boot1.md#status-wait-before-device-synchronization>) (`0xFFF014A0`), including the four discarded reads of `0x0D800138` and the two reads of `0x0D800214`. If the selected bit is already set, `ahb_sync_dev` returns. Otherwise devices 2 through 10 run boot1's [status wait before device synchronization](<../boot1.md#status-wait-before-device-synchronization>) unchanged, with both `HW_BOOT0` polls and the writes that clear and set the bit. Devices 0, 1 and 11 write the register once with the bit clear and then three times with it set, as boot1 does for device 0.
+
+| Device       | `0x0D8B0008` bit | Sequence                                |
+| ------------ | ---------------- | --------------------------------------- |
+| 0            | 15               | One write with the bit clear, three set |
+| 1            | 14               | One write with the bit clear, three set |
+| 11           | 12               | One write with the bit clear, three set |
+| 2 through 10 | device - 2       | Full status wait                        |
+| 12 and above | None             | Returns without writing                 |
+
 ## AES completion
 
 IOS80's AES service thread `aes_worker` (`0x13A7414C`) registers event `2` with message value `0` on its completion queue. It submits the AES command with the completion interrupt enabled and waits on that queue.
@@ -215,14 +246,18 @@ Syscalls are undefined ARM instructions. Executing one raises an Undefined Instr
 
 For example, `0xE6000130` selects index 9. Arguments are passed in `r0` through `r3` and the result is returned in `r0`. Execution then resumes at the instruction after the syscall. Indices above `0x7A` return immediately with `r0` unchanged.
 
-| Index  | Function                             | Arguments                                                                      | Result                                                          |
-| ------ | ------------------------------------ | ------------------------------------------------------------------------------ | --------------------------------------------------------------- |
-| `0x03` | `get_thread_id` (`0xFFFF04A0`)       | None                                                                           | Current thread's index in the kernel thread table               |
-| `0x08` | `get_thread_priority` (`0xFFFF0760`) | `r0` = thread ID (0 selects the current thread)                                | Priority or `-4` if the thread ID or process access is rejected |
-| `0x09` | `set_thread_priority` (`0xFFFF07B0`) | `r0` = thread ID (0 selects the current thread), `r1` = priority               | `0` on success or `-4` if the thread or priority is rejected    |
-| `0x0C` | `send_message` (`0xFFFF27F8`)        | `r0` = queue ID, `r1` = message word, `r2` = nonblocking flag                  | `0` on success or a negative error                              |
-| `0x0E` | `receive_message` (`0xFFFF29E4`)     | `r0` = queue ID, `r1` = writable message-word pointer, `r2` = nonblocking flag | `0` on success or a negative error                              |
-| `0x15` | `get_timer` (`0xFFFF4530`)           | None                                                                           | Current 32 bit `HW_TIMER` value                                 |
-| `0x2A` | `reply_request` (`0xFFFF408C`)       | `r0` = dispatched request pointer, `r1` = signed service result                | Reply delivery result or `-4` for a rejected request            |
+| Index  | Function                               | Arguments                                                                      | Result                                                          |
+| ------ | -------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------- |
+| `0x03` | `get_thread_id` (`0xFFFF04A0`)         | None                                                                           | Current thread's index in the kernel thread table               |
+| `0x08` | `get_thread_priority` (`0xFFFF0760`)   | `r0` = thread ID (0 selects the current thread)                                | Priority or `-4` if the thread ID or process access is rejected |
+| `0x09` | `set_thread_priority` (`0xFFFF07B0`)   | `r0` = thread ID (0 selects the current thread), `r1` = priority               | `0` on success or `-4` if the thread or priority is rejected    |
+| `0x0C` | `send_message` (`0xFFFF27F8`)          | `r0` = queue ID, `r1` = message word, `r2` = nonblocking flag                  | `0` on success or a negative error                              |
+| `0x0E` | `receive_message` (`0xFFFF29E4`)       | `r0` = queue ID, `r1` = writable message-word pointer, `r2` = nonblocking flag | `0` on success or a negative error                              |
+| `0x15` | `get_timer` (`0xFFFF4530`)             | None                                                                           | Current 32 bit `HW_TIMER` value                                 |
+| `0x2A` | `reply_request` (`0xFFFF408C`)         | `r0` = dispatched request pointer, `r1` = signed service result                | Reply delivery result or `-4` for a rejected request            |
+| `0x2F` | `flush_from_device` (`0xFFFF5CC8`)     | `r0` = device                                                                  | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)         |
+| `0x30` | `flush_to_device` (`0xFFFF5CE4`)       | `r0` = device                                                                  | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)         |
+| `0x3F` | `invalidate_data_range` (`0xFFFF5BE0`) | `r0` = address, `r1` = length                                                  | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)         |
+| `0x40` | `flush_data_range` (`0xFFFF5C50`)      | `r0` = address, `r1` = length                                                  | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)         |
 
 The message queue calls accept a nonblocking flag of `0` or `1`. With `0`, a send to a full queue or a receive from an empty queue suspends the calling thread as described in [Thread waits](<#thread-waits>). With `1`, the call returns without suspending. Both calls check the queue's owning process. A receive also validates the 4 byte message destination before it accesses the queue.
