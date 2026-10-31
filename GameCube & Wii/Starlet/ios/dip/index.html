@@ -1,0 +1,1836 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://emudocs.layle.dev/GameCube%20%26%20Wii/Starlet/ios/dip/">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.71">
+    
+    
+      
+        <title>DIP - emudocs</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../../assets/stylesheets/modern/main.e442bf79.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="emudocs" class="md-header__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            emudocs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DIP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="emudocs" class="md-nav__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    emudocs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Emulator Field Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GBA
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GBA
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../GBA/PPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GameCube & Wii
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GameCube & Wii
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../GX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GX
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Memory
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Starlet
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Starlet
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../boot0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot0
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../boot1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot1
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../boot2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot2
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bootmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BootMii
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homebrew-channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Homebrew Channel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hackmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HackMii Installer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nand/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NAND
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seeprom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SEEPROM
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  IOS
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_10" id="__nav_3_4_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_10_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  IOS
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ohci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ehci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  EHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SO
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../wl/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_10_6" id="__nav_3_4_10_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_10_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4_10_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  WL
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wl/microcode-hle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Microcode HLE
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ncd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NCD
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PSX
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  PSX
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PSX/BIOS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BIOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PSX/Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PSX/GPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#system-menu-disc-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        System Menu disc detection
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partition-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Partition verification
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Request dispatch
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request dispatch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cover-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cover commands
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disc-cover-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Disc cover handling
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Disc cover handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dicvr-0x0d006004-32-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        DICVR - 0x0D006004 (32 bits)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Status initialization
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Status initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disr-0x0d006000-32-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        DISR - 0x0D006000 (32 bits)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raw-disc-transfers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Raw disc transfers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="dip">DIP</h1>
+<p>Firmware behavior and function addresses describe IOS80 unless another IOS version is specified.</p>
+<h2 id="system-menu-disc-detection">System Menu disc detection</h2>
+<p>The Wii has a slot-loading drive, but the Disc Interface still calls its media state register and related commands "cover". Disc insertion and removal are reported through this interface.</p>
+<p>The System Menu accesses the drive through <code>/dev/di</code>. To recognize an inserted disc and show its banner in the Disc Channel, it has to check the media state and read from the disc. For a Wii disc with update and game partitions, System Menu v513 makes these main requests:</p>
+<ol>
+<li>Poll the cover register with ioctl <code>0x7A</code> to detect the disc. Reading the status and acknowledging an interrupt are separate <a href="#cover-commands">cover commands</a>.</li>
+<li>Request drive information with ioctl <code>0x12</code> and read the disc ID with ioctl <code>0x70</code>.</li>
+<li>Read disc metadata such as the partition table and region information with the unencrypted read ioctl <code>0x8D</code>.</li>
+<li>Open the update partition with ioctlv <code>0x8B</code>, read from it with ioctl <code>0x71</code> then close it with ioctl <code>0x8C</code>.</li>
+<li>Open the game partition with ioctlv <code>0x8B</code> and read from it with ioctl <code>0x71</code>. These reads supply the data the System Menu uses to populate the Disc Channel and show its banner before the user selects Start.</li>
+</ol>
+<p>System Menu v513 can perform this detection and partition verification while the health and safety screen is displayed, before the user presses A.</p>
+<p>Opening a partition returns its title metadata and makes it the target of subsequent partition reads. These reads must come from the currently open partition, not always from the game partition. Unencrypted reads take offsets relative to the start of the disc while partition reads take offsets into the open partition's decrypted data.</p>
+<p><a href="#status-initialization">Drive-register initialization</a> and <a href="#disc-cover-handling">cover interrupt handling</a> are still required, but a cover status response alone does not supply the disc contents the Disc Channel needs.</p>
+<h2 id="partition-verification">Partition verification</h2>
+<p><code>open_partition</code> (<code>0x20202F34</code>) only works after the disc ID has been read, because that read sets up the encryption and hash flags it uses. It also refuses to open a second partition while one is already open.</p>
+<p>Opening a partition reads the partition header, title metadata (TMD) and certificates from the disc. <code>verify_partition</code> (<code>0x20202D14</code>) then passes the ticket, TMD and certificate chain to ES through ioctlv <code>0x1C</code>, which takes four input vectors and two output vectors:</p>
+<table>
+<thead>
+<tr>
+<th>Vector</th>
+<th>Direction</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Input</td>
+<td>Certificate chain</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Input</td>
+<td>Certificate revocation list, empty in this path</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Input</td>
+<td>676 byte ticket</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Input</td>
+<td>TMD</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Output</td>
+<td>4 byte key handle</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Output</td>
+<td>20 byte hash for each TMD content</td>
+</tr>
+</tbody>
+</table>
+<p>ES reports its result separately from DIP's. A nonzero ES result fails the open. Successful verification is also what sets up the disc's title context in ES, so returning a TMD without going through ES is not enough.</p>
+<p>The verification path invokes IOS's <a href="../#signature-verification">software RSA signature verification</a>.</p>
+<p>For an encrypted partition, <code>verify_partition_hashes</code> (<code>0x20202BF8</code>) then reads the <code>0x18000</code> byte H3 table and checks its SHA-1 digest against the content hashes from ES. The partition is only marked open once this check passes. The partition data address must be aligned to <code>0x8000</code> bytes.</p>
+<h2 id="request-dispatch">Request dispatch</h2>
+<p><code>dvd_driver</code> (<code>0x2020062C</code>) registers <code>/dev/di</code>. It passes ioctl arguments to <code>di_ioctl</code> (<code>0x20200400</code>) and vector arguments to <code>di_ioctlv</code> (<code>0x20200284</code>). After the handler returns, the driver passes its result to <code>reply_request</code> (<code>0x20205E88</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Firmware</th>
+<th><code>di_ioctl</code></th>
+<th><code>di_ioctlv</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IOS80 v6944</td>
+<td><code>0x20200400</code></td>
+<td><code>0x20200284</code></td>
+</tr>
+<tr>
+<td>IOS35 v3608</td>
+<td><code>0x202003B8</code></td>
+<td><code>0x20200254</code></td>
+</tr>
+</tbody>
+</table>
+<p>Both argument structures begin at byte offset <code>0x0C</code> in the IOS request. Each field is a 32 bit big endian value, and pointers are addresses in the driver's address space.</p>
+<table>
+<thead>
+<tr>
+<th>Ioctl argument offset</th>
+<th>Field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00</code></td>
+<td>Command</td>
+</tr>
+<tr>
+<td><code>0x04</code></td>
+<td>Input buffer pointer</td>
+</tr>
+<tr>
+<td><code>0x08</code></td>
+<td>Input buffer length in bytes</td>
+</tr>
+<tr>
+<td><code>0x0C</code></td>
+<td>Output buffer pointer</td>
+</tr>
+<tr>
+<td><code>0x10</code></td>
+<td>Output buffer length in bytes</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Ioctlv argument offset</th>
+<th>Field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00</code></td>
+<td>Command</td>
+</tr>
+<tr>
+<td><code>0x04</code></td>
+<td>Input vector count</td>
+</tr>
+<tr>
+<td><code>0x08</code></td>
+<td>Output vector count</td>
+</tr>
+<tr>
+<td><code>0x0C</code></td>
+<td>Vector array pointer</td>
+</tr>
+</tbody>
+</table>
+<p>Each vector holds a 32 bit buffer pointer followed by a 32 bit length in bytes. Every ioctl except command <code>0x8E</code> requires a 32 byte input buffer. Command <code>0x8B</code> opens a partition and must be sent through ioctlv. Sending it through ioctl returns <code>0x20</code>.</p>
+<h3 id="cover-commands">Cover commands</h3>
+<table>
+<thead>
+<tr>
+<th>Ioctl</th>
+<th>Operation</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x79</code></td>
+<td>Wait for the cover to close.</td>
+<td>Returns <code>4</code> after the wait completes.</td>
+</tr>
+<tr>
+<td><code>0x7A</code></td>
+<td>Read <code>DICVR</code> into the first output word.</td>
+<td>Returns <code>1</code> on success or <code>0x20</code> if the output is shorter than 4 bytes.</td>
+</tr>
+<tr>
+<td><code>0x85</code></td>
+<td>Disable cover interrupts without acknowledging a pending cover interrupt.</td>
+<td>Returns <code>1</code>.</td>
+</tr>
+<tr>
+<td><code>0x86</code></td>
+<td>Acknowledge the cover interrupt.</td>
+<td>Returns <code>1</code>.</td>
+</tr>
+<tr>
+<td><code>0x87</code></td>
+<td>Return without accessing the drive.</td>
+<td>Returns <code>1</code>.</td>
+</tr>
+<tr>
+<td><code>0x88</code></td>
+<td>Read cover readiness into the first output word.</td>
+<td>Writes <code>0</code> during the first 100 milliseconds of a pending reset, <code>1</code> for an open cover or <code>2</code> for a closed cover. Returns <code>1</code> on success or <code>0x20</code> if the output is shorter than 4 bytes.</td>
+</tr>
+<tr>
+<td><code>0x89</code></td>
+<td>Enable cover interrupts without acknowledging a pending cover interrupt.</td>
+<td>Returns <code>1</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disc-cover-handling">Disc cover handling</h2>
+<p>DIP accesses the Disc Interface cover register through virtual address <code>0x0D006004</code>, mapped to physical address <code>0x0D806004</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Width</th>
+<th>Firmware access</th>
+<th>Name</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0D006004</code></td>
+<td>32 bits</td>
+<td>Read/write</td>
+<td><code>DICVR</code></td>
+<td>Cover state and cover interrupt control</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dicvr-0x0d006004-32-bits">DICVR - 0x0D006004 (32 bits)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Cover state</td>
+<td>Require <code>0</code> before completing a wait for cover closure.</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Cover interrupt enable</td>
+<td>Set before waiting for closure and clear after the wait completes.</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>Cover interrupt status</td>
+<td>Test when processing an interrupt message and write <code>1</code> to acknowledge.</td>
+</tr>
+</tbody>
+</table>
+<p><code>wait_for_cover_close</code> (<code>0x20200B98</code>) enables cover interrupts then waits on its message queue. It ignores messages of type <code>10</code> and processes interrupt messages of type <code>11</code>. A cover interrupt ends the wait only when the reset delay has expired and Cover State is clear. The routine acknowledges the cover interrupt even when those conditions do not allow it to finish.</p>
+<p><code>init_driver_events</code> (<code>0x20200074</code>) registers IOS event <code>18</code> with the transaction queue, using a message whose first 32 bit word is <code>11</code>. Both the cover wait and the drive command completion path receive messages from this queue.</p>
+<p><code>enable_cover_interrupt</code> (<code>0x202009C0</code>) reads <code>DICVR</code>, clears bits <code>2:1</code> in the value then sets bit <code>1</code> before writing it back. <code>disable_cover_interrupt</code> (<code>0x202009D4</code>) clears bits <code>2:1</code> in the read value before writing it back. Both avoid acknowledging an existing cover interrupt as a side effect of changing its enable. <code>acknowledge_cover</code> (<code>0x202009B0</code>) reads the register then writes the value with bit <code>2</code> set.</p>
+<h2 id="status-initialization">Status initialization</h2>
+<p><code>init_drive_registers</code> (<code>0x20200D1C</code>) acknowledges any pending transfer-complete and device-error status before enabling the corresponding interrupts. It polls the transfer-complete interrupt enable until the bit reads back as set. It then enables the device-error interrupt and disables the cover interrupt. It also checks that both acknowledged status fields are clear.</p>
+<h3 id="disr-0x0d006000-32-bits">DISR - 0x0D006000 (32 bits)</h3>
+<p>This virtual address maps to physical address <code>0x0D806000</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1</code></td>
+<td>Device-error interrupt enable</td>
+<td>Set during drive-register initialization.</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>Device-error status</td>
+<td>Test for a drive error and write <code>1</code> to acknowledge it.</td>
+</tr>
+<tr>
+<td><code>3</code></td>
+<td>Transfer-complete interrupt enable</td>
+<td>Set during drive-register initialization and poll until it reads back set.</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td>Transfer-complete status</td>
+<td>Test for command completion and write <code>1</code> to acknowledge it.</td>
+</tr>
+</tbody>
+</table>
+<p><code>clear_device_error</code> (<code>0x20200B80</code>) acknowledges the device error while preserving the interrupt enables.</p>
+<h2 id="raw-disc-transfers">Raw disc transfers</h2>
+<p><code>handle_command</code> (<code>0x20200EF8</code>) programs raw reads through these 32 bit registers, which map to physical <code>0x0D806008</code> through <code>0x0D80601C</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Virtual address</th>
+<th>Purpose</th>
+<th>Raw-read value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0D006008</code></td>
+<td>Command word 0</td>
+<td><code>0xA8000000</code> for a raw read or <code>0xA8000040</code> for the disc ID</td>
+</tr>
+<tr>
+<td><code>0x0D00600C</code></td>
+<td>Command word 1</td>
+<td>Disc offset in units of 4 bytes, zero for the disc ID</td>
+</tr>
+<tr>
+<td><code>0x0D006010</code></td>
+<td>Command word 2</td>
+<td>Transfer length in bytes</td>
+</tr>
+<tr>
+<td><code>0x0D006014</code></td>
+<td>DMA destination</td>
+<td>Output buffer address</td>
+</tr>
+<tr>
+<td><code>0x0D006018</code></td>
+<td>DMA length</td>
+<td>Transfer length in bytes</td>
+</tr>
+<tr>
+<td><code>0x0D00601C</code></td>
+<td>Transfer control</td>
+<td><code>3</code> to start the DMA read</td>
+</tr>
+</tbody>
+</table>
+<p>A disc ID read transfers 32 bytes. Raw reads need a 32 byte aligned destination and a length that is a multiple of 32. <code>start_timed_transfer</code> (<code>0x20200E4C</code>) expects the transfer-complete interrupt to be enabled when it writes transfer control. It starts a command timeout timer right after that write.</p>
+<p>The driver then waits for messages on its transaction queue. When the transfer-complete interrupt arrives, it stops the timer, acknowledges the status and checks for a device error before reporting success. The data transfer alone does not complete a read. The driver also needs that interrupt message.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../../..","features":["navigation.top","search.highlight","search.suggest","content.code.annotate","content.code.copy","content.tabs.link","header.autohide","palette.toggle","navigation.sections","navigation.instant","navigation.indexes"],"redirect":null,"search":"../../../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a2388154.min.js"></script>
+      
+    
+  </body>
+</html>

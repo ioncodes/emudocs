@@ -1,0 +1,1847 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://emudocs.layle.dev/GameCube%20%26%20Wii/Starlet/bootmii/">
+      
+      
+      
+        <link rel="prev" href="../boot2/">
+      
+      
+        <link rel="next" href="../homebrew-channel/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.71">
+    
+    
+      
+        <title>BootMii - emudocs</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.e442bf79.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="emudocs" class="md-header__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            emudocs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              BootMii
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="emudocs" class="md-nav__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    emudocs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Emulator Field Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GBA
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GBA
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../GBA/PPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GameCube & Wii
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GameCube & Wii
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GX
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Memory
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Starlet
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Starlet
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boot0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot0
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boot1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot1
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boot2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot2
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BootMii
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BootMii
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usb-gecko-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        USB Gecko detection
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sd-card-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SD card startup
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SD card startup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#card-capacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Card capacity
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idle-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Idle wait
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ppc-payload-unpacking" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PPC payload unpacking
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadway-register-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Broadway register access
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-installed-titles" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Launching installed titles
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homebrew-channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Homebrew Channel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hackmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HackMii Installer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nand/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NAND
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seeprom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SEEPROM
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../ios/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  IOS
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_10" id="__nav_3_4_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_10_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  IOS
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/ohci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/ehci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  EHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/sdi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SO
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../ios/wl/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_10_6" id="__nav_3_4_10_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_10_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4_10_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  WL
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/wl/microcode-hle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Microcode HLE
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ios/ncd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NCD
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PSX
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  PSX
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PSX/BIOS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BIOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PSX/Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PSX/GPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usb-gecko-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        USB Gecko detection
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sd-card-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SD card startup
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SD card startup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#card-capacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Card capacity
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idle-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Idle wait
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ppc-payload-unpacking" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PPC payload unpacking
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadway-register-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Broadway register access
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-installed-titles" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Launching installed titles
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="bootmii">BootMii</h1>
+<p>BootMii consists of the MINI firmware on Starlet and a graphical interface on Broadway. <a href="../hackmii/#sd-files">HackMii Installer</a> prepares their SD files.</p>
+<h2 id="usb-gecko-detection">USB Gecko detection</h2>
+<p>MINI's <code>gecko_init</code> (<code>0xFFFF1728</code>) clears the EXI channel status registers at <code>0x0D806800</code>, <code>0x0D806814</code> and <code>0x0D806828</code> then calls <code>gecko_isalive</code> (<code>0xFFFF165C</code>). The detection routine probes EXI channel 1 with 32 bit accesses:</p>
+<table>
+<thead>
+<tr>
+<th>Physical address</th>
+<th>Name</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0D806814</code></td>
+<td><code>EXI1_CSR</code></td>
+<td>Writes <code>0xD0</code> to select the device and zero to deselect it</td>
+</tr>
+<tr>
+<td><code>0x0D806820</code></td>
+<td><code>EXI1_CR</code></td>
+<td>Starts a transfer and polls for completion</td>
+</tr>
+<tr>
+<td><code>0x0D806824</code></td>
+<td><code>EXI1_DATA</code></td>
+<td>Supplies the command and reads the response</td>
+</tr>
+</tbody>
+</table>
+<p>Each transfer starts with a write to <code>EXI1_CR</code>. The routine then waits for the transfer start bit to clear before it starts the next transfer or reads the response:</p>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Name</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Transfer start</td>
+<td>Polled until clear</td>
+</tr>
+</tbody>
+</table>
+<p>The routine first writes zero to <code>EXI1_DATA</code> and <code>0x19</code> to <code>EXI1_CR</code>. Once that transfer completes it writes <code>0x39</code> and waits again. A nonzero response rejects the device. After a zero response it sends <code>0x90000000</code> with control value <code>0x19</code> and requires <code>0x0470</code> in the upper 16 bits of the response.</p>
+<p>None of these polling loops has a timeout. If the device is rejected, the routine returns without enabling the USB Gecko console.</p>
+<h2 id="sd-card-startup">SD card startup</h2>
+<p>MINI's <code>sdhc_init</code> (<code>0xFFFF3F24</code>) enables ARM interrupt 7 and initializes the front SD slot at physical address <code>0x0D070000</code>. <code>sdhc_host_found</code> (<code>0xFFFF3E3C</code>) resets the host and reads its capabilities. The base clock must be nonzero and between 10 MHz and 63 MHz. DMA is enabled when the host reports SDMA support.</p>
+<table>
+<thead>
+<tr>
+<th>Register offset</th>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x24</code></td>
+<td>16</td>
+<td>Card inserted</td>
+<td>Checked for an inserted card before discovery</td>
+</tr>
+<tr>
+<td><code>0x40</code></td>
+<td>13:8</td>
+<td>Base clock</td>
+<td>Read in MHz and converted to kHz</td>
+</tr>
+<tr>
+<td><code>0x40</code></td>
+<td>22</td>
+<td>SDMA support</td>
+<td>Enables DMA transfers when set</td>
+</tr>
+</tbody>
+</table>
+<p><code>sdhc_start_command</code> (<code>0xFFFF3AF4</code>) waits until the command path is free before writing the argument and the transfer command. For a data transfer it also programs the DMA address and the block size and count. <code>sdhc_exec_command</code> (<code>0xFFFF3CC4</code>) waits for the command to complete and copies the response before it handles data completion.</p>
+<p><code>sdhc_transfer_data</code> (<code>0xFFFF3A38</code>) waits for either transfer complete or a DMA boundary interrupt. At a DMA boundary it reads the DMA address register at offset <code>0x00</code> and writes the same value back to resume the transfer. Transfer complete ends the wait.</p>
+<table>
+<thead>
+<tr>
+<th>Normal interrupt bit</th>
+<th>Meaning</th>
+<th>Firmware action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Command complete</td>
+<td>Reads the command response</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Transfer complete</td>
+<td>Finishes the data transfer</td>
+</tr>
+<tr>
+<td>3</td>
+<td>DMA boundary</td>
+<td>Writes the current DMA address back</td>
+</tr>
+</tbody>
+</table>
+<h3 id="card-capacity">Card capacity</h3>
+<p>MINI's <code>sdmmc_needs_discover</code> (<code>0xFFFF67D0</code>) reads the card-specific data (CSD) with <code>CMD9</code>. For a standard-capacity card it uses these fields:</p>
+<table>
+<thead>
+<tr>
+<th>CSD bits</th>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>83:80</td>
+<td><code>READ_BL_LEN</code></td>
+<td>Base-2 logarithm of the maximum read block length in bytes</td>
+</tr>
+<tr>
+<td>73:62</td>
+<td><code>C_SIZE</code></td>
+<td>Device size factor minus one</td>
+</tr>
+<tr>
+<td>49:47</td>
+<td><code>C_SIZE_MULT</code></td>
+<td>Base-2 capacity multiplier exponent minus two</td>
+</tr>
+</tbody>
+</table>
+<p>The routine computes the capacity with unsigned 32 bit arithmetic:</p>
+<div class="highlight"><pre><span></span><code>capacity_bytes = (C_SIZE + 1) * (4 &lt;&lt; C_SIZE_MULT) * (1 &lt;&lt; READ_BL_LEN)
+sector_count = capacity_bytes &gt;&gt; 9
+</code></pre></div>
+<p>It then selects the card and sends <code>CMD16</code> with argument 512. The transfer block length is therefore 512 bytes even when <code>READ_BL_LEN</code> describes a larger maximum block. For example, <code>C_SIZE = 4095</code>, <code>C_SIZE_MULT = 7</code> and <code>READ_BL_LEN = 10</code> describe 2 GiB and produce 4194304 sectors.</p>
+<h2 id="idle-wait">Idle wait</h2>
+<p>MINI's <code>ipc_process_slow</code> (<code>0xFFFF05F8</code>) processes queued IPC requests. Once the queue is empty it saves the interrupt mask and masks IRQ and FIQ through <code>irq_kill</code> (<code>0xFFFF49A8</code>). It checks the queue once more and then executes wait-for-interrupt. After waking up it restores the saved mask through <code>irq_restore</code> (<code>0xFFFF49BC</code>).</p>
+<p>Checking the queue again with interrupts masked closes the window in which an interrupt could fill the queue between the empty check and the wait. For this to work, a pending interrupt has to wake the CPU from the wait even while IRQ and FIQ are masked. The exception itself is taken once the mask is restored.</p>
+<h2 id="ppc-payload-unpacking">PPC payload unpacking</h2>
+<p>The PPC loader's <code>unpack_and_boot</code> (<code>0x9001040C</code>) derives an AES key from its own code and a 256 byte scratch area at <code>0xD0080000</code>. It fills the scratch area with uncached byte stores and mixes the resulting bytes into the key, so the derived key depends on the <a href="../../Memory/#uncached-byte-stores">uncached byte store behavior</a>.</p>
+<p>The loader then decrypts its compressed payload in place and decompresses the GUI ELF to <code>0x90100000</code>. It repeats the code check before loading the ELF and again before entering it. If decompression fails, the loader loops forever toggling the disc slot light.</p>
+<h2 id="broadway-register-access">Broadway register access</h2>
+<p>The GUI's <code>ipc_init</code> (<code>0x8000A9E4</code>) reads the pointer to MINI's IPC information header from <code>0xD3FFFFFC</code>. It only uses the shared queues if the header contains the three byte magic <code>IPC</code> and protocol version 1. The GUI reaches the IPC registers through the <code>0xCD800000</code> window:</p>
+<table>
+<thead>
+<tr>
+<th>Broadway address</th>
+<th>Physical address</th>
+<th>Register</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0xCD800000</code></td>
+<td><code>0x0D800000</code></td>
+<td><code>PPCMSG</code></td>
+</tr>
+<tr>
+<td><code>0xCD800004</code></td>
+<td><code>0x0D800004</code></td>
+<td><code>PPCCTRL</code></td>
+</tr>
+<tr>
+<td><code>0xCD800008</code></td>
+<td><code>0x0D800008</code></td>
+<td><code>ARMMSG</code></td>
+</tr>
+<tr>
+<td><code>0xCD800030</code></td>
+<td><code>0x0D800030</code></td>
+<td><code>HW_PPCIRQFLAG</code></td>
+</tr>
+<tr>
+<td><code>0xCD800034</code></td>
+<td><code>0x0D800034</code></td>
+<td><code>HW_PPCIRQMASK</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>ipc_post</code> (<code>0x8000A6E8</code>) fills in a 32 byte request in the input queue and flushes it from the data cache. It advances the input tail, wrapping at the queue capacity, writes the new tail to the low 16 bits of <code>PPCMSG</code> and writes <code>1</code> to <code>PPCCTRL</code> to notify MINI.</p>
+<table>
+<thead>
+<tr>
+<th><code>PPCMSG</code> bits</th>
+<th>Meaning in MINI's queue protocol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>31:16</td>
+<td>Output queue head</td>
+</tr>
+<tr>
+<td>15:0</td>
+<td>Input queue tail</td>
+</tr>
+</tbody>
+</table>
+<p>MINI passes queue indices through the mailbox registers, unlike <a href="../ios/#mailboxes-and-control-flags">IOS</a>, which passes request and reply pointers.</p>
+<p>The GUI's <code>gecko_init</code> (<code>0x800090E8</code>) probes EXI channel 1 through <code>0xCD806814</code>, <code>0xCD806820</code> and <code>0xCD806824</code>. These are the same channel registers that MINI's detection routine uses.</p>
+<h2 id="launching-installed-titles">Launching installed titles</h2>
+<p>The GUI's <code>launch_menu_title</code> (<code>0x8000E46C</code>) picks the title ID for the Wii or <a href="../homebrew-channel/">Homebrew Channel</a> icon. <code>boot_title</code> (<code>0x8000B2C8</code>) then sends MINI request <code>0x00050000</code> with the high and low words of the title ID as its two arguments.</p>
+<table>
+<thead>
+<tr>
+<th>Menu item</th>
+<th>Title ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wii</td>
+<td><code>00000001-00000002</code></td>
+</tr>
+<tr>
+<td>Homebrew Channel</td>
+<td><code>00010001-4C554C5A</code></td>
+</tr>
+</tbody>
+</table>
+<p>MINI's <code>boot2_ipc</code> (<code>0xFFFF5CA8</code>) replies with the selected boot2 copy and waits for Broadway to consume the reply before it prepares the launch. If boot2 initialization failed, it replies with <code>-1</code> instead.</p>
+<p><code>boot2_run</code> (<code>0xFFFF5B40</code>) decrypts boot2 to <code>0x11000000</code>. For any title other than the System Menu it replaces boot2's default title ID and requires exactly one matching patch location. It writes <code>0x42</code> to the payload header's argument at <code>0x1100000C</code> and returns the entry address, which is the payload base plus the header size. With a 16 byte header the entry is <code>0x11000010</code>.</p>
+<p>MINI shuts down its IPC service, interrupts and memory translation before entering boot2. From there boot2 launches IOS and the title. Selecting either icon therefore exits MINI instead of running the title alongside it.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["navigation.top","search.highlight","search.suggest","content.code.annotate","content.code.copy","content.tabs.link","header.autohide","palette.toggle","navigation.sections","navigation.instant","navigation.indexes"],"redirect":null,"search":"../../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a2388154.min.js"></script>
+      
+    
+  </body>
+</html>

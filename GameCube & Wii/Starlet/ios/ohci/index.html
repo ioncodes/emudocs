@@ -1,0 +1,2156 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://emudocs.layle.dev/GameCube%20%26%20Wii/Starlet/ios/ohci/">
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../ehci/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.71">
+    
+    
+      
+        <title>OHCI - emudocs</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../../assets/stylesheets/modern/main.e442bf79.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="emudocs" class="md-header__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            emudocs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OHCI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="emudocs" class="md-nav__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    emudocs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Emulator Field Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GBA
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GBA
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../GBA/PPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GameCube & Wii
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GameCube & Wii
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../GX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GX
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Memory
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Starlet
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Starlet
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../boot0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot0
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../boot1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot1
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../boot2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot2
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bootmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BootMii
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homebrew-channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Homebrew Channel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hackmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HackMii Installer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nand/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NAND
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seeprom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SEEPROM
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  IOS
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_10" id="__nav_3_4_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_10_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_4_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  IOS
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OHCI
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-usb-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Kernel USB initialization
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oh0-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OH0 initialization
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OH0 initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controller-state-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Controller state checks
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controller-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Controller reset
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frame-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Frame timing
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oh1-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OH1 initialization
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OH1 initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root-hub-power-delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Root-hub power delay
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oh1-request-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OH1 request dispatch
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OH1 request dispatch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transfer-lengths" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Transfer lengths
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usb-command-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        USB Command Format
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transfer-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Transfer completion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-usb-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Initial USB requests
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ehci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  EHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SO
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../wl/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_10_6" id="__nav_3_4_10_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_10_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4_10_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  WL
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wl/microcode-hle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Microcode HLE
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ncd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NCD
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PSX
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  PSX
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PSX/BIOS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BIOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PSX/Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PSX/GPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-usb-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Kernel USB initialization
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oh0-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OH0 initialization
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OH0 initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controller-state-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Controller state checks
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controller-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Controller reset
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frame-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Frame timing
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oh1-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OH1 initialization
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OH1 initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root-hub-power-delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Root-hub power delay
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oh1-request-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OH1 request dispatch
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OH1 request dispatch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transfer-lengths" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Transfer lengths
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usb-command-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        USB Command Format
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transfer-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Transfer completion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-usb-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Initial USB requests
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="ohci">OHCI</h1>
+<h2 id="kernel-usb-initialization">Kernel USB initialization</h2>
+<p>Before the OHCI modules initialize their controllers, the kernel's <code>init_usb</code> (<code>0xFFFF6BD8</code>) writes <code>0xFE</code>, <code>0xF6</code>, <code>0xF4</code>, <code>0xF0</code>, <code>0x70</code>, <code>0x60</code>, <code>0x40</code> and finally <code>0x00</code> to physical address <code>0x0D800088</code>. Each write is 32 bits wide and followed by a delay.</p>
+<h2 id="oh0-initialization">OH0 initialization</h2>
+<p><code>ohci_core</code> (<code>0x138A00AC</code>) initializes the OH0 controller at <code>0x0D050000</code>. It writes <code>0x80000000</code> to <code>0x0D050014</code> then reads a 32 bit value from <code>0x0D050000</code> and checks its revision field.</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Required value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>7:0</code></td>
+<td>Revision</td>
+<td><code>0x10</code></td>
+</tr>
+</tbody>
+</table>
+<p>If the revision does not match, initialization reports <code>-4</code> through <code>ohci_core: OHCI initialization failed: %d</code> and takes the exit path before resetting the controller. The comparison ignores the upper 24 bits of the revision register.</p>
+<h3 id="controller-state-checks">Controller state checks</h3>
+<p>Before requesting a host-controller reset, OH0 reads <code>HcControl</code> at <code>0x0D050004</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>7:6</code></td>
+<td>Functional state</td>
+<td>Must be <code>0</code> before requesting reset.</td>
+</tr>
+<tr>
+<td><code>8</code></td>
+<td>Interrupt routing</td>
+<td>If set, OH0 requests ownership and the bit must then clear.</td>
+</tr>
+</tbody>
+</table>
+<p>If either check fails, initialization returns <code>-10</code>. The reset request alone cannot recover a controller left running by an earlier driver instance, so the USB block has to be reset before OH0 starts again.</p>
+<h3 id="controller-reset">Controller reset</h3>
+<p>After the revision and controller-state checks succeed, OH0 requests a reset through <code>0x0D050008</code>. It uses 32 bit accesses and preserves the other bits when setting the reset request.</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Host controller reset</td>
+<td>Set to request reset. Wait for the controller to clear it.</td>
+</tr>
+</tbody>
+</table>
+<p>OH0 calls <code>delay</code> (<code>0x138A0048</code>) with 10000 microseconds before checking completion. This helper restarts an IOS timer and waits for a message on its completion queue. If the reset request remains set, OH0 waits 2 microseconds between further checks for up to 10000 iterations. A request that remains set after those checks causes initialization to report <code>-10</code>.</p>
+<h3 id="frame-timing">Frame timing</h3>
+<p>After reset completes, OH0 writes <code>0x27782EDF</code> to <code>HcFmInterval</code> (<code>0x0D050034</code>) using a 32 bit store. TODO: Figure out what the fuck this even does bro</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Written value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>31</code></td>
+<td><code>FIT</code></td>
+<td><code>0</code></td>
+<td>Frame interval toggle</td>
+</tr>
+<tr>
+<td><code>30:16</code></td>
+<td><code>FSMPS</code></td>
+<td><code>0x2778</code> (10104)</td>
+<td>Initial largest data packet counter value in bits</td>
+</tr>
+<tr>
+<td><code>13:0</code></td>
+<td><code>FI</code></td>
+<td><code>0x2EDF</code> (11999)</td>
+<td>Nominal frame interval encoding at 12 MHz</td>
+</tr>
+</tbody>
+</table>
+<h2 id="oh1-initialization">OH1 initialization</h2>
+<p>OH1's <code>ohci_core</code> (<code>0x138B008C</code>) uses the controller at <code>0x0D060000</code>. It calls <code>register_device</code> (<code>0x138B2340</code>) to create a 4 entry request queue and register <code>/dev/usb/oh1</code> before checking the controller revision.</p>
+<p>It writes <code>0x80000000</code> to <code>0x0D060014</code> then reads <code>0x0D060000</code> using 32 bit accesses. The revision must satisfy the same <a href="#oh0-initialization">revision-field requirement as OH0</a>. A mismatch reports initialization error <code>-4</code>, frees the controller structure and exits the thread before it enters the request loop.</p>
+<h3 id="root-hub-power-delay">Root-hub power delay</h3>
+<p><code>enumerate_devices</code> (<code>0x138B0934</code>) reads <code>HcRhDescriptorA</code> (<code>0x0D060048</code>) to determine the port count and power delay. After configuring power, it waits <code>POTPGT * 2000</code> microseconds through an IOS timer before checking the ports.</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>7:0</code></td>
+<td><code>NDP</code></td>
+<td>Number of downstream ports.</td>
+</tr>
+<tr>
+<td><code>31:24</code></td>
+<td><code>POTPGT</code></td>
+<td>Power-on delay in units of 2 ms.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="oh1-request-dispatch">OH1 request dispatch</h2>
+<p><code>usb_worker</code> (<code>0x138B239C</code>) waits on the registered request queue. Open and close operations return their result through an IOS reply before the worker receives another request.</p>
+<p>For device transfer IOCTLV commands <code>0</code>, <code>1</code> and <code>2</code>, a nonnegative submission result returns the worker to its receive loop without replying to the request. Submission therefore does not itself complete the IPC operation. A negative submission result sends an immediate error reply.</p>
+<h3 id="transfer-lengths">Transfer lengths</h3>
+<p><code>submit_endpoint_transfer</code> (<code>0x138B15C0</code>) handles bulk command <code>1</code> and interrupt command <code>2</code>. Both require two input vectors and one output vector.</p>
+<table>
+<thead>
+<tr>
+<th>Vector</th>
+<th>Size</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1 byte</td>
+<td>Endpoint address.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2 bytes</td>
+<td>Transfer length as a big endian unsigned integer.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Transfer length</td>
+<td>Data buffer.</td>
+</tr>
+</tbody>
+</table>
+<p>The length in vector 1 must equal the size of vector 2. The endpoint and length pointers must be nonzero. A nonzero transfer length also requires a nonzero data pointer. Invalid vector counts or these validation failures return <code>-4</code>.</p>
+<p>Control command <code>0</code> uses a different layout. <code>submit_control_transfer</code> (<code>0x138B14B4</code>) requires six input vectors and one output vector. Its transfer length is the LE 16 bit value in vector 4 and must equal the size of the data buffer in vector 6.</p>
+<h2 id="usb-command-format">USB Command Format</h2>
+<p>USB commands are sent to the controller as this extremely cursed double nested linked list. Two linked lists are provided in <code>hcctrlhd</code> and <code>hcblkhd</code>, for Control transfers and Bulk transfers respectively.</p>
+<p>For both <code>hcctrlhd</code> and <code>hcblkhd</code>, the first level of linked list contains <code>EndpointDescriptor</code>s. These are defined as:</p>
+<p>Each endpoint descriptor occupies 16 bytes and is aligned to 16 bytes. Its words are little endian, and its pointers refer to physical addresses in guest RAM.</p>
+<p>(The fields that are irrelevant for emulation have their descriptions omitted)</p>
+<table>
+<thead>
+<tr>
+<th>Byte offset</th>
+<th>Size</th>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00</code></td>
+<td>4 bytes</td>
+<td><code>flags</code></td>
+<td>Device address, endpoint number and transfer settings.</td>
+</tr>
+<tr>
+<td><code>0x04</code></td>
+<td>4 bytes</td>
+<td><code>tail_pointer</code></td>
+<td>Address of the dummy <code>TransferDescriptor</code> marking the end of the queue.</td>
+</tr>
+<tr>
+<td><code>0x08</code></td>
+<td>4 bytes</td>
+<td><code>head_pointer</code></td>
+<td>Address of the next <code>TransferDescriptor</code> to process, plus endpoint state bits.</td>
+</tr>
+<tr>
+<td><code>0x0C</code></td>
+<td>4 bytes</td>
+<td><code>next_endpoint</code></td>
+<td>Address of the next <code>EndpointDescriptor</code>. Zero terminates the endpoint list.</td>
+</tr>
+</tbody>
+</table>
+<p>The flags word contains:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>6:0</code></td>
+<td>Device address</td>
+<td>USB address assigned to the device.</td>
+</tr>
+<tr>
+<td><code>10:7</code></td>
+<td>Endpoint number</td>
+<td>Endpoint on that device.</td>
+</tr>
+<tr>
+<td><code>12:11</code></td>
+<td>Direction</td>
+<td><code>1</code>: OUT. <code>2</code>: IN. <code>0</code> or <code>3</code>: use the direction provided by the <code>TransferDescriptor</code>s.</td>
+</tr>
+<tr>
+<td><code>13</code></td>
+<td>Low speed</td>
+<td></td>
+</tr>
+<tr>
+<td><code>14</code></td>
+<td>Skip</td>
+<td></td>
+</tr>
+<tr>
+<td><code>15</code></td>
+<td>Isochronous</td>
+<td></td>
+</tr>
+<tr>
+<td><code>26:16</code></td>
+<td>Maximum packet size</td>
+<td></td>
+</tr>
+<tr>
+<td><code>31:27</code></td>
+<td>Reserved</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The head pointer word contains:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Halted</td>
+<td>Processing of this endpoint's <code>TransferDescriptor</code> queue has halted.</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Toggle carry</td>
+<td>Saved toggle for the next data packet: <code>0</code> means DATA0, <code>1</code> means DATA1.</td>
+</tr>
+<tr>
+<td><code>3:2</code></td>
+<td>Reserved</td>
+<td>Reserved.</td>
+</tr>
+<tr>
+<td><code>31:4</code></td>
+<td>TD address</td>
+<td>Address bits <code>31:4</code> of the next <code>TransferDescriptor</code> to process.</td>
+</tr>
+</tbody>
+</table>
+<p>USB labels data packets DATA0 or DATA1 and alternates between them after each acknowledged packet. This lets the receiver recognize a retransmitted packet instead of accepting its data twice. See <a href="https://ftp.zx.net.nz/pub/archive/ftp.compaq.com/pub/supportinformation/papers/hcir1_0a.pdf#page=36">OHCI section 4.3.1.3.4, Sequence Bits</a>.</p>
+<p>Mask off the low four bits when extracting descriptor addresses. The low four bits of <code>tail_pointer</code> and <code>next_endpoint</code> are reserved.</p>
+<p>You keep going until <code>next_endpoint</code> is null. Each <code>EndpointDescriptor</code> contains within it another linked list, defined by <code>head_pointer</code> and <code>tail_pointer,</code> of <code>TransferDescriptor</code>s. Notably, <code>tail_pointer</code> is not the address of the last <code>TransferDescriptor</code> to process, it is a sentinel value. It is to be ignored once reached.</p>
+<p>Logically, <code>EndpointDescriptor</code> can be thought of as a header that tells you what endpoint we are currently talking to, and how we're going to talk to it. <code>TransferDescriptor</code> then tells you "what" we're going to do it and what commands we want to do. A <code>TransferDescriptor</code> looks like this:</p>
+<p>A general transfer descriptor occupies 16 bytes and is aligned to 16 bytes. Its words are little endian. Control, bulk and interrupt transfers use this layout; isochronous transfers use a different layout.</p>
+<table>
+<thead>
+<tr>
+<th>Byte offset</th>
+<th>Size</th>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00</code></td>
+<td>4 bytes</td>
+<td><code>flags</code></td>
+<td>Direction, completion status and transfer settings.</td>
+</tr>
+<tr>
+<td><code>0x04</code></td>
+<td>4 bytes</td>
+<td><code>current_buffer_pointer</code></td>
+<td>Physical address of the next data byte. Zero means no bytes remain.</td>
+</tr>
+<tr>
+<td><code>0x08</code></td>
+<td>4 bytes</td>
+<td><code>next_transfer</code></td>
+<td>Physical address of the next <code>TransferDescriptor</code>. Bits <code>3:0</code> are reserved.</td>
+</tr>
+<tr>
+<td><code>0x0C</code></td>
+<td>4 bytes</td>
+<td><code>buffer_end</code></td>
+<td>Physical address of the last byte in the buffer, inclusive.</td>
+</tr>
+</tbody>
+</table>
+<p>The flags word contains:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>17:0</code></td>
+<td>Reserved</td>
+<td>Reserved.</td>
+</tr>
+<tr>
+<td><code>18</code></td>
+<td>Buffer rounding</td>
+<td>???</td>
+</tr>
+<tr>
+<td><code>20:19</code></td>
+<td>Direction</td>
+<td><code>0</code>: SETUP. <code>1</code>: OUT. <code>2</code>: IN. <code>3</code>: reserved. Used when the ED defers to the TD.</td>
+</tr>
+<tr>
+<td><code>23:21</code></td>
+<td>Interrupt delay</td>
+<td>Completion interrupt delay in frames, <code>0</code>–<code>6</code>. <code>7</code> requests no interrupt for this TD.</td>
+</tr>
+<tr>
+<td><code>25:24</code></td>
+<td>Data toggle</td>
+<td><code>0</code> or <code>1</code>: use the ED's toggle carry. <code>2</code>: DATA0. <code>3</code>: DATA1.</td>
+</tr>
+<tr>
+<td><code>27:26</code></td>
+<td>Error count</td>
+<td>Count of consecutive transaction errors.</td>
+</tr>
+<tr>
+<td><code>31:28</code></td>
+<td>Condition code</td>
+<td>Transfer completion status.</td>
+</tr>
+</tbody>
+</table>
+<p>A condition code of zero indicates success to the IOS.</p>
+<h2 id="transfer-completion">Transfer completion</h2>
+<p>The controller walks the <code>EndpointDescriptor</code> list, processing each endpoint's <code>TransferDescriptor</code>s one by one. If a device needs more time, the current descriptor stays pending and is retried later. Other endpoints can still make progress.</p>
+<p>When a <code>TransferDescriptor</code> completes, the controller writes its condition code, advances the endpoint's head pointer, and adds it to the done list.</p>
+<p>Its interrupt-delay field controls when to notify software: <code>0</code> means the next USB frame boundary, <code>1</code>-<code>6</code> adds that many milliseconds, and <code>7</code> requests no notification of its own. Multiple completions can share one notification. To notify software, the controller writes the done-list pointer into <code>HCCA.done_head</code>, a field in a shared structure in memory, and raises the <strong>Writeback Done Head</strong> interrupt.</p>
+<h2 id="initial-usb-requests">Initial USB requests</h2>
+<p>IOS initializes the Bluetooth module through control transfers on endpoint <code>0</code>. The initial request types are:</p>
+<table>
+<thead>
+<tr>
+<th>Request</th>
+<th>Name</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>5</code></td>
+<td><code>SET_ADDRESS</code></td>
+<td>Assign the device a USB address. IOS assigns <code>1</code>; later <code>EndpointDescriptor</code>s use that address to select it.</td>
+</tr>
+<tr>
+<td><code>6</code></td>
+<td><code>GET_DESCRIPTOR</code></td>
+<td>Read the device's identity and its available configuration, interfaces and endpoints. IOS can issue this request several times.</td>
+</tr>
+<tr>
+<td><code>9</code></td>
+<td><code>SET_CONFIGURATION</code></td>
+<td>Activate a configuration advertised by the device. IOS selects configuration <code>1</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Each request starts with an 8-byte request header in a <code>SETUP</code> <code>TransferDescriptor</code>. For <code>GET_DESCRIPTOR</code>, subsequent IN <code>TransferDescriptor</code>s receive the requested bytes, followed by an empty OUT transfer acknowledging completion. <code>SET_ADDRESS</code> and <code>SET_CONFIGURATION</code> have no data stage and finish with an empty IN transfer. The new USB address takes effect after that final transfer completes, and thus concludes initialization.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../../..","features":["navigation.top","search.highlight","search.suggest","content.code.annotate","content.code.copy","content.tabs.link","header.autohide","palette.toggle","navigation.sections","navigation.instant","navigation.indexes"],"redirect":null,"search":"../../../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a2388154.min.js"></script>
+      
+    
+  </body>
+</html>

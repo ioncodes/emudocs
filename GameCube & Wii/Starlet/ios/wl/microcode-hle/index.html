@@ -1,0 +1,2555 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://emudocs.layle.dev/GameCube%20%26%20Wii/Starlet/ios/wl/microcode-hle/">
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../ncd/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.71">
+    
+    
+      
+        <title>Microcode HLE - emudocs</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/modern/main.e442bf79.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="emudocs" class="md-header__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            emudocs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Microcode HLE
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="emudocs" class="md-nav__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    emudocs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Emulator Field Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GBA
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GBA
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../GBA/PPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GameCube & Wii
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GameCube & Wii
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../GX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GX
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Memory
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Starlet
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Starlet
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../boot0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot0
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../boot1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot1
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../boot2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot2
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bootmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BootMii
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../homebrew-channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Homebrew Channel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hackmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HackMii Installer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nand/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NAND
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../seeprom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SEEPROM
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  IOS
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_10" id="__nav_3_4_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_10_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_4_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  IOS
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ohci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ehci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  EHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sdi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SO
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_10_6" id="__nav_3_4_10_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_10_6_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_4_10_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  WL
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Microcode HLE
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Microcode HLE
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Image
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Shared memory
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shared memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ucodestat" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        UCODESTAT
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mac-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MAC control
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MAC control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#host-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Host flags
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interrupts-raised-by-the-microcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Interrupts raised by the microcode
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#startup-and-suspension" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Startup and suspension
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Main loop
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Receive
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Receive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#receive-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Receive header
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transmit-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Transmit completion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mac-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MAC commands
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hle" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HLE
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ncd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NCD
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PSX
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  PSX
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../PSX/BIOS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BIOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../PSX/Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../PSX/GPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Image
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Shared memory
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shared memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ucodestat" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        UCODESTAT
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mac-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MAC control
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MAC control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#host-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Host flags
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interrupts-raised-by-the-microcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Interrupts raised by the microcode
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#startup-and-suspension" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Startup and suspension
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Main loop
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Receive
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Receive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#receive-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Receive header
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transmit-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Transmit completion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mac-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MAC commands
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hle" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HLE
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="microcode-hle">Microcode HLE</h1>
+<p>During <a href="../#mac-initialization">MAC initialization</a>, WL uploads a microcode image to the wireless core. The microcode runs on the core's programmable state machine and handles medium access and transmission, acknowledgements, receive filtering and building the receive header that precedes every frame in the receive FIFO. WL never calls into the microcode directly. It talks to it through shared memory, MAC control, the MAC command register, interrupt status and the FIFOs. A high-level emulation (HLE) of the microcode has to provide these interfaces.</p>
+<h2 id="image">Image</h2>
+<p><code>g_microcode</code> (<code>0x13F29DF0</code>) holds <code>0x5D00</code> bytes, which is 2976 instructions of 8 bytes each. WL uploads it to offset <code>0</code> of microcode memory. On this page, microcode addresses are byte offsets into microcode memory and WL addresses are Starlet virtual addresses in IOS80. Execution starts at <code>reset</code> (<code>0x0000</code>), which clears the GPIO output and jumps to <a href="#startup-and-suspension"><code>init</code></a> (<code>0x4078</code>).</p>
+<p>During startup, the microcode publishes its version in shared memory:</p>
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x000</code></td>
+<td>UCODEREV</td>
+<td><code>0x014B</code></td>
+</tr>
+<tr>
+<td><code>0x001</code></td>
+<td>UCODEPATCH</td>
+<td><code>0x0196</code></td>
+</tr>
+<tr>
+<td><code>0x002</code></td>
+<td>UCODEDATE</td>
+<td><code>0x7915</code></td>
+</tr>
+<tr>
+<td><code>0x003</code></td>
+<td>UCODETIME</td>
+<td><code>0x915D</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="shared-memory">Shared memory</h2>
+<p>Shared memory is an array of 16 bit words. The microcode addresses it by word index, while the host uses byte offsets, so word <code>n</code> sits at byte offset <code>2n</code>. The host selects a word through the object address register and then accesses one halfword of the object data register. <code>write_shm</code> (<code>0x13ED01C4</code>) and <code>read_shm</code> (<code>0x13ED03F4</code>) take an even byte offset and work like this, with the driver argument omitted:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">write_shm</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">write32</span><span class="p">(</span><span class="mh">0x18001160</span><span class="p">,</span><span class="w"> </span><span class="mh">0x00010000</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">offset</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span>
+<span class="w">    </span><span class="n">write16</span><span class="p">((</span><span class="n">offset</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mh">0x18001166</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mh">0x18001164</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">uint16_t</span><span class="w"> </span><span class="nf">read_shm</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">offset</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">write32</span><span class="p">(</span><span class="mh">0x18001160</span><span class="p">,</span><span class="w"> </span><span class="mh">0x00010000</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">offset</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">read16</span><span class="p">((</span><span class="n">offset</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mh">0x18001166</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mh">0x18001164</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The byte representation of each shared memory word is little endian. For example, <code>shm[0x0C0] = 0x0039</code> stores the 16 bit value <code>0x0039</code> at byte offset <code>0x180</code>, represented by bytes <code>39 00</code>.</p>
+<p>These words make up the host interface:</p>
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Byte offset</th>
+<th>Name</th>
+<th>Microcode use</th>
+<th>WL use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x000</code>-<code>0x003</code></td>
+<td><code>0x00</code>-<code>0x06</code></td>
+<td>Version words</td>
+<td>Written by <code>init</code>.</td>
+<td><code>init_mac</code> (<code>0x13EDF148</code>) reads UCODEREV and UCODEPATCH.</td>
+</tr>
+<tr>
+<td><code>0x01A</code></td>
+<td><code>0x34</code></td>
+<td>Receive pad offset</td>
+<td>Added to the receive length of padded frames.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x020</code></td>
+<td><code>0x40</code></td>
+<td>UCODESTAT</td>
+<td>Current <a href="#ucodestat">microcode state</a>.</td>
+<td>Polled after waking the MAC.</td>
+</tr>
+<tr>
+<td><code>0x028</code></td>
+<td><code>0x50</code></td>
+<td>PHYVER</td>
+<td>Bits <code>7:0</code> of the PHY version, written by <code>init</code>.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x029</code></td>
+<td><code>0x52</code></td>
+<td>PHYTYPE</td>
+<td>Bits <code>11:8</code> of the PHY version, written by <code>init</code>.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x044</code>-<code>0x046</code></td>
+<td><code>0x88</code>-<code>0x8C</code></td>
+<td>JSSI 0, 1 and AUX</td>
+<td>Results of the <a href="#mac-commands">noise measurement</a>.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>init_mac</code> (<code>0x13EDF148</code>) reads the version words after its startup wait and combines them into one word, with UCODEREV in the high halfword and UCODEPATCH in the low halfword. The wait also ends on timeout, so these reads can happen before startup has actually finished.</p>
+<h3 id="ucodestat">UCODESTAT</h3>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>State</th>
+<th>Written by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1</code></td>
+<td>Init</td>
+<td><code>init</code>, after clearing shared memory.</td>
+</tr>
+<tr>
+<td><code>3</code></td>
+<td>Suspended</td>
+<td><code>suspend</code> (<code>0x3778</code>), after raising interrupt status bit <code>0</code>.</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>Active</td>
+<td><code>suspend</code> once MAC enabled is set. Also the power save routine (<code>0x42E0</code>) when it wakes.</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td>Sleep</td>
+<td>The power save routine, before its sleep loop.</td>
+</tr>
+</tbody>
+</table>
+<p><code>update_power_save</code> (<code>0x13ED045C</code>) updates MAC control bits <code>25</code> and <code>26</code>. If it sets bit <code>26</code> while bit <code>25</code> was already set and bit <code>26</code> was clear, it waits 40 microseconds and then polls UCODESTAT until it reads a value other than <code>4</code>. It reads at most 27 times with a 10 microsecond delay between reads and gives up after the last read without delaying again. Both waits go through the <a href="../#delays">WL delay helper</a>.</p>
+<h2 id="mac-control">MAC control</h2>
+<p>WL accesses MAC control at backplane address <code>0x18001120</code>. The microcode reads its upper half through register <code>0x041</code>.</p>
+<table>
+<thead>
+<tr>
+<th>MAC control bits</th>
+<th>Microcode use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>MAC enabled. The suspended loop waits for this bit to be set.</td>
+</tr>
+<tr>
+<td><code>23</code></td>
+<td>Keep frames with a bad frame check sequence.</td>
+</tr>
+<tr>
+<td><code>25</code></td>
+<td>Enable the power save path.</td>
+</tr>
+<tr>
+<td><code>26</code></td>
+<td>Request that the MAC stay awake. WL polls UCODESTAT when waking it.</td>
+</tr>
+<tr>
+<td><code>29</code></td>
+<td>Skip writing transmit status entries in <code>finish_tx</code> (<code>0x1F58</code>).</td>
+</tr>
+<tr>
+<td><code>31</code></td>
+<td>Select the G-mode register bank used by noise measurement.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="host-flags">Host flags</h3>
+<table>
+<thead>
+<tr>
+<th>Shared memory word</th>
+<th>Bits</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x02F</code></td>
+<td><code>15</code></td>
+<td>Defer the current transmit status entry.</td>
+</tr>
+<tr>
+<td><code>0x030</code></td>
+<td><code>9</code></td>
+<td>Enable the radio switch check in the main loop.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="interrupts-raised-by-the-microcode">Interrupts raised by the microcode</h2>
+<p>The microcode raises interrupt status bits at <code>0x18001128</code> by writing microcode register <code>0x042</code> for bits <code>15:0</code> and <code>0x043</code> for bits <code>31:16</code>. The routines on this page raise these bits:</p>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Raised by</th>
+<th>Condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td><code>suspend</code> (<code>0x3778</code>)</td>
+<td>Every entry into the suspended state.</td>
+</tr>
+<tr>
+<td><code>7</code></td>
+<td><code>finish_tx</code> (<code>0x1F58</code>)</td>
+<td>Reaching the status reporting path at <code>0x1FB0</code>.</td>
+</tr>
+<tr>
+<td><code>8</code></td>
+<td><code>transfer_rx_header</code> (<code>0x41E0</code>)</td>
+<td>A header transfer completed without overflow.</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="#mac-commands">measurement commands</a> raise their own completion interrupts only once a requested measurement finishes.</p>
+<p>The microcode never raises bit <code>15</code> or bit <code>29</code> itself, even though WL relies on both. Bit <code>15</code> tells WL to <a href="../#mac-interrupts">drain the receive FIFO</a> and bit <code>29</code> tells it to read transmit status. They are separate from bits <code>8</code> and <code>7</code>, which the microcode raises on receive and transmit respectively.</p>
+<h2 id="startup-and-suspension">Startup and suspension</h2>
+<p><code>init</code> runs after reset. The pseudocode below covers its shared memory setup and leaves out internal engine setup. Here and in later examples, helpers and header fields without a firmware address are pseudocode names. <code>read_external()</code> is the microcode's indirect read of a core register, where index <code>0</code> is the PHY version.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 0x4078</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">word</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x7FF</span><span class="p">;</span><span class="w"> </span><span class="n">word</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">word</span><span class="o">--</span><span class="p">)</span>
+<span class="w">        </span><span class="n">shm</span><span class="p">[</span><span class="n">word</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">UCODESTAT</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">phy_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_external</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">PHYVER</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">phy_version</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">;</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">PHYTYPE</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">phy_version</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xF</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="mh">0x0C0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0039</span><span class="p">;</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="mh">0x0C2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0050</span><span class="p">;</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="mh">0x0C4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFC00</span><span class="p">;</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="mh">0x011</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFF00</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">shm</span><span class="p">[</span><span class="n">PHYTYPE</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">microcode_register</span><span class="p">[</span><span class="mh">0x01C</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x0100</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">shm</span><span class="p">[</span><span class="n">PHYVER</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="n">shm</span><span class="p">[</span><span class="mh">0x011</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">UCODEREV</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x014B</span><span class="p">;</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">UCODEPATCH</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0196</span><span class="p">;</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">UCODEDATE</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x7915</span><span class="p">;</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">UCODETIME</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x915D</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">goto</span><span class="w"> </span><span class="n">suspend</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Bits</th>
+<th>Initialization use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PHY version</td>
+<td><code>7:0</code></td>
+<td>Stored in PHYVER.</td>
+</tr>
+<tr>
+<td>PHY version</td>
+<td><code>11:8</code></td>
+<td>Stored in PHYTYPE.</td>
+</tr>
+<tr>
+<td>Microcode register <code>0x01C</code></td>
+<td><code>8</code></td>
+<td>With PHYTYPE <code>2</code> and PHYVER <code>0</code>, selects zero for shared memory word <code>0x011</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Clearing shared memory wipes anything the host wrote to words <code>0x000</code> through <code>0x7FF</code> before startup. WL writes its shared memory configuration after the startup wait in <code>init_mac</code>.</p>
+<p><code>suspend</code> (<code>0x3778</code>) reports the suspended state and waits for the host. <code>resume</code> (<code>0x37B8</code>) follows directly:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 0x3778</span>
+<span class="nl">suspend</span><span class="p">:</span>
+<span class="w">    </span><span class="n">raise_interrupt</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">UCODESTAT</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">mac_enabled</span><span class="p">())</span>
+<span class="w">        </span><span class="p">;</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">UCODESTAT</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+
+<span class="c1">// 0x37B8</span>
+<span class="nl">resume</span><span class="p">:</span>
+<span class="w">    </span><span class="n">reset_rx</span><span class="p">();</span>
+<span class="w">    </span><span class="k">goto</span><span class="w"> </span><span class="n">main_events</span><span class="p">;</span>
+</code></pre></div>
+<p><code>mac_enabled()</code> tests <a href="#mac-control">MAC control bit <code>0</code></a>. The first pass through <code>suspend</code> raises interrupt status bit <code>0</code>, which <code>init_mac</code> polls for after starting the microcode.</p>
+<p><code>reset_rx</code> (<code>0x37F0</code>) clears the microcode's internal branch state and condition latches, resets receive processing and empties the queue of pending probe responses.</p>
+<p>When the main loop sees MAC enabled clear, it branches to <code>mac_disabled</code> (<code>0x3760</code>), which leads into <code>suspend</code>. <a href="../#mac-suspension"><code>suspend_mac</code></a> (<code>0x13ED0EDC</code>) waits for the resulting interrupt before it proceeds. Setting MAC enabled again writes UCODESTAT <code>2</code> and resumes execution.</p>
+<h2 id="main-loop">Main loop</h2>
+<p><code>main_loop</code> (<code>0x0010</code>) checks hardware and software work flags before sleeping. <code>main_events</code> (<code>0x0048</code>) checks for the following work in order. A taken branch can skip the remaining checks.</p>
+<ol>
+<li>The radio hardware switch, when the <a href="#host-flags">host flag</a> enables its check.</li>
+<li>Deferred transmit status and acknowledgements.</li>
+<li>MAC enabled. When it is clear, the loop enters <code>mac_disabled</code>.</li>
+<li>A transmit FIFO flush request.</li>
+<li>Transmit events at <code>tx_events</code> (<code>0x0140</code>).</li>
+<li>Receive events at <code>rx_events</code> (<code>0x0180</code>), including <code>begin_rx</code> (<code>0x27A0</code>) and <code>finish_rx</code> (<code>0x2D88</code>).</li>
+<li>The <a href="#mac-commands">MAC commands</a> for noise measurement and clear channel assessment.</li>
+<li>Beacon interval events and the start of the next transmission.</li>
+</ol>
+<h2 id="receive">Receive</h2>
+<p><code>begin_rx</code> (<code>0x27A0</code>) runs at the start of a frame. It latches the 64 bit timing synchronization function (TSF) timer, builds the receive header's channel word and waits until <code>0x26</code> bytes have arrived or the frame is complete. It then clears both MAC status words. If at least <code>0x10</code> bytes arrived, it reads the frame control field and classifies the frame.</p>
+<p><code>finish_rx</code> (<code>0x2D88</code>) runs at the end of the frame. It records the receive timestamp, checks the frame check sequence, applies address filtering and fills in the remaining header fields. A frame that fails address filtering is dropped before it reaches the FIFO. A frame with a bad frame check sequence is only kept when <a href="#mac-control">MAC control bit <code>23</code></a> is set. It is then marked with MAC status bit <code>0</code>, which makes <a href="../#pio-receive-fifo"><code>pio_receive</code></a> (<code>0x13F0D284</code>) discard it.</p>
+<p>The normal header path starts at <code>0x3090</code>. This excerpt shows the length and PHY status writes. Internal receive state can still divert execution before the header transfer.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// finish_rx, normal header construction</span>
+<span class="n">shm</span><span class="p">[</span><span class="n">RXHDR_LENGTH</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rx_byte_count</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">padding_inserted</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">RXHDR_LENGTH</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">shm</span><span class="p">[</span><span class="mh">0x01A</span><span class="p">];</span>
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">RXHDR_MAC_STATUS_LOW</span><span class="p">]</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="mh">0x0004</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">shm</span><span class="p">[</span><span class="n">RXHDR_PHY_STATUS_0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">phy_status</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="n">shm</span><span class="p">[</span><span class="n">RXHDR_PHY_STATUS_1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">phy_status</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="n">shm</span><span class="p">[</span><span class="n">RXHDR_PHY_STATUS_2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">phy_status</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="n">shm</span><span class="p">[</span><span class="n">RXHDR_PHY_STATUS_3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">phy_status</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="n">transfer_rx_header</span><span class="p">();</span>
+</code></pre></div>
+<p><code>transfer_rx_header</code> (<code>0x41E0</code>) hands the prepared receive header to the receive engine without the frame body. It returns immediately if bit <code>9</code> of internal register <code>r45</code> is set. Otherwise it points the engine at the 10 word header in shared memory, starts the transfer and waits for the busy condition to set and then clear. It checks for receive overflow throughout this wait and once more before raising interrupt status bit <code>8</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">transfer_rx_header</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">skip_rx_header</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">rx_header_source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x548</span><span class="p">;</span>
+<span class="w">    </span><span class="n">rx_header_words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="n">rx_header_control</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">receive_overflow_pending</span><span class="p">())</span>
+<span class="w">            </span><span class="k">goto</span><span class="w"> </span><span class="n">overflow</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">header_transfer_busy</span><span class="p">());</span>
+<span class="w">    </span><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">receive_overflow_pending</span><span class="p">())</span>
+<span class="w">            </span><span class="k">goto</span><span class="w"> </span><span class="n">overflow</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">header_transfer_busy</span><span class="p">());</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">receive_overflow_pending</span><span class="p">())</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">overflow</span><span class="p">;</span>
+<span class="w">    </span><span class="n">raise_interrupt</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+
+<span class="nl">overflow</span><span class="p">:</span>
+<span class="w">    </span><span class="n">handle_receive_overflow</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The pseudocode names map to these internal fields:</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Bits</th>
+<th>Pseudocode field</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>r45</code></td>
+<td><code>9</code></td>
+<td><code>skip_rx_header</code></td>
+<td>Return without transferring a header or raising bit <code>8</code>.</td>
+</tr>
+<tr>
+<td><code>0x007</code></td>
+<td><code>15:0</code></td>
+<td><code>rx_header_source</code></td>
+<td>Shared memory word index <code>0x548</code>.</td>
+</tr>
+<tr>
+<td><code>0x008</code></td>
+<td><code>15:0</code></td>
+<td><code>rx_header_words</code></td>
+<td>Header length of 10 words.</td>
+</tr>
+<tr>
+<td><code>0x004</code></td>
+<td><code>1:0</code></td>
+<td><code>rx_header_control</code></td>
+<td>Set to <code>1</code> to begin the header transfer.</td>
+</tr>
+</tbody>
+</table>
+<p><code>header_transfer_busy()</code> tests microcode condition <code>0x0B</code> and <code>receive_overflow_pending()</code> tests condition <code>0x0D</code>. <code>handle_receive_overflow()</code> is a branch to <code>rx_overflow</code> (<code>0x3728</code>), which leaves the helper without raising the interrupt or returning normally.</p>
+<h3 id="receive-header">Receive header</h3>
+<p>The header occupies shared memory words <code>0x548</code> to <code>0x551</code> and forms the first 20 bytes of the <a href="../#receive-record">receive record</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Record offset</th>
+<th>Field</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x548</code></td>
+<td><code>0x00</code></td>
+<td>Frame size</td>
+<td>Received byte count, plus the receive pad offset for padded frames.</td>
+</tr>
+<tr>
+<td><code>0x54A</code></td>
+<td><code>0x04</code></td>
+<td>PHY status 0</td>
+<td>PHY receive status register 0 (microcode register <code>0x009</code>).</td>
+</tr>
+<tr>
+<td><code>0x54B</code></td>
+<td><code>0x06</code></td>
+<td>PHY status 1</td>
+<td>PHY receive status register 1 (microcode register <code>0x00A</code>).</td>
+</tr>
+<tr>
+<td><code>0x54C</code></td>
+<td><code>0x08</code></td>
+<td>PHY status 2</td>
+<td>PHY receive status register 2 (microcode register <code>0x01A</code>).</td>
+</tr>
+<tr>
+<td><code>0x54D</code></td>
+<td><code>0x0A</code></td>
+<td>PHY status 3</td>
+<td>PHY receive status register 3 (microcode register <code>0x01B</code>).</td>
+</tr>
+<tr>
+<td><code>0x54E</code></td>
+<td><code>0x0C</code></td>
+<td>MAC status</td>
+<td>See below.</td>
+</tr>
+<tr>
+<td><code>0x550</code></td>
+<td><code>0x10</code></td>
+<td>Receive time</td>
+<td>Low 16 bits of the TSF timer latched at reception (microcode register <code>0x11F</code>).</td>
+</tr>
+<tr>
+<td><code>0x551</code></td>
+<td><code>0x12</code></td>
+<td>Channel word</td>
+<td>See below.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>MAC status bits</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>The frame check sequence did not match.</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>The microcode started a response to this frame.</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>Padding was inserted before the frame data.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Channel word bits</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1:0</code></td>
+<td>Bits <code>1:0</code> of PHYTYPE.</td>
+</tr>
+<tr>
+<td><code>9:2</code></td>
+<td>Bits <code>7:0</code> of external register <code>0x08</code>.</td>
+</tr>
+<tr>
+<td><code>14:10</code></td>
+<td>Bits <code>4:0</code> of external register <code>0x25</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="transmit-completion">Transmit completion</h2>
+<p><code>finish_tx</code> (<code>0x1F58</code>) handles the frame at the head of the current transmit FIFO. On the status reporting path, it sets status bit <code>6</code> if the frame has to stay at the head and otherwise asks for it to be released. It then raises interrupt status bit <code>7</code>. <a href="#mac-control">MAC control bit <code>29</code></a> skips the status entry writes but not the interrupt.</p>
+<p><code>count_tx_attempt</code> (<code>0x4248</code>) increments one of the status word's two 4 bit attempt counters, selected by the transmit state. Each counter wraps within its 4 bits. Probe responses take a separate path that increments shared memory word <code>0x560</code> instead.</p>
+<p>At <code>0x1FF8</code>, <code>finish_tx</code> copies bit <code>0</code> of the internal status into bit <code>1</code> of the status entry. Before handling the current entry, it calls <code>report_saved_tx_status</code> (<code>0x4B10</code>) to write out any previously saved one. If <a href="#host-flags">host flag</a> <code>0x02F</code> bit <code>15</code> is set, the current entry is saved in shared memory for that helper to report later. Otherwise it is written immediately:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">uint16_t</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">header</span><span class="p">.</span><span class="n">status</span><span class="p">;</span>
+<span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="mh">0x0002</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">((</span><span class="n">status</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x0001</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="n">report_saved_tx_status</span><span class="p">();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">defer_tx_status</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">save_tx_status</span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="mh">0x0001</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">tx_status</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">header</span><span class="p">.</span><span class="n">word_28</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tx_status</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">header</span><span class="p">.</span><span class="n">word_27</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tx_status</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">header</span><span class="p">.</span><span class="n">word_24</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tx_status</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mh">0x0001</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>save_tx_status()</code> stands for the shared memory writes and setting the pending flag. The <code>header.word_*</code> suffixes are word offsets into the microcode's copy of the current transmit header, where the status word sits at offset <code>0x25</code>. An entry goes to these registers when written immediately and to these shared memory words when saved:</p>
+<table>
+<thead>
+<tr>
+<th>Microcode register</th>
+<th>Value</th>
+<th>Saved shared memory word</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x08F</code></td>
+<td>Header word <code>0x28</code></td>
+<td><code>0x564</code></td>
+</tr>
+<tr>
+<td><code>0x08E</code></td>
+<td>Header word <code>0x27</code></td>
+<td><code>0x563</code></td>
+</tr>
+<tr>
+<td><code>0x08D</code></td>
+<td>Header word <code>0x24</code></td>
+<td><code>0x562</code></td>
+</tr>
+<tr>
+<td><code>0x08C</code></td>
+<td>Status with valid bit set</td>
+<td><code>0x561</code> with bit <code>0</code> set</td>
+</tr>
+</tbody>
+</table>
+<p><code>report_saved_tx_status</code> does nothing if <code>r45</code> bit <code>0</code> is clear. Otherwise it writes the saved words to the registers in the order above and clears the pending flag.</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Bits</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>r45</code></td>
+<td><code>0</code></td>
+<td>A saved transmit status entry is pending.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Status bits</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>15:12</code></td>
+<td>Attempt counter.</td>
+</tr>
+<tr>
+<td><code>11:8</code></td>
+<td>Attempt counter.</td>
+</tr>
+<tr>
+<td><code>6</code></td>
+<td>The frame stays at the head of its FIFO.</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Copy of bit <code>0</code> of the internal status.</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>Valid. Set when the entry is reported.</td>
+</tr>
+</tbody>
+</table>
+<p>On interrupt status bit <code>29</code>, WL's <code>process_mac_interrupts</code> (<code>0x13EF468C</code>) reads transmit status entries. For each one, it reads <code>0x18001170</code> and stops if bit <code>0</code> is clear. Otherwise it reads the entry from <code>0x18001174</code> and processes it. With a nonzero work limit argument, it reads at most eight entries per call.</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Bits</th>
+<th>WL use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x18001170</code></td>
+<td><code>0</code></td>
+<td>Continue reading a status entry when set. Stop when clear.</td>
+</tr>
+</tbody>
+</table>
+<p>The two reads provide these fields to WL's <code>process_transmit_status</code> (<code>0x13EE17AC</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Bits</th>
+<th>Field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x18001170</code></td>
+<td><code>31:16</code></td>
+<td>Frame ID from the <a href="../#frame-transmission">transmit header</a>.</td>
+</tr>
+<tr>
+<td><code>0x18001170</code></td>
+<td><code>15:0</code></td>
+<td>Transmit status.</td>
+</tr>
+<tr>
+<td><code>0x18001174</code></td>
+<td><code>15:0</code></td>
+<td>Sequence value.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Transmit status bits</th>
+<th>WL use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>15:12</code></td>
+<td>Frame transmit attempt count.</td>
+</tr>
+<tr>
+<td><code>6</code></td>
+<td>Intermediate report. WL retains the queued packet.</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Acknowledged transmission.</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>Valid entry.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mac-commands">MAC commands</h2>
+<p>The main loop reads host commands from the MAC command register (microcode register <code>0x047</code>). Each measurement routine below returns immediately unless its command bit is set. When the measurement completes, it writes the bit back to clear it and raises the matching interrupt.</p>
+<table>
+<thead>
+<tr>
+<th>Command bit</th>
+<th>Routine</th>
+<th>Completion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>3</code></td>
+<td><code>measure_cca</code> (<code>0x54F8</code>)</td>
+<td>Clears bit <code>3</code> and raises interrupt status bit <code>17</code>.</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td><code>measure_noise</code> (<code>0x5328</code>)</td>
+<td>Clears bit <code>4</code> and raises interrupt status bit <code>18</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>measure_noise</code> (<code>0x5328</code>) measures background noise. The pseudocode shows the path for PHY types other than <code>0</code>. All shared memory words and TSF timer halves are unsigned 16 bit values. <code>wait_for_noise_sample(us, ignore_ifs)</code> waits until the low half of the TSF timer reaches its starting value plus <code>us</code>, modulo <code>65536</code>. It returns false early if condition <code>0x20</code> is set or if interframe space status bit <code>11</code> is set while <code>ignore_ifs</code> is false.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">measure_noise</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">mac_command</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x0010</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">noise_pending</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">noise_pending</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">        </span><span class="n">read_tsf_low</span><span class="p">();</span>
+<span class="w">        </span><span class="n">shm</span><span class="p">[</span><span class="mh">0x569</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_tsf_high</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">read_tsf_low</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">elapsed_high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_tsf_high</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">shm</span><span class="p">[</span><span class="mh">0x569</span><span class="p">];</span>
+
+<span class="w">    </span><span class="n">shm</span><span class="p">[</span><span class="n">JSSI_AUX</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">read_external</span><span class="p">(</span><span class="mh">0x08</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">)</span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="p">((</span><span class="n">read_external</span><span class="p">(</span><span class="n">gmode</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mh">0x45F</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mh">0x05F</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">word</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x044</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">wait_for_noise_sample</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">elapsed_high</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span>
+<span class="w">            </span><span class="k">return</span><span class="p">;</span>
+<span class="w">        </span><span class="n">shm</span><span class="p">[</span><span class="n">word</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">shm</span><span class="p">[</span><span class="n">word</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="mh">0x01FF</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">read_external</span><span class="p">(</span><span class="mh">0x27</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x01FF</span><span class="p">);</span>
+<span class="w">        </span><span class="n">shm</span><span class="p">[</span><span class="n">word</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rotate_right_16</span><span class="p">(</span><span class="n">shm</span><span class="p">[</span><span class="n">word</span><span class="p">],</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<span class="w">        </span><span class="n">word</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">elapsed_high</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">wait_for_noise_sample</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">mac_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0010</span><span class="p">;</span>
+<span class="w">    </span><span class="n">raise_interrupt</span><span class="p">(</span><span class="mi">18</span><span class="p">);</span>
+<span class="w">    </span><span class="n">noise_pending</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The four samples alternate between JSSI 0 and JSSI 1. <code>gmode</code> is <a href="#mac-control">MAC control bit <code>31</code></a> as latched when the microcode left <code>suspend</code>. The final 24 microsecond wait is skipped when <code>elapsed_high</code>, computed once on entry, is at least 2. An interrupted pass leaves the command bit and pending flag set, so the next call takes a fresh set of samples while keeping the original timestamp.</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Bits</th>
+<th>Pseudocode field or use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>r20</code></td>
+<td><code>3</code></td>
+<td><code>noise_pending</code>, retaining the initial timestamp across interrupted passes.</td>
+</tr>
+<tr>
+<td><code>0x148</code></td>
+<td><code>11</code></td>
+<td>Interframe space condition that aborts a wait unless ignored as described above.</td>
+</tr>
+</tbody>
+</table>
+<p><code>measure_cca</code> (<code>0x54F8</code>) performs clear channel assessment. On completion it writes <code>0x4000</code> to microcode register <code>0x133</code>, updates registers <code>0x136</code> and <code>0x137</code>, clears command bit <code>3</code> and raises interrupt status bit <code>17</code>. It does not modify the JSSI words.</p>
+<h2 id="hle">HLE</h2>
+<p>An HLE has to provide the following behavior to WL and keep the microcode's own interrupts separate from the FIFO notifications:</p>
+<table>
+<thead>
+<tr>
+<th>Routine</th>
+<th>Address</th>
+<th>Behavior exposed to WL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>init</code></td>
+<td><code>0x4078</code></td>
+<td>Clear shared memory, publish the version words and PHY identity, then enter <code>suspend</code>.</td>
+</tr>
+<tr>
+<td><code>suspend</code>, <code>resume</code></td>
+<td><code>0x3778</code>, <code>0x37B8</code></td>
+<td>Raise interrupt bit <code>0</code> and write UCODESTAT <code>3</code> when suspending. Write UCODESTAT <code>2</code> on resume.</td>
+</tr>
+<tr>
+<td><code>transfer_rx_header</code></td>
+<td><code>0x41E0</code></td>
+<td>Supply the receive header and raise bit <code>8</code> only once its transfer completes. WL drains receive records on bit <code>15</code>.</td>
+</tr>
+<tr>
+<td><code>finish_tx</code></td>
+<td><code>0x1F58</code></td>
+<td><a href="#transmit-completion">Report transmit status</a> and raise bit <code>7</code>. WL reads the status on interrupt bit <code>29</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="../#hle-frame-reception">HLE frame reception</a> describes how to deliver scan results through the receive FIFO.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../../../..","features":["navigation.top","search.highlight","search.suggest","content.code.annotate","content.code.copy","content.tabs.link","header.autohide","palette.toggle","navigation.sections","navigation.instant","navigation.indexes"],"redirect":null,"search":"../../../../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.a2388154.min.js"></script>
+      
+    
+  </body>
+</html>

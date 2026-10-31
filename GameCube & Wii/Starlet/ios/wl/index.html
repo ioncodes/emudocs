@@ -1,0 +1,2943 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://emudocs.layle.dev/GameCube%20%26%20Wii/Starlet/ios/wl/">
+      
+      
+      
+        <link rel="prev" href="../so/">
+      
+      
+        <link rel="next" href="./microcode-hle/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.71">
+    
+    
+      
+        <title>WL - emudocs</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../../assets/stylesheets/modern/main.e442bf79.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="emudocs" class="md-header__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            emudocs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              WL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="emudocs" class="md-nav__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    emudocs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Emulator Field Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GBA
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GBA
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../GBA/PPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GameCube & Wii
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GameCube & Wii
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../GX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GX
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Memory
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Starlet
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Starlet
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../boot0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot0
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../boot1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot1
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../boot2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot2
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bootmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BootMii
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../homebrew-channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Homebrew Channel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hackmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HackMii Installer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nand/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NAND
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seeprom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SEEPROM
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  IOS
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_10" id="__nav_3_4_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_10_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_4_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  IOS
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ohci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ehci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  EHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SO
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="././" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_3_4_10_6" id="__nav_3_4_10_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_10_6_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_4_10_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  WL
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./microcode-hle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Microcode HLE
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ncd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NCD
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PSX
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  PSX
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PSX/BIOS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BIOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PSX/Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../PSX/GPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sdio-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SDIO initialization
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Host setup
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-completion-and-initialization-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Command completion and initialization failure
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command completion and initialization failure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmd5-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CMD5 response
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmd3-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CMD3 response
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmd7-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CMD7 response
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmd52-register-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CMD52 register access
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmd53-data-reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CMD53 data reads
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmd53-data-writes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CMD53 data writes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backplane-access-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Backplane access helpers
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#card-interrupt-masking" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Card interrupt masking
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phy-and-radio-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PHY and radio identification
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PHY and radio identification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#indirect-phy-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Indirect PHY access
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wireless-core-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Wireless core reset
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mac-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MAC initialization
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MAC initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hle-microcode-upload-shortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HLE microcode upload shortcut
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mac-suspension" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MAC suspension
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mac-interrupts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MAC interrupts
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Channel selection
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pio-receive-fifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PIO receive FIFO
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PIO receive FIFO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#receive-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Receive record
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scan-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Scan results
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#joining-an-open-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Joining an open network
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signal-strength" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Signal strength
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hle-frame-reception" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HLE frame reception
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frame-transmission" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Frame transmission
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frame transmission">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fifo-capacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        FIFO capacity
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delays" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Delays
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="wl">WL</h1>
+<h2 id="sdio-initialization">SDIO initialization</h2>
+<p>The WL wireless driver talks to the internal Wi-Fi chip through the SDIO host controller at <code>0x0D080000</code>. In SDIO terms the chip is the card, so card selection, card interrupts and Card Inserted on this page all refer to it rather than the removable SD card.</p>
+<p><code>init_sdio_card</code> (<code>0x13F1DD90</code>) reads the 32 bit Present State register at <code>0x0D080024</code> and checks Card Inserted before continuing initialization.</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>16</code></td>
+<td>Card Inserted</td>
+<td><code>1</code> when the Wi-Fi chip is present. <code>0</code> stops initialization.</td>
+</tr>
+</tbody>
+</table>
+<p>When Card Inserted is clear, the routine returns <code>1</code>. <code>attach_sdio_host</code> (<code>0x13F1E9D4</code>) retries initialization once. If both attempts fail, it releases the host object and returns a null pointer. This failure propagates through the attachment routines.</p>
+<p><code>wireless_worker</code> (<code>0x13F0A4E0</code>) does not check the returned driver pointer before reading its message queue handle at offset <code>0x1C8</code>. It calls <code>receive_message</code> (<code>0x13F2869C</code>) with that handle and retries immediately whenever the call returns a nonzero result.</p>
+<h2 id="host-setup">Host setup</h2>
+<p>Initialization checks the Capabilities register at <code>0x0D080040</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>5:0</code></td>
+<td>Timeout Clock Frequency</td>
+<td>Must equal <code>48</code> for clock setup to proceed.</td>
+</tr>
+<tr>
+<td><code>22</code></td>
+<td>SDMA Support</td>
+<td>Must be set for initialization to proceed.</td>
+</tr>
+<tr>
+<td><code>24</code></td>
+<td>3.3 V Support</td>
+<td>Selects the 3.3 V power encoding when set.</td>
+</tr>
+<tr>
+<td><code>25</code></td>
+<td>3.0 V Support</td>
+<td>Selects the 3.0 V power encoding when bit 24 is clear.</td>
+</tr>
+<tr>
+<td><code>26</code></td>
+<td>1.8 V Support</td>
+<td>Selects the 1.8 V power encoding when bits 24 and 25 are clear.</td>
+</tr>
+</tbody>
+</table>
+<p><code>reset_host</code> (<code>0x13F1D534</code>) requests a card reset with CMD52, writing <code>8</code> to function 0 register <code>6</code>. It then writes all three host reset bits and polls until they clear.</p>
+<p>The word at <code>0x0D08002C</code> contains the clock controls and reset requests used by WL:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Internal Clock Enable</td>
+<td>Set before polling clock stability.</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Internal Clock Stable</td>
+<td>Polled until set before enabling the card clock.</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>SD Clock Enable</td>
+<td>Set after the internal clock becomes stable.</td>
+</tr>
+<tr>
+<td><code>19:16</code></td>
+<td>Data Timeout Counter Value</td>
+<td>Written with <code>14</code> after card selection.</td>
+</tr>
+<tr>
+<td><code>15:8</code></td>
+<td>SDCLK Frequency Select</td>
+<td>Written with the clock divider encoding.</td>
+</tr>
+<tr>
+<td><code>24</code></td>
+<td>Software Reset For All</td>
+<td>Set during host reset.</td>
+</tr>
+<tr>
+<td><code>25</code></td>
+<td>Software Reset For CMD Line</td>
+<td>Set during host reset.</td>
+</tr>
+<tr>
+<td><code>26</code></td>
+<td>Software Reset For DAT Line</td>
+<td>Set during host reset.</td>
+</tr>
+</tbody>
+</table>
+<p>After enabling the clock, WL selects a supported voltage and enables bus power through the word at <code>0x0D080028</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1</code></td>
+<td>Data Transfer Width</td>
+<td>Set for a 4 bit bus.</td>
+</tr>
+<tr>
+<td><code>8</code></td>
+<td>SD Bus Power</td>
+<td>Set to enable power.</td>
+</tr>
+<tr>
+<td><code>11:9</code></td>
+<td>SD Bus Voltage Select</td>
+<td><code>5</code> selects 1.8 V, <code>6</code> selects 3.0 V and <code>7</code> selects 3.3 V.</td>
+</tr>
+</tbody>
+</table>
+<p>It then calls <code>delay</code> (<code>0x13F0AA28</code>) for 50,000 microseconds. This delay creates a timer and waits for a message on its completion queue before initialization continues.</p>
+<h2 id="command-completion-and-initialization-failure">Command completion and initialization failure</h2>
+<p>After the power delay, initialization submits CMD5 with argument zero through <code>send_command</code> (<code>0x13F1CF58</code>). This writes <code>0x05020000</code> to <code>0x0D08000C</code> and polls the lower halfword of the interrupt status register at <code>0x0D080030</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1</code></td>
+<td>Transfer Complete</td>
+<td>Wait for it after writing CMD53 data.</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td>Buffer Write Ready</td>
+<td>Wait for it before writing CMD53 data to <code>0x0D080020</code>.</td>
+</tr>
+<tr>
+<td><code>5</code></td>
+<td>Buffer Read Ready</td>
+<td>Wait for it before reading CMD53 data from <code>0x0D080020</code>.</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>Command completion</td>
+<td>Wait for it to become set then acknowledge it by writing <code>1</code>.</td>
+</tr>
+<tr>
+<td><code>31:16</code></td>
+<td>Error status</td>
+<td>Any nonzero value makes the completed command fail.</td>
+</tr>
+</tbody>
+</table>
+<p>The polling counter starts at 5000 and is decremented after each read. If it reaches zero, the routine requests a command-line reset through the <a href="#host-setup">clock and reset register</a> and returns <code>1</code>. A command timeout makes card initialization fail. The attachment routine retries initialization once before returning a null pointer.</p>
+<p>After completion, the routine checks error status. A nonzero error status causes it to return <code>1</code>. With no error, <code>probe_card</code> (<code>0x13F1DC8C</code>) reads the CMD5 response. A zero response causes another CMD5 attempt. After 200 unsuccessful attempts, the probe returns <code>1</code> and initialization fails.</p>
+<p>The worker's unchecked driver pointer then causes the <a href="#sdio-initialization">receive loop</a> to use a queue handle read from address <code>0x000001C8</code>. If that handle is rejected, the worker immediately retries the receive call without blocking.</p>
+<h3 id="cmd5-response">CMD5 response</h3>
+<p>The CMD5 response is read from <code>0x0D080010</code>. The probe and initialization routines use these fields:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>31</code></td>
+<td>Ready</td>
+<td>Repeat CMD5 while clear. Return success when set.</td>
+</tr>
+<tr>
+<td><code>30:28</code></td>
+<td>I/O function count</td>
+<td>Require a nonzero count before continuing initialization.</td>
+</tr>
+<tr>
+<td><code>21:20</code></td>
+<td>Voltage window bits</td>
+<td>If either is set, submit CMD5 again with argument <code>0x00FFF000</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>After the probe succeeds and the function count is nonzero, initialization proceeds to CMD3 with argument zero.</p>
+<h3 id="cmd3-response">CMD3 response</h3>
+<p>CMD3 publishes the card's relative address in its R6 response. WL submits it by writing <code>0x03020000</code> to <code>0x0D08000C</code> with argument zero. After command completion, it reads the response from <code>0x0D080010</code> and checks these fields:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>31:16</code></td>
+<td>Relative card address</td>
+<td>Save this value and use it in the upper halfword of the CMD7 argument.</td>
+</tr>
+<tr>
+<td><code>15</code></td>
+<td>Command CRC error</td>
+<td>Fail initialization when set.</td>
+</tr>
+<tr>
+<td><code>14</code></td>
+<td>Illegal command</td>
+<td>Fail initialization when set.</td>
+</tr>
+<tr>
+<td><code>13</code></td>
+<td>Error</td>
+<td>Fail initialization when set.</td>
+</tr>
+</tbody>
+</table>
+<p>When the error fields are clear, initialization sends CMD7 to select the published address.</p>
+<h3 id="cmd7-response">CMD7 response</h3>
+<p>WL selects the card by writing <code>0x071A0000</code> to <code>0x0D08000C</code> with the relative card address in the upper halfword of the argument. After completion, it requires the response at <code>0x0D080010</code> to equal <code>0x00001E00</code>. Any other value makes initialization fail.</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Required value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>12:9</code></td>
+<td>Current state</td>
+<td><code>15</code>, indicating an I/O-only card</td>
+</tr>
+</tbody>
+</table>
+<p>The comparison covers the entire response word, so every bit outside the current-state field must be clear.</p>
+<h3 id="cmd52-register-access">CMD52 register access</h3>
+<p><code>read_card</code> (<code>0x13F1D620</code>) uses CMD52 for single byte reads and accesses to function 0. <code>write_card</code> (<code>0x13F1D3AC</code>) uses CMD52 for the corresponding writes. The host command word is <code>0x341A0000</code> after card selection. The argument at <code>0x0D080008</code> has these fields:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>31</code></td>
+<td>Write</td>
+<td><code>1</code> writes a byte. <code>0</code> reads a byte.</td>
+</tr>
+<tr>
+<td><code>30:28</code></td>
+<td>Function</td>
+<td>Selects the I/O function.</td>
+</tr>
+<tr>
+<td><code>27</code></td>
+<td>Read after write</td>
+<td>Requests the register value after a write. WL clears this field in these helpers.</td>
+</tr>
+<tr>
+<td><code>25:9</code></td>
+<td>Register address</td>
+<td>Selects the byte within the function.</td>
+</tr>
+<tr>
+<td><code>7:0</code></td>
+<td>Data</td>
+<td>Byte to write.</td>
+</tr>
+</tbody>
+</table>
+<p>The read helper takes the returned byte from bits <code>7:0</code> of the response at <code>0x0D080010</code>.</p>
+<p>After CMD7 succeeds, initialization performs these accesses through function 0:</p>
+<ol>
+<li><code>read_cis_pointer</code> (<code>0x13F1DD10</code>) reads four bytes starting at <code>0x09</code> for the common Card Information Structure (CIS) pointer. It repeats this at <code>function * 0x100 + 0x09</code> for each reported function. It interprets the bytes in little endian order and retains the low 17 bits.</li>
+<li>It writes <code>0x02</code> to I/O Enable at <code>0x02</code> to enable function 1.</li>
+<li>For a 4 bit bus, it reads Bus Interface Control at <code>0x07</code>, replaces the width field with <code>2</code> and writes it back. It also sets Data Transfer Width in the host register.</li>
+<li><code>set_block_size</code> (<code>0x13F1CEEC</code>) writes the low and high bytes of function 1's block size to <code>0x110</code> and <code>0x111</code>. Initialization selects 64 bytes.</li>
+<li>With one reported function, it writes <code>0x03</code> to Interrupt Enable at <code>0x04</code>.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Function 0 address</th>
+<th>Bits</th>
+<th>Field</th>
+<th>Value used during initialization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x02</code></td>
+<td><code>1</code></td>
+<td>Function 1 enable</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>0x04</code></td>
+<td><code>1</code></td>
+<td>Function 1 interrupt enable</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>0x04</code></td>
+<td><code>0</code></td>
+<td>Master interrupt enable</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>0x07</code></td>
+<td><code>1:0</code></td>
+<td>Bus width</td>
+<td><code>2</code> selects 4 bits.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cmd53-data-reads">CMD53 data reads</h3>
+<p>For reads larger than one byte from a nonzero function, <code>read_card</code> submits CMD53 in byte mode with address increment enabled. The argument contains:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>31</code></td>
+<td>Write</td>
+<td>Clear for reads.</td>
+</tr>
+<tr>
+<td><code>30:28</code></td>
+<td>Function</td>
+<td>Select the requested function.</td>
+</tr>
+<tr>
+<td><code>27</code></td>
+<td>Block mode</td>
+<td>Clear for byte mode.</td>
+</tr>
+<tr>
+<td><code>26</code></td>
+<td>Address increment</td>
+<td>Set.</td>
+</tr>
+<tr>
+<td><code>25:9</code></td>
+<td>Register address</td>
+<td>Select the first byte.</td>
+</tr>
+<tr>
+<td><code>8:0</code></td>
+<td>Count</td>
+<td>Requested byte count.</td>
+</tr>
+</tbody>
+</table>
+<p>For a 4 byte read, the host block size is <code>4</code> and the block count is <code>1</code> in the low and high halfwords of <code>0x0D080004</code>. The host command word is <code>0x353A0010</code>.</p>
+<p>After command completion, the polling path waits for Buffer Read Ready in the <a href="#command-completion-and-initialization-failure">interrupt status register</a>. It uses a counter initialized to 5000 and returns <code>1</code> if that counter expires. Once ready, it reads the word at <code>0x0D080020</code>. It then reads normal interrupt status and acknowledges the set flags except Card Interrupt.</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>8</code></td>
+<td>Card Interrupt</td>
+<td>Excluded from the acknowledgement after a data read.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cmd53-data-writes">CMD53 data writes</h3>
+<p>For writes larger than one byte to a nonzero function, <code>write_card</code> submits CMD53 with the same byte count and address fields as a read. It sets the Write field. For a 4 byte write, the host command word is <code>0x353A0000</code>.</p>
+<p>After command completion, the polling path waits for Buffer Write Ready. It uses a counter initialized to 5000 and returns <code>1</code> if that counter expires. It acknowledges Buffer Write Ready before writing the data at <code>0x0D080020</code>. A 2 byte write uses the low halfword of that register. <code>write_host_halfword</code> (<code>0x13F1CB18</code>) does this as a 32 bit read-modify-write: it reads Buffer Data, replaces the low 16 bits and writes the whole word back. Buffer Data is therefore read in the middle of a write transfer.</p>
+<p>The routine then polls Transfer Complete with another counter initialized to 5000. It leaves this loop when completion arrives or the counter expires. It acknowledges the set normal status flags except Card Interrupt and returns <code>0</code>, including when this second counter expires.</p>
+<h3 id="backplane-access-helpers">Backplane access helpers</h3>
+<p><code>read_backplane</code> (<code>0x13F1C8C4</code>) and <code>write_backplane</code> (<code>0x13F1C958</code>) subtract <code>0x18000000</code> from the chip address and access SDIO function 1 through <code>transfer_card</code> (<code>0x13F1D7AC</code>). A successful read returns the low 8, 16 or 32 bits according to the requested size. A failed read returns <code>0xFFFFFFFF</code>. The write helper returns <code>0</code> on success or <code>-1</code> on failure.</p>
+<p>For CMD53 accesses, the card helpers store the transfer size at byte offset <code>0x64</code> in the host object. The byte at <code>0x3A</code> selects polling. With polling enabled, a successful read stores its result as a 32 bit word at the supplied output pointer. A 16 bit result occupies the low halfword of that word.</p>
+<p><code>transfer_card</code> reverses the four bytes of the data word for chip addresses <code>0x18001304</code>, <code>0x1800130C</code>, <code>0x18001314</code>, <code>0x1800131C</code>, <code>0x18001324</code>, <code>0x1800132C</code>, <code>0x18001334</code>, <code>0x1800133C</code>, <code>0x18001344</code>, <code>0x1800134C</code>, <code>0x18001354</code> and <code>0x1800135C</code>. It changes the caller's data word in place before a write or after a read.</p>
+<h3 id="card-interrupt-masking">Card interrupt masking</h3>
+<p><code>begin_card_access</code> (<code>0x13F1CE48</code>) masks the card interrupt then increments the host object's access depth. <code>end_card_access</code> (<code>0x13F1CE70</code>) decrements the depth. If the result is zero and interrupts are enabled in the host object, it unmasks the card interrupt.</p>
+<p>The host object uses native big endian fields:</p>
+<table>
+<thead>
+<tr>
+<th>Byte offset</th>
+<th>Size</th>
+<th>Field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0C</code></td>
+<td>4 bytes</td>
+<td>Virtual address of the host register block</td>
+</tr>
+<tr>
+<td><code>0x10</code></td>
+<td>4 bytes</td>
+<td>Access depth</td>
+</tr>
+<tr>
+<td><code>0x14</code></td>
+<td>1 byte</td>
+<td>Nonzero requests interrupt unmasking when the access depth returns to zero</td>
+</tr>
+<tr>
+<td><code>0x28</code></td>
+<td>2 bytes</td>
+<td>Normal interrupt signal mask</td>
+</tr>
+<tr>
+<td><code>0x3A</code></td>
+<td>1 byte</td>
+<td>Nonzero selects polling for command and data completion</td>
+</tr>
+<tr>
+<td><code>0x3D</code></td>
+<td>1 byte</td>
+<td>Nonzero enables the mask/unmask register writes</td>
+</tr>
+<tr>
+<td><code>0x64</code></td>
+<td>4 bytes</td>
+<td>Transfer size in bytes</td>
+</tr>
+</tbody>
+</table>
+<p><code>mask_card_interrupt</code> (<code>0x13F1CC0C</code>) and <code>unmask_card_interrupt</code> (<code>0x13F1CBE8</code>) return without changing the mask when the byte at <code>0x3D</code> is zero. Otherwise they update the Card Interrupt field in the stored mask then write it to the low halfword of Signal Enable at <code>0x0D080038</code>, preserving the upper halfword.</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>8</code></td>
+<td>Card Interrupt</td>
+<td>Clear to mask and set to unmask the card interrupt signal.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="phy-and-radio-identification">PHY and radio identification</h2>
+<p><code>attach_phy</code> (<code>0x13EFD5BC</code>) reads the physical-layer hardware's version and radio identity before returning a PHY object. The following offsets are relative to the wireless core's base on the chip's internal backplane. WL accesses these registers through SDIO function 1.</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Width</th>
+<th>Firmware access</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x3E0</code></td>
+<td>16 bits</td>
+<td>Read</td>
+<td>PHY version</td>
+</tr>
+<tr>
+<td><code>0x3F6</code></td>
+<td>16 bits</td>
+<td>Write</td>
+<td>Radio register selector</td>
+</tr>
+<tr>
+<td><code>0x3F8</code></td>
+<td>16 bits</td>
+<td>Read</td>
+<td>Upper half of the radio identity</td>
+</tr>
+<tr>
+<td><code>0x3FA</code></td>
+<td>16 bits</td>
+<td>Read</td>
+<td>Selected radio register data</td>
+</tr>
+<tr>
+<td><code>0x3FC</code></td>
+<td>16 bits</td>
+<td>Write</td>
+<td>PHY register selector</td>
+</tr>
+<tr>
+<td><code>0x3FE</code></td>
+<td>16 bits</td>
+<td>Read/write</td>
+<td>Selected PHY register data</td>
+</tr>
+</tbody>
+</table>
+<p>The PHY version contains:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>15:12</code></td>
+<td>Analog revision</td>
+<td>Save in the PHY object.</td>
+</tr>
+<tr>
+<td><code>11:8</code></td>
+<td>PHY type</td>
+<td>Accept <code>0</code>, <code>1</code>, <code>2</code> or <code>4</code> during attachment.</td>
+</tr>
+<tr>
+<td><code>3:0</code></td>
+<td>PHY revision</td>
+<td>Save for later compatibility checks.</td>
+</tr>
+</tbody>
+</table>
+<p>For the 2.4 GHz attachment path, a rejected PHY type makes <code>attach_phy</code> release its allocation and return a null pointer. After PHY attachment, <code>attach_wireless_core</code> (<code>0x13EDC774</code>) accepts PHY revisions <code>1</code>, <code>2</code>, <code>6</code>, <code>7</code> and <code>8</code>.</p>
+<p>When the chip package is neither <code>14</code> nor <code>15</code>, attachment obtains the radio identity by writing selector <code>1</code> to <code>0x3F6</code> and reading <code>0x3F8</code>. It writes selector <code>1</code> again before reading <code>0x3FA</code>. The first read supplies the upper halfword and the second supplies the lower halfword:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">uint32_t</span><span class="w"> </span><span class="n">identity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="kt">uint32_t</span><span class="p">)</span><span class="n">upper</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">lower</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>31:28</code></td>
+<td>Radio revision</td>
+<td>Save in the PHY object.</td>
+</tr>
+<tr>
+<td><code>27:12</code></td>
+<td>Radio number</td>
+<td>Require <code>0x2050</code> or <code>0x2055</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>A rejected radio number makes attachment release its allocation and return a null pointer. Packages <code>14</code> and <code>15</code> instead select the internal identifier <code>0xE4F5</code> without this identity read.</p>
+<h3 id="indirect-phy-access">Indirect PHY access</h3>
+<p><code>read_phy</code> (<code>0x13EF54E0</code>) writes a 16 bit register index to <code>0x3FC</code> then reads 16 bits from <code>0x3FE</code>. <code>write_phy</code> (<code>0x13EF552C</code>) writes the index followed by the value. Selecting an index and writing its data are separate operations.</p>
+<p><code>set_phy_bits</code> (<code>0x13EF55DC</code>) selects a register, reads its value and writes the bitwise OR of that value and its mask. <code>mask_phy_bits</code> (<code>0x13EF557C</code>) performs the corresponding bitwise AND. Both operate on 16 bit values.</p>
+<h2 id="wireless-core-reset">Wireless core reset</h2>
+<p><code>reset_core</code> (<code>0x13F24ADC</code>) resets the selected core through its Target State Low register at backplane offset <code>0xF98</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Reset</td>
+<td>Set during reset and cleared before the core is used.</td>
+</tr>
+<tr>
+<td><code>16</code></td>
+<td>Clock enable</td>
+<td>Kept set when releasing reset.</td>
+</tr>
+<tr>
+<td><code>17</code></td>
+<td>Force clocks</td>
+<td>Set during reset and cleared after reset is released.</td>
+</tr>
+</tbody>
+</table>
+<p>After disabling the core, the routine writes the caller's core flags ORed with <code>0x00030001</code>. It then clears any detected error conditions, writes the flags ORed with <code>0x00030000</code> and finally ORed with <code>0x00010000</code>. After each of these three writes it reads Target State Low back and waits one microsecond.</p>
+<p>During attachment, <code>test_wireless_registers</code> (<code>0x13ED2D58</code>) checks object data readback and the 16 bit views of the CFP start register. It then requires MAC control to read <code>0x00000400</code> or <code>0x80000400</code>. Any other value fails the register test and with it the wireless core attachment.</p>
+<h2 id="mac-initialization">MAC initialization</h2>
+<p>WL accesses the wireless chip's MAC registers through SDIO function 1. These addresses belong to the chip's backplane.</p>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Width</th>
+<th>Name</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x18001120</code></td>
+<td>32 bits</td>
+<td>MAC control</td>
+<td>Stop and start microcode execution.</td>
+</tr>
+<tr>
+<td><code>0x18001128</code></td>
+<td>32 bits</td>
+<td>Interrupt status</td>
+<td>Poll the microcode startup response.</td>
+</tr>
+<tr>
+<td><code>0x18001160</code></td>
+<td>32 bits</td>
+<td>Object address</td>
+<td>Select the destination for uploaded words.</td>
+</tr>
+<tr>
+<td><code>0x18001164</code></td>
+<td>32 bits</td>
+<td>Object data</td>
+<td>Write microcode and PCM data.</td>
+</tr>
+</tbody>
+</table>
+<p><code>init_mac</code> (<code>0x13EDF148</code>) writes <code>0x00000404</code> to MAC control before loading the <a href="microcode-hle/">microcode</a>. <code>load_microcode</code> (<code>0x13ED4CE0</code>) writes object address <code>0x03000000</code> then streams the microcode through object data. <code>load_pcm</code> (<code>0x13ED4D48</code>) writes object address <code>0x000301EA</code> and data <code>0x00004000</code> then selects <code>0x000301EB</code> and streams the PCM data.</p>
+<p>Every call to <code>init_mac</code> uploads both blocks. It does not check whether a previous call uploaded them. Each upload sends one 32 bit word per backplane write through <code>write_card</code>, producing a separate CMD53 transfer for each word. <code>load_microcode</code> uses the supplied byte count divided by four as its word count and returns the result of the final write. <code>init_mac</code> ignores the return values from both upload routines.</p>
+<p>After uploading both blocks, initialization writes <code>0xFFFFFFFF</code> to interrupt status and <code>0x00020402</code> to MAC control. It polls the following status field:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>MAC suspended</td>
+<td>End the startup wait when set.</td>
+</tr>
+</tbody>
+</table>
+<p>The polling loop starts with a budget of <code>1000009</code>. After each unsuccessful read, it subtracts <code>10</code> from the budget. If the previous budget exceeds <code>9</code>, it delays for 10 microseconds before reading again. Otherwise it exits the loop. Initialization continues after either a set status bit or budget exhaustion.</p>
+<h3 id="hle-microcode-upload-shortcut">HLE microcode upload shortcut</h3>
+<p>WL spams microcode upload which really messes with performance so it's possible to HLE the microcode load mechanism (<code>0x13ED4D1C</code>) to counteract that!</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="kr">__fastcall</span><span class="w"> </span><span class="n">load_microcode</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">wireless</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">word_count</span><span class="p">;</span><span class="w"> </span><span class="c1">// r5</span>
+<span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="p">;</span><span class="w"> </span><span class="c1">// r4</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"> </span><span class="c1">// r0</span>
+<span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">word</span><span class="p">;</span><span class="w"> </span><span class="c1">// r3</span>
+
+<span class="w">  </span><span class="n">word_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">  </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">write_backplane</span><span class="p">(</span><span class="n">sdio</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">address</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">_DWORD</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">wireless</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1956</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">352</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="o">:</span><span class="w"> </span><span class="mi">4u</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="o">:</span><span class="w"> </span><span class="mh">0x3000000u</span><span class="p">);</span>
+<span class="w">        </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">word_count</span><span class="p">;</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">write_backplane</span><span class="p">(</span><span class="n">sdio</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">address</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">_DWORD</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">wireless</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1956</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">356</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="o">:</span><span class="w"> </span><span class="mi">4u</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="o">:</span><span class="w"> </span><span class="n">word</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">word</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="o">++</span><span class="p">];</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Basically you just do <code>cpu.registers[4] = cpu.registers[5] - 1;</code> lol.</p>
+<h3 id="mac-suspension">MAC suspension</h3>
+<p><code>suspend_mac</code> (<code>0x13ED0EDC</code>) clears MAC control's enable field then polls the same MAC suspended status field. It delays for 10 microseconds between unsuccessful reads and stops after 3500 delays even if the status remains clear. It then reads MAC control and returns its value.</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MAC control (<code>0x18001120</code>)</td>
+<td><code>0</code></td>
+<td>MAC enabled</td>
+<td>Clear before waiting for suspension.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mac-interrupts">MAC interrupts</h2>
+<p>The wireless chip signals MAC events through the SDIO card interrupt. The host controller reports it in Card Interrupt (bit <code>8</code>) of Normal Interrupt Status at <code>0x0D080030</code>. It forwards it to Hollywood ARM interrupt 8 only while Card Interrupt is also set in Normal Interrupt Status Enable (<code>0x0D080034</code>) and Signal Enable (<code>0x0D080038</code>).</p>
+<p><code>interrupt_worker</code> (<code>0x13F0A1B0</code>) handles messages of type <code>2</code> by calling <code>handle_host_interrupt</code> (<code>0x13F1EC14</code>), which passes the host object to <code>dispatch_card_interrupt</code> (<code>0x13F1E390</code>). That routine returns early if Card Interrupt is clear in Normal Interrupt Status. Otherwise it saves Normal Interrupt Status Enable and clears its Card Interrupt bit. If the bytes at host object offsets <code>0x14</code> and <code>0x3D</code> are both nonzero, it calls the card handler registered in the host object. It then restores the saved value, so Card Interrupt is disabled only while the handler runs.</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>8</code></td>
+<td>Card Interrupt</td>
+<td>Checked in <code>0x0D080030</code> and cleared in <code>0x0D080034</code> during handling.</td>
+</tr>
+</tbody>
+</table>
+<p>The card handler <code>card_interrupt</code> (<code>0x13F0A2A4</code>) calls <code>read_mac_interrupts</code> (<code>0x13ED7194</code>), which does the following:</p>
+<ol>
+<li>It reads interrupt status at <code>0x18001128</code> and ANDs it with the driver's interrupt mask. If the read fails or the result is zero, it stops.</li>
+<li>It writes the masked value back to <code>0x18001128</code>.</li>
+<li>If bit <code>15</code> is set in that value, it writes <code>0x00010000</code> to <code>0x18001020</code>.</li>
+<li>It saves the masked value for <code>process_mac_interrupts</code> (<code>0x13EF468C</code>).</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>15</code></td>
+<td>Receive</td>
+<td>Read frames through the <a href="#pio-receive-fifo">receive FIFO</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="channel-selection">Channel selection</h2>
+<p>The 16 bit register at <code>0x180013F0</code> holds the current channel, encoded as its center frequency minus 2400 MHz. Channel 1 is <code>0x000C</code>, channel 6 is <code>0x0025</code> and channel 13 is <code>0x0048</code>.</p>
+<p>During an access point search, WL tunes to each channel as follows:</p>
+<ol>
+<li>Write <code>0x04020402</code> to MAC control, clearing MAC enabled.</li>
+<li>Write the channel value to <code>0x180013F0</code>.</li>
+<li>Write <code>0x04020403</code> to MAC control, setting MAC enabled.</li>
+</ol>
+<h2 id="pio-receive-fifo">PIO receive FIFO</h2>
+<p>WL receives frames through a programmed I/O receive FIFO in the wireless core.</p>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Width</th>
+<th>Name</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x18001308</code></td>
+<td>32 bits</td>
+<td>Receive FIFO control</td>
+<td>Detect, accept and discard frames.</td>
+</tr>
+<tr>
+<td><code>0x1800130C</code></td>
+<td>32 bits</td>
+<td>Receive FIFO data</td>
+<td>Read the receive record of a frame.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Frame ready</td>
+<td>Read as <code>1</code> when a frame is waiting. Written as <code>1</code> to accept it.</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Data ready</td>
+<td>Polled until set after accepting a frame. Written as <code>1</code> to discard a frame.</td>
+</tr>
+</tbody>
+</table>
+<p><code>pio_receive</code> (<code>0x13F0D284</code>) reads one frame as follows:</p>
+<ol>
+<li>It reads receive FIFO control and returns without a frame if Frame ready is clear.</li>
+<li>It writes <code>1</code> to receive FIFO control.</li>
+<li>It polls receive FIFO control for Data ready, reading up to 11 times with a 10 microsecond delay between reads. If Data ready never sets, it returns without a frame and without discarding it.</li>
+<li>It reads the first data word, takes the frame size from it and allocates a packet buffer with a packet length of the frame size plus 30.</li>
+<li>It stores the first word at buffer offset <code>0x00</code> and reads four more words into offsets <code>0x04</code> to <code>0x13</code>.</li>
+<li>If bit <code>0</code> of the MAC status at offset <code>0x0C</code> is set, it discards the frame.</li>
+<li>It reads the frame data into the buffer at offset <code>0x1E</code>. If that address is not word aligned and the frame is longer than one byte, it first reads 2 bytes into <code>0x1E</code> and continues at <code>0x20</code>.</li>
+<li>It reads the remaining whole words, then one more word for any leftover bytes.</li>
+</ol>
+<p>To discard a frame, the routine writes <code>2</code> to receive FIFO control and releases the packet buffer. It also discards the frame if allocation or a bulk read fails.</p>
+<p>Depending on some random bullshit, the header and frame data are read either one 32 bit word at a time or with <code>read_backplane_bulk</code> (<code>0x13F1C9B8</code>). Every read targets <code>0x1800130C</code>. Each path stores the record bytes in the order the card sends them:</p>
+<ul>
+<li>A single read passes through the <a href="#backplane-access-helpers">byte reversal</a> in <code>transfer_card</code> and is stored as a native big endian word.</li>
+<li><code>read_backplane_bulk</code> calls <code>transfer_extended</code> (<code>0x13F1E434</code>) for a CMD53 read of function 1 at a fixed address. It uses byte mode for transfers shorter than function 1's block size or for all transfers when the host object disables block mode. The routine waits for Buffer Read Ready, acknowledges it, reads the words from Buffer Data at <code>0x0D080020</code> and reverses the bytes of each word itself.</li>
+<li>A bulk transfer of at least one block uses block mode, with SDMA when the host object enables DMA. For SDMA, <code>send_command</code> writes the bounce buffer's address to <code>0x0D080000</code> and sets transfer mode bit <code>0</code>. After Transfer Complete, <code>transfer_extended</code> acknowledges Transfer Complete and DMA Interrupt by writing <code>0x000A</code> to <code>0x0D080030</code> and copies the bounce buffer to the destination without byte reversal.</li>
+</ul>
+<p>The transfer mode bits occupy the low halfword of the command word at <code>0x0D08000C</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Field</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>DMA Enable</td>
+<td>Set for block mode CMD53 transfers when DMA is enabled.</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Block Count Enable</td>
+<td>Set when the block count exceeds one.</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td>Data Transfer Direction</td>
+<td>Set for reads.</td>
+</tr>
+<tr>
+<td><code>5</code></td>
+<td>Multiple Block</td>
+<td>Set when the block count exceeds one.</td>
+</tr>
+</tbody>
+</table>
+<p>A single block SDMA read therefore uses transfer mode <code>0x0011</code>. In block mode, <code>0x0D080004</code> holds the block size in its low halfword and the block count from the CMD53 argument in its upper halfword.</p>
+<h3 id="receive-record">Receive record</h3>
+<p>The receive record is a 20 byte header followed by the frame data. Header fields are 16 bit little endian values.</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Size</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00</code></td>
+<td>2 bytes</td>
+<td>Frame size, the number of frame data bytes after the header.</td>
+</tr>
+<tr>
+<td><code>0x04</code></td>
+<td>2 bytes</td>
+<td>PHY status 0, used for the <a href="#signal-strength">signal strength</a>.</td>
+</tr>
+<tr>
+<td><code>0x06</code></td>
+<td>2 bytes</td>
+<td>PHY status 1, used for the signal strength.</td>
+</tr>
+<tr>
+<td><code>0x0A</code></td>
+<td>2 bytes</td>
+<td>PHY status 3, used for the signal strength.</td>
+</tr>
+<tr>
+<td><code>0x0C</code></td>
+<td>2 bytes</td>
+<td><a href="microcode-hle/#receive-header">MAC status</a>.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>MAC status bits</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Discard the frame.</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>Two padding bytes precede the frame data.</td>
+</tr>
+</tbody>
+</table>
+<p>The frame data starts with a 6 byte physical layer header, followed by the 802.11 frame and its frame check sequence. Before parsing, WL converts the header halfwords from little endian to native order. It then skips the 30 bytes that precede the frame data, plus 2 more if the padding bit is set.</p>
+<h3 id="scan-results">Scan results</h3>
+<p>WL finds and joins networks through 802.11 management frames such as beacons and probe responses. It passes them to <code>receive_management</code> (<code>0x13EF30F4</code>). A probe response is added to the scan results by <code>add_scan_result</code> (<code>0x13ED9170</code>) when both of these conditions hold:</p>
+<ul>
+<li>The word at driver object offset <code>0x143C</code> is not <code>-1</code>.</li>
+<li>The frame's first address equals the station address at driver object offset <code>0x24</code>.</li>
+</ul>
+<p>A beacon is added only when bit <code>2</code> of the byte at driver object offset <code>0x1442</code> is also set. <code>parse_bss_info</code> (<code>0x13ED8A18</code>) reads the advertised network's capability information, SSID, supported rates and DS parameter set.</p>
+<h3 id="joining-an-open-network">Joining an open network</h3>
+<p>For an open-system connection, WL authenticates before sending an association request. <code>set_association_state</code> (<code>0x13ED1160</code>) stores the current state at driver object offset <code>0xF7C</code>. The successful station path uses these states and events:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Expected response</th>
+<th>Successful event</th>
+<th>Next state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>2</code></td>
+<td>Open-system authentication response with transaction sequence 2.</td>
+<td><code>3</code></td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>5</code></td>
+<td>Association response.</td>
+<td><code>7</code></td>
+<td><code>6</code></td>
+</tr>
+<tr>
+<td><code>6</code></td>
+<td>Beacon from the selected BSSID.</td>
+<td><code>1</code> followed by <code>0</code></td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>receive_management</code> checks the selected BSSID before accepting these responses. A successful association response stores its association ID at driver object offset <code>0x1A56</code>. <code>process_wireless_event</code> (<code>0x13EE02D4</code>) handles the success event through <code>activate_association</code> (<code>0x13EE1418</code>), which enters state <code>6</code> for the station connection.</p>
+<p>Association alone does not complete the join. In state <code>6</code>, a beacon from the selected BSSID reaches <code>complete_join_from_beacon</code> (<code>0x13EE39EC</code>). It emits event <code>1</code> with status zero. For an initial join, the event handler emits event <code>0</code> with status zero and returns the association state to <code>0</code>.</p>
+<h3 id="signal-strength">Signal strength</h3>
+<p><code>compute_rssi</code> (<code>0x13F02660</code>) derives a signed signal strength from the converted receive header. For radio <code>0x2050</code>, when bit <code>0</code> of PHY status 0 is set:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">rssi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int8_t</span><span class="p">)(</span><span class="n">phy_status_1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">phy_status_3</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x0400</span><span class="p">)</span>
+<span class="w">    </span><span class="n">rssi</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">17</span><span class="p">;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="n">rssi</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Bits</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PHY status 0</td>
+<td><code>0</code></td>
+<td>Select the direct signed sample when set.</td>
+</tr>
+<tr>
+<td>PHY status 1</td>
+<td><code>7:0</code></td>
+<td>Signed sample before the radio correction.</td>
+</tr>
+<tr>
+<td>PHY status 3</td>
+<td><code>10</code></td>
+<td>Add 17 when set. Subtract 4 when clear.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hle-frame-reception">HLE frame reception</h3>
+<p>A microcode HLE can deliver management and data frames through this receive path. The other interfaces it has to provide are covered under <a href="microcode-hle/#hle">Microcode HLE</a>.</p>
+<p>To deliver a frame:</p>
+<ol>
+<li>Queue a receive record made of a 20 byte header, a 6 byte physical layer header, the 802.11 frame and a 4 byte frame check sequence. WL accepts a physical layer header and frame check sequence filled with zeros. The frame size covers everything after the 20 byte header.</li>
+<li>Set Frame ready in receive FIFO control and set bit <code>15</code> of interrupt status at <code>0x18001128</code>.</li>
+<li>If the MAC interrupt mask enables bit <code>15</code>, raise the SDIO card interrupt, subject to the host controller enables described under <a href="#mac-interrupts">MAC interrupts</a>.</li>
+<li>After WL writes <code>1</code> to receive FIFO control, report Data ready.</li>
+<li>Serve every read of <code>0x1800130C</code> from the next bytes of the record, whether it is a single word, a 16 byte read in byte mode or an SDMA read in block mode. Drop the record once its last byte has been read or when WL writes <code>2</code>.</li>
+</ol>
+<p>To make an access point appear in the search, send a probe response addressed to the station address while WL is tuned to the access point's channel and MAC enabled is set again. To report a signal strength on radio <code>0x2050</code>, set PHY status 0 bit <code>0</code>, clear PHY status 3 bit <code>10</code> and store the desired value plus 4 as a signed 8 bit value in PHY status 1 bits <code>7:0</code>.</p>
+<h2 id="frame-transmission">Frame transmission</h2>
+<p>WL uses six PIO FIFOs. For FIFO index <code>n</code> from 0 through 5, the transmit registers have these wireless backplane addresses:</p>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Width</th>
+<th>Access</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x18001300 + 0x10 * n</code></td>
+<td>32 bits</td>
+<td>R/W</td>
+<td>Transmit control.</td>
+</tr>
+<tr>
+<td><code>0x18001304 + 0x10 * n</code></td>
+<td>32 bits</td>
+<td>W</td>
+<td>Transmit data.</td>
+</tr>
+</tbody>
+</table>
+<p><code>pio_transmit</code> (<code>0x13F0CD8C</code>) submits a packet chain through the selected FIFO. It writes <code>0x00000080</code> to transmit control before copying data and writes <code>0x00000010</code> after the final fragment. Between these writes it selects the valid bytes of each data word through the low four control bits:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>3:0</code></td>
+<td>Byte enables. Bit <code>n</code> selects byte <code>n</code> of the data word.</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td>Submit the accumulated frame.</td>
+</tr>
+<tr>
+<td><code>7</code></td>
+<td>Start writing a frame.</td>
+</tr>
+</tbody>
+</table>
+<p>For an unaligned fragment, WL enables only the occupied lanes of its first aligned word. It then enables all four lanes while transferring complete words and enables only the occupied lanes of the final word. Fragment boundaries do not submit the frame. <code>transfer_card</code> (<code>0x13F1D7AC</code>) reverses the byte order of individual PIO data writes so the FIFO receives packet bytes in memory order. Bulk transfers through <code>transfer_fifo</code> (<code>0x13F1CA18</code>) use fixed-address CMD53 writes to the same data register.</p>
+<p><code>build_transmit_header</code> (<code>0x13ED5D04</code>) prepends a 100 byte transmit header and a 6 byte physical layer header to the 802.11 frame. Offsets are relative to the start of the transmit record. The frame ID and status are little endian:</p>
+<table>
+<thead>
+<tr>
+<th>Byte offset</th>
+<th>Size</th>
+<th>Field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x48</code></td>
+<td>2 bytes</td>
+<td>Frame ID.</td>
+</tr>
+<tr>
+<td><code>0x4A</code></td>
+<td>2 bytes</td>
+<td>Initial transmit status, set to zero.</td>
+</tr>
+<tr>
+<td><code>0x64</code></td>
+<td>6 bytes</td>
+<td>Physical layer header.</td>
+</tr>
+<tr>
+<td><code>0x6A</code></td>
+<td>Variable</td>
+<td>802.11 frame.</td>
+</tr>
+</tbody>
+</table>
+<p>The frame ID's low three bits select the FIFO. After submission, WL retains the packet in that FIFO's software queue until <a href="microcode-hle/#transmit-completion">transmit completion</a>. <code>process_transmit_status</code> (<code>0x13EE17AC</code>) selects the queue from the returned frame ID and releases a completed packet. <code>release_pio_transmit</code> (<code>0x13F0CA7C</code>) decrements the queued frame count and subtracts the packet chain length rounded up to a multiple of four from the queued byte count.</p>
+<table>
+<thead>
+<tr>
+<th>Frame ID bits</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>2:0</code></td>
+<td>Transmit FIFO index.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fifo-capacity">FIFO capacity</h3>
+<p>During <code>init_mac</code>, <code>write_initial_registers</code> (<code>0x13ED2268</code>) programs shared memory through the object registers. One sequence writes object address <code>0x03010025</code> then writes <code>0x00320000</code>, <code>0x090A0E09</code> and <code>0x0000060E</code> to object data. The streamed words occupy consecutive shared memory word pairs starting at byte offset <code>0x94</code>.</p>
+<p><code>read_shm_bytes</code> (<code>0x13ED4DF4</code>) reads six bytes starting at shared memory byte offset <code>0x98</code>. <code>init_mac</code> multiplies each byte by 256 to initialize a FIFO's capacity when its software capacity is zero:</p>
+<table>
+<thead>
+<tr>
+<th>FIFO</th>
+<th>Shared memory byte offset</th>
+<th>Capacity byte</th>
+<th>Capacity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>0x98</code></td>
+<td><code>0x09</code></td>
+<td>2304 bytes</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>0x99</code></td>
+<td><code>0x0E</code></td>
+<td>3584 bytes</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>0x9A</code></td>
+<td><code>0x0A</code></td>
+<td>2560 bytes</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>0x9B</code></td>
+<td><code>0x09</code></td>
+<td>2304 bytes</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>0x9C</code></td>
+<td><code>0x0E</code></td>
+<td>3584 bytes</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>0x9D</code></td>
+<td><code>0x06</code></td>
+<td>1536 bytes</td>
+</tr>
+</tbody>
+</table>
+<p><code>pio_has_space</code> (<code>0x13F0C9CC</code>) rejects a submission that would exceed 32 queued frames or the FIFO's byte capacity. For one frame it rounds the packet chain length up to a multiple of four bytes. It also rejects submission while transmit control bit <code>8</code> is set.</p>
+<table>
+<thead>
+<tr>
+<th>Transmit control bits</th>
+<th>Firmware use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>8</code></td>
+<td>Suspend transmission. A set bit prevents further submissions.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="delays">Delays</h2>
+<p><code>delay</code> uses a timer and a message queue for requests above 1,000 microseconds. It creates a queue with one message slot, starts a one-shot timer and blocks waiting for its message. It destroys the timer and queue before returning.</p>
+<p>For requests of at most 1,000 microseconds, it polls <a href="../#syscalls">timer syscall <code>0x15</code></a>. It converts the requested duration to ticks as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">microseconds</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">19</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ticks</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span>
+<span class="w">    </span><span class="n">ticks</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">ticks</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</code></pre></div>
+<p>It reads a starting counter value. If <code>ticks</code> is zero, it returns without polling. Otherwise each poll computes <code>current - start</code> with 32 bit unsigned wraparound. If the signed 32 bit value of <code>current</code> is less than or equal to the signed value of <code>start</code>, it subtracts one more tick from that difference. Polling ends when the adjusted unsigned difference is at least <code>ticks</code>. Equal counter samples therefore produce <code>0xFFFFFFFF</code> and end the wait.</p>
+<table>
+<thead>
+<tr>
+<th>Firmware</th>
+<th><code>delay</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IOS80 v6944</td>
+<td><code>0x13F0AA28</code></td>
+</tr>
+<tr>
+<td>IOS70 v6687</td>
+<td><code>0x13F0A9F4</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../../..","features":["navigation.top","search.highlight","search.suggest","content.code.annotate","content.code.copy","content.tabs.link","header.autohide","palette.toggle","navigation.sections","navigation.instant","navigation.indexes"],"redirect":null,"search":"../../../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a2388154.min.js"></script>
+      
+    
+  </body>
+</html>

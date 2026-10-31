@@ -1,0 +1,2204 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://emudocs.layle.dev/GBA/PPU/">
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../../GameCube%20%26%20Wii/Games/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.71">
+    
+    
+      
+        <title>PPU - emudocs</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.e442bf79.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="emudocs" class="md-header__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            emudocs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PPU
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="emudocs" class="md-nav__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    emudocs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Emulator Field Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GBA
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GBA
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PPU
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PPU
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Timing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dispcnt" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        DISPCNT
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bitmap-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bitmap Modes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bitmap Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8-bit-vram-writes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        8-bit VRAM Writes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#colors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Colors
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-backgrounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Text Backgrounds
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sprites-obj" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sprites (OBJ)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sprites (OBJ)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#position-wrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Position Wrap
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sprite-vs-sprite" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sprite vs Sprite
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cycle-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cycle Budget
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layer Priority
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Windows
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blending" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Blending
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mosaic" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Mosaic
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#affine-backgrounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Affine Backgrounds
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Affine Backgrounds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-reference-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Internal Reference Points
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#affine-sprites" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Affine Sprites
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-scenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Test Scenes
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GameCube & Wii
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GameCube & Wii
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/GX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GX
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Memory
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../GameCube%20%26%20Wii/Starlet/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Starlet
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Starlet
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/boot0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot0
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/boot1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot1
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/boot2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot2
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/bootmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BootMii
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/homebrew-channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Homebrew Channel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/hackmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HackMii Installer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/nand/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NAND
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/seeprom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SEEPROM
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../GameCube%20%26%20Wii/Starlet/ios/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  IOS
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_10" id="__nav_3_4_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_10_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  IOS
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/ohci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/ehci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  EHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/sdi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SO
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_10_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../GameCube%20%26%20Wii/Starlet/ios/wl/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_10_6" id="__nav_3_4_10_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_10_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4_10_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  WL
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/wl/microcode-hle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Microcode HLE
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/ncd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NCD
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PSX
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  PSX
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PSX/BIOS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BIOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PSX/Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PSX/GPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Timing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dispcnt" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        DISPCNT
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bitmap-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bitmap Modes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bitmap Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8-bit-vram-writes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        8-bit VRAM Writes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#colors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Colors
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-backgrounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Text Backgrounds
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sprites-obj" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sprites (OBJ)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sprites (OBJ)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#position-wrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Position Wrap
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sprite-vs-sprite" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sprite vs Sprite
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cycle-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cycle Budget
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Layer Priority
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Windows
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blending" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Blending
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mosaic" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Mosaic
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#affine-backgrounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Affine Backgrounds
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Affine Backgrounds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-reference-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Internal Reference Points
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#affine-sprites" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Affine Sprites
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-scenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Test Scenes
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+  <h1>PPU</h1>
+
+<p>GBA PPU notes from <a href="https://sly.layle.dev/">Sly</a>. <a href="https://problemkaputt.de/gbatek.htm">GBATEK</a> is the actual reference, this is the stuff I needed to know plus gotchas</p>
+<h2 id="timing">Timing</h2>
+<ul>
+<li>1'232 cycles per line, 228 lines per frame (160 visible + 68 VBLANK) = 280'896 cycles, ~59.73 FPS</li>
+<li>240 visible pixels at 4 cycles each, but the HBLANK flag/IRQ only happens around cycle 1'006-1'008 (not 960!)</li>
+<li><code>VCOUNT</code> (<code>0x04000006</code>) current line, <code>DISPSTAT</code> (<code>0x04000004</code>) IRQs for HBLANK, VBLANK, VCOUNT match</li>
+</ul>
+<p>Games change registers between lines (HBLANK IRQ or HBLANK DMA) for per-line scroll, windows, affine matrices etc. Rendering a whole frame with the final register values loses all of that. I render each visible line at HBLANK with the state at that point. Mid-line changes would need finer timing.</p>
+<h2 id="dispcnt">DISPCNT</h2>
+<div class="highlight"><pre><span></span><code>0-2     Mode
+3       CGB mode (BIOS only)
+4       Displayed page (bitmap modes)
+5       OAM access during HBLANK
+6       Sprite tile mapping (0=2D, 1=1D)
+7       Forced blank
+8-12    BG0-BG3, OBJ enable
+13-15   WIN0, WIN1, OBJ window enable
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>mode    BG0     BG1     BG2         BG3
+-----------------------------------------------
+0       text    text    text        text
+1       text    text    affine      -
+2       -       -       affine      affine
+3       -       -       240x160 16bpp, 1 page
+4       -       -       240x160 8bpp (palette), 2 pages
+5       -       -       160x128 16bpp, 2 pages
+</code></pre></div>
+<p>Bitmap modes always draw on BG2 (bit 10 must be set) and use BG2's affine parameters, so bitmaps can be rotated/scaled too.</p>
+<h2 id="bitmap-modes">Bitmap Modes</h2>
+<ul>
+<li>Mode 3/5: pixel is the 15-bit color directly</li>
+<li>Mode 4: pixel is a palette index, <code>0x06000000 + 240y + x</code> (page 1 at <code>+0xA000</code>)</li>
+<li>Mode 4 index 0 is transparent (backdrop/sprites behind BG2 show through), same for area around a mode 5 image</li>
+<li>Bitmap modes eat the first half of OBJ VRAM, sprite tiles are limited to 512-1023</li>
+<li>Outside of a bitmap is always transparent, wraparound bit is ignored</li>
+</ul>
+<h3 id="8-bit-vram-writes">8-bit VRAM Writes</h3>
+<p>VRAM can't be written 8 bits at a time. An <code>strb</code> to the <strong>BG area</strong> is duplicated into both bytes of the halfword, an <code>strb</code> to the <strong>OBJ area</strong> is ignored. <a href="https://problemkaputt.de/gbatek-gba-unpredictable-things.htm">Source</a></p>
+<div class="highlight"><pre><span></span><code><span class="k">fn</span><span class="w"> </span><span class="nf">write_vram</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">address</span><span class="p">:</span><span class="w"> </span><span class="kt">u32</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="nc">Width</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">u32</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Width</span><span class="p">::</span><span class="n">Byte</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="p">::</span><span class="n">vram_offset</span><span class="p">(</span><span class="n">address</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">obj_offset</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">address</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">!</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="bp">self</span><span class="p">::</span><span class="n">write_memory</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">vram</span><span class="p">,</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">::</span><span class="n">vram_offset</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="bp">self</span><span class="p">::</span><span class="n">write_memory</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">vram</span><span class="p">,</span><span class="w"> </span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">::</span><span class="n">vram_offset</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Note: OBJ area boundary depends on mode (<code>0x10000</code> in tiled modes, <code>0x14000</code> in bitmap modes).</p>
+<h2 id="colors">Colors</h2>
+<div class="highlight"><pre><span></span><code>0-4     Red
+5-9     Green
+10-14   Blue
+15      unused
+</code></pre></div>
+<p>BG palette at <code>0x05000000</code>, OBJ palette at <code>0x05000200</code>. Entry 0 of the BG palette is the backdrop.</p>
+<p>5 to 8 bit: <code>(c &lt;&lt; 3) | (c &gt;&gt; 2)</code>, otherwise 31 becomes 248 instead of 255.</p>
+<h2 id="text-backgrounds">Text Backgrounds</h2>
+<div class="highlight"><pre><span></span><code>BGxCNT
+0-1     Priority
+2-3     Tile block (16 KiB)
+6       Mosaic
+7       8bpp
+8-12    Map block (2 KiB)
+13      Wraparound (affine only)
+14-15   Map size
+</code></pre></div>
+<ul>
+<li>4bpp: 32-byte tiles, <strong>low nibble is the left pixel</strong>, 16 banks of 16 colors</li>
+<li>8bpp: 64-byte tiles, full 256-color palette</li>
+<li>Index 0 is transparent in every bank</li>
+</ul>
+<div class="highlight"><pre><span></span><code>map entry
+0-9     Tile number
+10      H flip
+11      V flip
+12-15   Palette bank
+</code></pre></div>
+<p>Maps are stored in 32x32 entry blocks (2 KiB), not as one big row-major array!</p>
+<div class="highlight"><pre><span></span><code>size    pixels      blocks
+-------------------------------------------
+0       256x256     SC0
+1       512x256     SC0 SC1
+2       256x512     SC0 / SC1
+3       512x512     SC0 SC1 / SC2 SC3
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>block  = (ty / 32) * (W / 256) + (tx / 32)
+offset = 2 * (32 * (ty % 32) + tx % 32)
+entry  = 0x06000000 + 2048 * (map_block + block) + offset
+</code></pre></div>
+<p>Scroll (<code>BGxHOFS</code>/<code>BGxVOFS</code>, 9 bits) wraps at the map size, e.g. HOFS 337 on a 256 wide map is 81:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">bg_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">bg</span><span class="p">.</span><span class="n">hofs</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">usize</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<p>Flipped tiles use <code>7 - px</code> / <code>7 - py</code>. Palette entry is <code>16 * bank + index</code> for 4bpp.</p>
+<h2 id="sprites-obj">Sprites (OBJ)</h2>
+<p>OAM at <code>0x07000000</code>, 128 entries of 8 bytes, 4th halfword belongs to affine matrices.</p>
+<div class="highlight"><pre><span></span><code>attr0
+0-7     Y
+8       Affine
+9       Hide (regular) / double size (affine)
+10-11   Mode (normal, semi-transparent, OBJ window)
+12      Mosaic
+13      8bpp
+14-15   Shape (square, wide, tall, -)
+
+attr1
+0-8     X
+9-13    Affine matrix number (affine)
+12      H flip (regular)
+13      V flip (regular)
+14-15   Size
+
+attr2
+0-9     Tile number
+10-11   Priority
+12-15   Palette bank
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>size    square    wide     tall
+------------------------------------
+0       8x8       16x8     8x16
+1       16x16     32x8     8x32
+2       32x32     32x16    16x32
+3       64x64     64x32    32x64
+</code></pre></div>
+<ul>
+<li>OBJ tiles at <code>0x06010000 + 32n</code>. Tile numbers count 32-byte units even for 8bpp, so 8bpp sprites should use even numbers (lowest bit ignored in 2D mapping)</li>
+<li>1D mapping: <code>n + ty * (w / 8) + tx</code></li>
+<li>2D mapping: <code>n + 32 * ty + tx</code></li>
+<li>8bpp: column offset doubles in both, row offset doubles in 1D only</li>
+</ul>
+<h3 id="position-wrap">Position Wrap</h3>
+<p>Y is 8 bits and wraps, X is 9 bits and wraps at 512. A sprite at <code>y = 247</code> with height 32 shows up at the top of the screen.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">line</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">u8</span><span class="p">).</span><span class="n">wrapping_sub</span><span class="p">(</span><span class="n">attr</span><span class="p">.</span><span class="n">y_coordinate</span><span class="p">())</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">usize</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">continue</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Affine double size sprites have a <a href="https://github.com/mgba-emu/mgba/issues/2824">Y wrapping exception</a>.</p>
+<h3 id="sprite-vs-sprite">Sprite vs Sprite</h3>
+<p>Lower priority number wins, on tie the lower OAM index wins. Iterating from entry 0 up, a later opaque pixel only replaces one with a <strong>higher</strong> priority number. <a href="https://github.com/mgba-emu/mgba/issues/2809">mGBA issue</a></p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="n">dst</span><span class="p">.</span><span class="n">is_none_or</span><span class="p">(</span><span class="o">|</span><span class="n">pixel</span><span class="o">|</span><span class="w"> </span><span class="n">attr</span><span class="p">.</span><span class="n">priority</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">pixel</span><span class="p">.</span><span class="n">priority</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</code></pre></div>
+<h3 id="cycle-budget">Cycle Budget</h3>
+<p>1'210 cycles per line, 954 if <code>DISPCNT</code> bit 5 is set. Regular sprite costs 1 cycle per pixel of width, affine costs <code>10 + 2 * area width</code>. Once the budget runs out the rest of the line has no sprites, and offscreen sprites still count. <a href="https://problemkaputt.de/gbatek-lcd-obj-overview.htm">Source</a></p>
+<h2 id="layer-priority">Layer Priority</h2>
+<ul>
+<li>Lower priority number in front, on tie <strong>lower BG number</strong> wins</li>
+<li>Sprite goes in front of BGs with the <strong>same or higher</strong> priority number</li>
+<li>Backdrop is behind everything (treat it as priority <code>u8::MAX</code>)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">bg_order</span><span class="p">.</span><span class="n">sort_by_key</span><span class="p">(</span><span class="o">|&amp;</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">priority</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="n">priority</span><span class="p">);</span><span class="w"> </span><span class="c1">// stable sort keeps BG order on ties</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="n">bg_priority</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bg_order</span>
+<span class="w">    </span><span class="p">.</span><span class="n">iter</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">find_map</span><span class="p">(</span><span class="o">|&amp;</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">priority</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="n">bg_lines</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="n">x</span><span class="p">].</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">color</span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="n">priority</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">unwrap_or</span><span class="p">((</span><span class="n">backdrop</span><span class="p">,</span><span class="w"> </span><span class="kt">u8</span><span class="p">::</span><span class="n">MAX</span><span class="p">));</span>
+
+<span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">sprite</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sprite_line</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">sprite</span><span class="p">.</span><span class="n">priority</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">bg_priority</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sprite</span><span class="p">.</span><span class="n">color</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Blending also needs the layer right behind the top one, so track the top 2.</p>
+<h2 id="windows">Windows</h2>
+<div class="highlight"><pre><span></span><code>WINxH   0-7 X2 (right + 1)    8-15 X1 (left)
+WINxV   0-7 Y2 (bottom + 1)   8-15 Y1 (top)
+
+WININ   0-5 WIN0 (BG0-3, OBJ, effects)    8-13 WIN1
+WINOUT  0-5 outside                       8-13 OBJ window
+</code></pre></div>
+<ul>
+<li>Check order: WIN0 -&gt; WIN1 -&gt; OBJ window -&gt; outside. First match wins</li>
+<li>OBJ window = opaque pixels of sprites with mode OBJ window (not drawn themselves). Needs <code>DISPCNT</code> bit 12 <strong>and</strong> 15</li>
+<li>No window enabled at all -&gt; everything visible, effects allowed everywhere</li>
+<li>A layer still has to be enabled in <code>DISPCNT</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">).</span><span class="n">find</span><span class="p">(</span><span class="o">|&amp;</span><span class="n">index</span><span class="o">|</span><span class="w"> </span><span class="n">windows</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">WindowRegion</span><span class="p">::</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">index</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nb">Some</span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="n">windows</span><span class="p">.</span><span class="n">obj_enabled</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">inside_obj_window</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">WindowRegion</span><span class="p">::</span><span class="n">Obj</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">WindowRegion</span><span class="p">::</span><span class="n">Outside</span>
+<span class="p">})</span>
+</code></pre></div>
+<h2 id="blending">Blending</h2>
+<div class="highlight"><pre><span></span><code>BLDCNT
+0-5     1st target (BG0-3, OBJ, BD)
+6-7     Effect (0=none, 1=alpha, 2=brighten, 3=darken)
+8-13    2nd target (BG0-3, OBJ, BD)
+</code></pre></div>
+<p>Only the topmost and the layer right behind it matter. Alpha needs top = 1st target <strong>and</strong> below = 2nd target.</p>
+<div class="highlight"><pre><span></span><code>alpha:     I = min(31, (I1 * EVA + I2 * EVB) &gt;&gt; 4)
+brighten:  I = I + (((31 - I) * EVY) &gt;&gt; 4)
+darken:    I = I - ((I * EVY) &gt;&gt; 4)
+</code></pre></div>
+<ul>
+<li>EVA/EVB (<code>BLDALPHA</code> bits 0-4 / 8-12) and EVY (<code>BLDY</code>) treat <strong>17-31 as 16</strong></li>
+<li>EVA + EVB can exceed 16, hence the <code>min(31)</code></li>
+<li>Semi-transparent sprites alpha blend with the layer behind if it's a 2nd target, <strong>regardless</strong> of BLDCNT's 1st targets and effect</li>
+<li>Sprites can't blend with each other (already reduced to one sprite pixel)</li>
+<li>Window effects bit must be set in the pixel's region</li>
+</ul>
+<h2 id="mosaic">Mosaic</h2>
+<div class="highlight"><pre><span></span><code>MOSAIC
+0-3     BG width - 1
+4-7     BG height - 1
+8-11    OBJ width - 1
+12-15   OBJ height - 1
+</code></pre></div>
+<p>Enabled per BG (<code>BGxCNT</code> bit 6) and per sprite (attr0 bit 12). BG blocks are aligned to the screen and take the top-left pixel's color, i.e. round the screen position down to the block start before lookup.</p>
+<h2 id="affine-backgrounds">Affine Backgrounds</h2>
+<p>Differences to text BGs:</p>
+<ul>
+<li>Always 8bpp, <code>BGxCNT</code> bit 7 ignored</li>
+<li>Map entry is 1 byte (tile number only, no flips/banks), max 256 tiles</li>
+<li>Map is square and plain row-major, no 32x32 blocks</li>
+<li>Scroll registers are ignored</li>
+</ul>
+<div class="highlight"><pre><span></span><code>size    pixels        map bytes
+---------------------------------
+0       128x128       256
+1       256x256       1'024
+2       512x512       4'096
+3       1024x1024     16'384
+</code></pre></div>
+<p>The PPU walks from the screen back into the background. Parameters are signed 8.8 fixed point (<code>BGxPA</code>-<code>PD</code>, write only), reference point <code>BGxX</code>/<code>BGxY</code> is signed 20.8 (28 bits):</p>
+<div class="highlight"><pre><span></span><code>px = X + PA*x + PB*y
+py = Y + PC*x + PD*y
+texel = (px &gt;&gt; 8, py &gt;&gt; 8)
+</code></pre></div>
+<p>Bigger parameter = smaller picture (it's texels per pixel, not a zoom factor). For clockwise rotation <code>θ</code> with magnification <code>s</code>:</p>
+<div class="highlight"><pre><span></span><code>PA =  256*cos(θ)/s     PB = 256*sin(θ)/s
+PC = -256*sin(θ)/s     PD = 256*cos(θ)/s
+</code></pre></div>
+<p>Note: GBATEK gives PB and PC the same sign, for a normal rotation they should be negatives of each other.</p>
+<p>To keep BG point <code>(cx, cy)</code> at screen point <code>(sx, sy)</code>:</p>
+<div class="highlight"><pre><span></span><code>X = 256*cx - PA*sx - PB*sy
+Y = 256*cy - PC*sx - PD*sy
+</code></pre></div>
+<p>Wraparound (<code>BGxCNT</code> bit 13) off -&gt; outside of the map is transparent. Masking with all ones when off lets negative coordinates become huge <code>usize</code> and get caught by the same bounds check:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="n">dst</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">output</span><span class="p">.</span><span class="n">iter_mut</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">usize</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">wrap_mask</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">ty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">y</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">usize</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">wrap_mask</span><span class="p">;</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">matrix</span><span class="p">.</span><span class="n">pa</span><span class="p">;</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">matrix</span><span class="p">.</span><span class="n">pc</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">ty</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="internal-reference-points">Internal Reference Points</h3>
+<blockquote>
+<p><em>The above reference points are automatically copied to internal registers during each [VBLANK], specifying the origin for the first scanline. The internal registers are then incremented by dmx and dmy after each scanline.</em> <a href="https://problemkaputt.de/gbatek-lcd-i-o-bg-rotation-scaling.htm">Source</a></p>
+</blockquote>
+<ul>
+<li>Copy <code>BGxX</code>/<code>BGxY</code> to internal registers at VBLANK</li>
+<li>Add <code>PB</code>/<code>PD</code> to the internal ones after every line</li>
+<li>Writing <code>BGxX</code>/<code>BGxY</code> mid-frame updates the internal register <strong>immediately</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="sd">/// Advances the internal reference points by PB/PD to the start of the next scanline.</span>
+<span class="k">fn</span><span class="w"> </span><span class="nf">step_reference_points</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">pb</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">pd</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">bg_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">bg_ref_internal</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">pb</span><span class="p">.</span><span class="n">value</span><span class="p">();</span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">bg_ref_internal</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">value</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">reload_reference_points</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="bp">self</span><span class="p">.</span><span class="n">bg_ref_internal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">bg_ref</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">point</span><span class="o">|</span><span class="w"> </span><span class="n">point</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="n">ReferencePoint</span><span class="p">::</span><span class="n">value</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Using <code>Y + PD*line</code> instead of the internal register breaks anything that writes the matrix or reference point per line (mode 7 style roads).</p>
+<h2 id="affine-sprites">Affine Sprites</h2>
+<ul>
+<li>Bit 9 of attr0 means <strong>double size</strong>, affine sprites can't be hidden with it</li>
+<li>No flip bits, negate <code>PA</code>+<code>PB</code> (H) or <code>PC</code>+<code>PD</code> (V) instead</li>
+<li>32 matrices in OAM, matrix <code>m</code>: <code>PA</code> at <code>0x07000006 + 32m</code>, <code>PB</code>/<code>PC</code>/<code>PD</code> each 8 bytes after</li>
+<li>Transform is around the center of the sprite and the center of its on-screen area</li>
+<li>Double size makes the area <code>2w x 2h</code>, position is top left of that, center at <code>(x + w, y + h)</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>tx = ((PA*dx + PB*dy) &gt;&gt; 8) + w/2
+ty = ((PC*dx + PD*dy) &gt;&gt; 8) + h/2
+</code></pre></div>
+<p><code>dx</code>/<code>dy</code> measured from the area center. Texels outside the sprite are transparent.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">box_width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">i32</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="w"> </span><span class="n">ty</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">.</span><span class="n">apply</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">dy</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">i32</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ty</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">i32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="nb">Ok</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="nb">Ok</span><span class="p">(</span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">usize</span><span class="p">::</span><span class="n">try_from</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="kt">usize</span><span class="p">::</span><span class="n">try_from</span><span class="p">(</span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">attr</span><span class="p">.</span><span class="n">flip</span><span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">)</span>
+<span class="p">};</span>
+</code></pre></div>
+<h2 id="test-scenes">Test Scenes</h2>
+<p>Games that exercise one specific feature really well:</p>
+<ul>
+<li><strong>OpenLara</strong>: mode 4 page flipping (<code>DISPCNT</code> alternating <code>0x0404</code>/<code>0x0414</code>)</li>
+<li><strong>Game Boy Advance Video</strong> cartridges: mode 3, 1000+ colors in a frame</li>
+<li><strong>Shaman King: Master of Spirits</strong>: 4 text BGs with priorities, scrolling clouds</li>
+<li><strong>Action Man: Robot Atak</strong>: mode 3 + sprites (tiles &gt;= 512) on the map, 1D mapping, Y-wrapped health bar sprite</li>
+<li><strong>Tales of Phantasia</strong> intro: WIN0/WIN1 reveal, darken fade restricted to WIN1 via effects bit</li>
+<li><strong>Fire Emblem</strong> title: OBJ window (<code>WINOUT = 0x313e</code>), per-line BG0 scroll, alpha blend on lines 40-99</li>
+<li><strong>Golden Sun</strong> opening: alpha blending with EVA + EVB &gt; 16 (<code>BLDALPHA = 0x1006</code>)</li>
+<li><strong>The Minish Cap</strong> intro: alpha fade with window effect bit masking the picture</li>
+<li><strong>Super Mario World</strong> level entry: BG mosaic <code>0x1111</code> to <code>0xFFFF</code>, sprites unaffected</li>
+<li><strong>Wario Land 4</strong>: Nintendo logo (affine scale), vortex (affine BG + double size affine sprite)</li>
+<li><strong>F-Zero: Maximum Velocity</strong>: mode switch at line 32, HBLANK DMA writing BG2 matrix + reference point every line</li>
+</ul>
+<p>Writeups: <a href="https://layle.me/posts/gba-graphics-1-tiles/">Part 1: Bitmaps, Tiles and Palettes</a>, <a href="https://layle.me/posts/gba-graphics-2-layers/">Part 2: Layers, Sprites and Blending</a>, <a href="https://layle.me/posts/gba-graphics-3-affine/">Part 3: Rotation, Scaling and Perspective</a></p>
+<p>Honorary mention: Pdawg, Zayd</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.top","search.highlight","search.suggest","content.code.annotate","content.code.copy","content.tabs.link","header.autohide","palette.toggle","navigation.sections","navigation.instant","navigation.indexes"],"redirect":null,"search":"../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a2388154.min.js"></script>
+      
+    
+  </body>
+</html>
