@@ -174,15 +174,26 @@ g_last_timer_tick = now
 HW_ALARM = (now + delay_ticks) & 0xFFFFFFFF
 ```
 
+## DMA buffer addresses
+
+`dma_address` (`0xFFFF52D4`) translates a buffer's virtual address through the active page tables and converts SRAM CPU addresses to [DMA addresses](<../index.md#sram-dma-addresses>). The AES and SHA-1 services use the converted address when programming their engines. These addresses refer to IOS80.
+
+| SRAM bank | CPU physical start | CPU physical end (inclusive) | DMA start    | DMA end (inclusive) |
+| --------- | ------------------ | ---------------------------- | ------------ | ------------------- |
+| A         | `0xFFFF0000`       | `0xFFFFFFFF`                 | `0x0D400000` | `0x0D40FFFF`        |
+| B         | `0xFFFE0000`       | `0xFFFE7FFF`                 | `0x0D410000` | `0x0D417FFF`        |
+
+The conversion preserves the offset within the bank. MEM1 and MEM2 keep their translated physical addresses.
+
 ## AES completion
 
-The AES service thread `aes_worker` (`0x13A741AC`) registers event `2` with message value `0` on its completion queue. It submits the AES command with the completion interrupt enabled and waits on that queue.
+IOS80's AES service thread `aes_worker` (`0x13A7414C`) registers event `2` with message value `0` on its completion queue. It submits the AES command with the completion interrupt enabled and waits on that queue.
 
 The kernel IRQ handler acknowledges the AES interrupt by writing `0x00000004` to [`HW_ARMIRQFLAG`](<../index.md#arm-interrupts>) (`0x0D800038`) and then delivers event `2`.
 
 ## SHA-1 completion
 
-The SHA-1 service thread `sha_worker` (`0x13A746EC`) registers event `3` with message value `0` on its completion queue. `process_sha` (`0x13A7449C`) submits whole input blocks with the completion interrupt enabled and waits on that queue. For a single 64 byte block, it writes `0xC0000000` to the SHA-1 control register (`0x0D030000`).
+IOS80's SHA-1 service thread `sha_worker` (`0x13A74750`) registers event `3` with message value `0` on its completion queue. `process_sha` (`0x13A74440`) submits whole input blocks with the completion interrupt enabled and waits on that queue. For a single 64 byte block, it writes `0xC0000000` to the SHA-1 control register (`0x0D030000`).
 
 IOCTLV command `0` requires one input vector and two output vectors. The first output vector supplies the SHA-1 context address. Its declared length is not checked. Operation `0` writes the five SHA-1 initial state words followed by two zero length words to this address even when the input length is zero. A zero length request returns after these 28 bytes are written without starting the SHA-1 engine or writing the digest output vector.
 

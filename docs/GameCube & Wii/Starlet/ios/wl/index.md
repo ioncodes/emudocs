@@ -444,7 +444,7 @@ else
 
 ### HLE frame reception
 
-A microcode HLE can deliver scan results through this receive path. The other interfaces it has to provide are covered under [Microcode HLE](<microcode-hle.md#hle>).
+A microcode HLE can deliver management and data frames through this receive path. The other interfaces it has to provide are covered under [Microcode HLE](<microcode-hle.md#hle>).
 
 To deliver a frame:
 

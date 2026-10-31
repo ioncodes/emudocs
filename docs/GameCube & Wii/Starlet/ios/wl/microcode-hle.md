@@ -33,6 +33,8 @@ uint16_t read_shm(uint32_t offset)
 }
 ```
 
+The byte representation of each shared memory word is little endian. For example, `shm[0x0C0] = 0x0039` stores the 16 bit value `0x0039` at byte offset `0x180`, represented by bytes `39 00`.
+
 These words make up the host interface:
 
 | Word            | Byte offset   | Name               | Microcode use                                      | WL use                                                   |

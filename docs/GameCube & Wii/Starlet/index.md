@@ -4,7 +4,7 @@ Shoutout to Zayd :)
 
 ## Memory Map
 
-Addresses are Starlet physical addresses.
+Addresses are Starlet CPU physical addresses.
 
 | Start        | End (inclusive) | Size                  | Mapping                                |
 | ------------ | --------------- | --------------------- | -------------------------------------- |
@@ -40,6 +40,17 @@ With the boot ROM disabled (`HW_BOOT0[12] = 1`), the windows at `0x0D400000` and
 | 1    | `0x10000`    | `0x1FFFF`              | SRAM A  |
 
 Each SRAM range maps its bank starting at byte zero. The seven windows from `0xFFF00000` through `0xFFFDFFFF` mirror the window at `0x0D400000` in every configuration.
+
+### SRAM DMA addresses
+
+Peripheral DMA uses a fixed SRAM bank arrangement. The CPU bank swap and boot ROM mapping do not change these DMA addresses.
+
+| DMA start    | DMA end (inclusive) | Size   | Mapping |
+| ------------ | ------------------- | ------ | ------- |
+| `0x0D400000` | `0x0D40FFFF`        | 64 KiB | SRAM A  |
+| `0x0D410000` | `0x0D417FFF`        | 32 KiB | SRAM B  |
+
+Each DMA range starts at byte zero of its bank. [IOS converts SRAM pointers](<ios/index.md#dma-buffer-addresses>) before programming the AES and SHA-1 engines.
 
 ## SRAM control
 
