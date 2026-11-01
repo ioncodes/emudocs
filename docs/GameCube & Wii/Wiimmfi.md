@@ -55,14 +55,14 @@ For every registered friend code the game sends this GPCM message:
 \addbuddy\sesskey\<session key>\newprofileid\<friend profile id>\reason\final\
 ```
 
-When the friend has registered this console as well, the server answers with the friend's own request. While the friend is online, it also sends the friend's status with their public address and port.
+When the friend has registered this console as well, the server answers with a `bm` type 4 authorization notice for that profile. A pending request from the other side would instead arrive as `bm` type 2 with a `|signed|` signature in its message. While the friend is online, the server also sends the friend's status with their public address and port.
 
 ```text
 \bm\4\f\<friend profile id>\date\<unix time>\msg\final\
 \bm\100\f\<friend profile id>\msg\|s|1|ss|<statstring>|ls|<locstring>|ip|<decimal IPv4>|p|<port>|qm|0\final\
 ```
 
-The game then requests the friend's profile over GPCM and sends a GPSP `\otherslist\` query for the same profile.
+The authorization notice makes the game request the friend's profile over GPCM. The `pi` reply is what converts the friend code entry into an established friend, so the roster shows the friend as registered only after it arrives. The game also sends a GPSP `\otherslist\` query for the same profile.
 
 ```text
 client: \getprofile\sesskey\<session key>\profileid\<friend profile id>\id\<n>\final\
@@ -83,3 +83,15 @@ Afterwards the server sends room status over the GPCM connection in these forms:
 ## Matchmaking
 
 While searching, Worldwide matchmaking repeatedly queries the server browser on TCP port 28910 of the GPCM host. NAT negotiation runs from the game's UDP socket to port 27901 on `95.217.77.151`, `78.46.231.155` and `188.34.177.217`. Their replies arrive on the same socket and all three servers must see the same public mapping of it. Peers then send UDP directly to the game socket, so the mapping must accept datagrams from endpoints the socket has not yet sent to.
+
+### Friend room address exchange
+
+Friend room setup carries match commands inside GPCM `bm` type 1 messages. The `msg` value starts with `GPCM90vMAT`, followed by one binary command byte and a Base64 payload. This encoding uses `.` instead of `+`, `-` instead of `/` and `*` for padding.
+
+| Command | Name          | Address fields in the decoded payload                                                       |
+| ------- | ------------- | ------------------------------------------------------------------------------------------- |
+| `0x01`  | `RESERVATION` | Public IPv4 at `0x04`, public port at `0x08`, local IPv4 at `0x0C` and local port at `0x10` |
+| `0x02`  | `RESV_OK`     | Public IPv4 at `0x0C`, public port at `0x10`, local IPv4 at `0x14` and local port at `0x18` |
+| `0x06`  | `TELL_ADDR`   | Local IPv4 at `0x00` and local port at `0x04`                                               |
+
+Each IPv4 field contains four bytes in network order. Each port occupies a little endian 32 bit field. The joining client sends `RESERVATION` and the room host answers with `RESV_OK`. `TELL_ADDR` supplies a local endpoint in an 8 byte payload. A reservation response and room status updates do not by themselves establish a UDP connection between the players.

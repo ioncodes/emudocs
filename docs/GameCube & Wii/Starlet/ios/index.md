@@ -87,12 +87,12 @@ loop:
 
 Only the loop's address differs between builds. The kernel build column gives the date and time from the kernel module's version string.
 
-| Kernel build                                  | IOS versions                                                                              | Idle loop    |
-| --------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------ |
-| 03/01/10 02:53 and 03:05                      | IOS9, IOS12, IOS13, IOS14, IOS15, IOS17, IOS21, IOS22                                     | `0xFFFF0C3C` |
-| 03/01/10 03:13 and 03:37                      | IOS28, IOS31, IOS33, IOS34, IOS35, IOS36, IOS38                                           | `0xFFFF0C4C` |
-| 03/01/10 03:28                                | IOS37, IOS41, IOS43, IOS45, IOS46, IOS48, IOS53, IOS55                                    | `0xFFFF0C4E` |
-| 11/24/08, 06/03/09, 03/03/10 and 02/27/12     | IOS16, IOS40, IOS50, IOS51, IOS52, IOS56, IOS57, IOS58, IOS60, IOS61, IOS62, IOS70, IOS80 | `0xFFFF0C6A` |
+| Kernel build                              | IOS versions                                                                              | Idle loop    |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------- | ------------ |
+| 03/01/10 02:53 and 03:05                  | IOS9, IOS12, IOS13, IOS14, IOS15, IOS17, IOS21, IOS22                                     | `0xFFFF0C3C` |
+| 03/01/10 03:13 and 03:37                  | IOS28, IOS31, IOS33, IOS34, IOS35, IOS36, IOS38                                           | `0xFFFF0C4C` |
+| 03/01/10 03:28                            | IOS37, IOS41, IOS43, IOS45, IOS46, IOS48, IOS53, IOS55                                    | `0xFFFF0C4E` |
+| 11/24/08, 06/03/09, 03/03/10 and 02/27/12 | IOS16, IOS40, IOS50, IOS51, IOS52, IOS56, IOS57, IOS58, IOS60, IOS61, IOS62, IOS70, IOS80 | `0xFFFF0C6A` |
 
 For an undefined instruction that does not match the syscall encoding, `undefined_exception` (`0xFFFF1F24`) saves the exception return address, marks the current thread as faulted with state `6` and calls `dispatch_thread` (`0xFFFF2340`). The faulted thread is no longer runnable. The idle loop can therefore run while a service thread is faulted and other services are waiting for messages.
 
