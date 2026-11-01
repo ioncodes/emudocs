@@ -37,6 +37,20 @@ Opening a partition reads the partition header, title metadata (TMD) and certifi
 
 ES reports its result separately from DIP's. A nonzero ES result fails the open. Successful verification is also what sets up the disc's title context in ES, so returning a TMD without going through ES is not enough.
 
+ES ioctlv `0x20` returns the current title ID in one 8 byte output vector. It reports the title launched from NAND until a partition open succeeds and the disc title afterwards. A loader that starts a disc title without the System Menu therefore has to open the game partition first. Otherwise the title runs with the NAND title's context and save directory.
+
+Broadway opens a partition with ioctlv `0x8B`, which takes three input vectors and two output vectors:
+
+| Vector | Direction | Contents                                                                           |
+| ------ | --------- | ---------------------------------------------------------------------------------- |
+| 0      | Input     | 32 byte command block. Word 1 holds the partition offset in 4 byte units.          |
+| 1      | Input     | Ticket. When this vector is empty, DIP reads the ticket from the partition header. |
+| 2      | Input     | Certificate chain. When this vector is empty, DIP reads it from the disc.          |
+| 3      | Output    | TMD                                                                                |
+| 4      | Output    | ES result                                                                          |
+
+An empty vector has a null pointer and zero length. Both input vectors can be empty at the same time.
+
 The verification path invokes IOS's [software RSA signature verification](<index.md#signature-verification>).
 
 For an encrypted partition, `verify_partition_hashes` (`0x20202BF8`) then reads the `0x18000` byte H3 table and checks its SHA-1 digest against the content hashes from ES. The partition is only marked open once this check passes. The partition data address must be aligned to `0x8000` bytes.
@@ -45,10 +59,12 @@ For an encrypted partition, `verify_partition_hashes` (`0x20202BF8`) then reads 
 
 `dvd_driver` (`0x2020062C`) registers `/dev/di`. It passes ioctl arguments to `di_ioctl` (`0x20200400`) and vector arguments to `di_ioctlv` (`0x20200284`). After the handler returns, the driver passes its result to `reply_request` (`0x20205E88`).
 
-| Firmware    | `di_ioctl`   | `di_ioctlv`  |
-| ----------- | ------------ | ------------ |
-| IOS80 v6944 | `0x20200400` | `0x20200284` |
-| IOS35 v3608 | `0x202003B8` | `0x20200254` |
+| Firmware                                                                        | DIP build | `di_ioctl`   | `di_ioctlv`  |
+| ------------------------------------------------------------------------------- | --------- | ------------ | ------------ |
+| IOS56 v5662, IOS57 v5919, IOS58 v6176, IOS61 v5662, IOS70 v6687 and IOS80 v6944 | 06/03/09  | `0x20200400` | `0x20200284` |
+| IOS31 v3608, IOS33 v3608, IOS34 v3608, IOS35 v3608 and IOS36 v3608              | 07/14/08  | `0x202003B8` | `0x20200254` |
+
+The IOS versions in one row share the same DIP module content, so the DIP addresses on this page apply to all of them. The DIP build column gives the date from the module's version string.
 
 Both argument structures begin at byte offset `0x0C` in the IOS request. Each field is a 32 bit big endian value, and pointers are addresses in the driver's address space.
 

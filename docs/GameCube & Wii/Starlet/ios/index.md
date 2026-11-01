@@ -70,11 +70,29 @@ IOS80's `verify_rsa_sha1` (`0x13A75514`) imports the signature, public modulus a
 
 Once the service threads are started, the initialization thread lowers its own priority to zero and enters an idle loop at `0xFFFF0C6A`. The loop reads `g_debug_requests` (`0xFFFF9ECC`) repeatedly while it is zero. When the word is nonzero, the loop passes its value to `print_debug_state` (`0xFFFF6084`) to select diagnostic output then clears the word. The loop does not execute a wait-for-interrupt instruction.
 
-| Firmware    | Idle loop    | `g_debug_requests` | `print_debug_state` |
-| ----------- | ------------ | ------------------ | ------------------- |
-| IOS80 v6944 | `0xFFFF0C6A` | `0xFFFF9ECC`       | `0xFFFF6084`        |
-| IOS70 v6687 | `0xFFFF0C6A` | `0xFFFF9E8C`       | `0xFFFF6078`        |
-| IOS35 v3608 | `0xFFFF0C4C` | `0xFFFF9BCC`       | `0xFFFF5E24`        |
+| Firmware    | `g_debug_requests` | `print_debug_state` |
+| ----------- | ------------------ | ------------------- |
+| IOS80 v6944 | `0xFFFF9ECC`       | `0xFFFF6084`        |
+| IOS70 v6687 | `0xFFFF9E8C`       | `0xFFFF6078`        |
+| IOS35 v3608 | `0xFFFF9BCC`       | `0xFFFF5E24`        |
+
+Every IOS kernel build implements the loop with the same three Thumb instructions, where `R4` holds the address of `g_debug_requests`.
+
+```text
+loop:
+    LDR R3, [R4]
+    CMP R3, #0
+    BEQ loop
+```
+
+Only the loop's address differs between builds. The kernel build column gives the date and time from the kernel module's version string.
+
+| Kernel build                                  | IOS versions                                                                              | Idle loop    |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------ |
+| 03/01/10 02:53 and 03:05                      | IOS9, IOS12, IOS13, IOS14, IOS15, IOS17, IOS21, IOS22                                     | `0xFFFF0C3C` |
+| 03/01/10 03:13 and 03:37                      | IOS28, IOS31, IOS33, IOS34, IOS35, IOS36, IOS38                                           | `0xFFFF0C4C` |
+| 03/01/10 03:28                                | IOS37, IOS41, IOS43, IOS45, IOS46, IOS48, IOS53, IOS55                                    | `0xFFFF0C4E` |
+| 11/24/08, 06/03/09, 03/03/10 and 02/27/12     | IOS16, IOS40, IOS50, IOS51, IOS52, IOS56, IOS57, IOS58, IOS60, IOS61, IOS62, IOS70, IOS80 | `0xFFFF0C6A` |
 
 For an undefined instruction that does not match the syscall encoding, `undefined_exception` (`0xFFFF1F24`) saves the exception return address, marks the current thread as faulted with state `6` and calls `dispatch_thread` (`0xFFFF2340`). The faulted thread is no longer runnable. The idle loop can therefore run while a service thread is faulted and other services are waiting for messages.
 
@@ -178,6 +196,30 @@ g_last_timer_tick = now
 HW_ALARM = (now + delay_ticks) & 0xFFFFFFFF
 ```
 
+## Timers
+
+The kernel keeps up to 256 timers in a table at `0xFFFE60C0` with 28 byte entries. `g_timer_list` (`0xFFFFCC18`) heads a doubly linked list of the armed timers in expiry order. Each entry's delay counts from the expiry of the entry before it. These addresses refer to IOS80.
+
+| Offset | Size    | Field    | Meaning                                                   |
+| ------ | ------- | -------- | --------------------------------------------------------- |
+| `0x00` | 4 bytes | Delay    | Ticks until expiry, relative to the previous armed timer  |
+| `0x04` | 4 bytes | Period   | Repeat interval in microseconds, `0` for a one-shot timer |
+| `0x08` | 4 bytes | Queue    | Pointer to the destination message queue                  |
+| `0x0C` | 4 bytes | Message  | Message word sent on expiry                               |
+| `0x10` | 4 bytes | Process  | Owning process ID                                         |
+| `0x14` | 4 bytes | Previous | Previous armed timer or `0` while stopped                 |
+| `0x18` | 4 bytes | Next     | Next armed timer or `0` while stopped                     |
+
+`create_timer` (`0xFFFF432C`) rejects a queue ID above 255 with `-4` and a queue owned by another process with `-1`. It takes the first free entry (one whose queue pointer is `0`) and returns `-5` when none is free. It stores the period, queue, message and process, converts the initial delay (or the period when the delay is `0`) to ticks with `microseconds_to_ticks` (`0xFFFF7128`) and arms the entry through `insert_timer` (`0xFFFF41B8`) unless the conversion yields zero ticks. It returns the entry index.
+
+`restart_timer` (`0xFFFF43DC`) only accepts a stopped one-shot timer, one whose period, delay and both links are zero. Any other state returns `-4`, including a one-shot timer that expired without being stopped. A timer owned by another process returns `-1`. For an accepted timer it stores the new period and arms the entry like `create_timer`.
+
+`insert_timer` first subtracts the ticks elapsed since `g_last_timer_tick` from the head entry's delay. It then walks the list to the first entry whose delay is at least the remaining delay, subtracts the new delay from that entry and links the new entry before it. When the new entry becomes the head, it calls `program_alarm` with its delay.
+
+`timer_worker` (`0xFFFF423C`) runs in its own thread and waits for the timer interrupt event. For each head entry whose delay has elapsed, it unlinks the entry, re-arms it if the period is nonzero and sends the message to the queue with the nonblocking flag, ignoring a full queue. An expired one-shot timer keeps its last delay value in the entry. Afterwards the worker subtracts the elapsed ticks from the new head's delay and programs the alarm for it.
+
+The re-armed delay for a periodic timer is `delay - elapsed + period_ticks - 1` when `delay + period_ticks` is at least `elapsed`, otherwise `1`. When the worker runs exactly `period_ticks` after the timer expired, the delay becomes `0xFFFFFFFF` and the timer does not expire again for 2^32 ticks.
+
 ## DMA buffer addresses
 
 `dma_address` (`0xFFFF52D4`) translates a buffer's virtual address through the active page tables and converts SRAM CPU addresses to [DMA addresses](<../index.md#sram-dma-addresses>). The AES and SHA-1 services use the converted address when programming their engines. These addresses refer to IOS80.
@@ -246,18 +288,20 @@ Syscalls are undefined ARM instructions. Executing one raises an Undefined Instr
 
 For example, `0xE6000130` selects index 9. Arguments are passed in `r0` through `r3` and the result is returned in `r0`. Execution then resumes at the instruction after the syscall. Indices above `0x7A` return immediately with `r0` unchanged.
 
-| Index  | Function                               | Arguments                                                                      | Result                                                          |
-| ------ | -------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------- |
-| `0x03` | `get_thread_id` (`0xFFFF04A0`)         | None                                                                           | Current thread's index in the kernel thread table               |
-| `0x08` | `get_thread_priority` (`0xFFFF0760`)   | `r0` = thread ID (0 selects the current thread)                                | Priority or `-4` if the thread ID or process access is rejected |
-| `0x09` | `set_thread_priority` (`0xFFFF07B0`)   | `r0` = thread ID (0 selects the current thread), `r1` = priority               | `0` on success or `-4` if the thread or priority is rejected    |
-| `0x0C` | `send_message` (`0xFFFF27F8`)          | `r0` = queue ID, `r1` = message word, `r2` = nonblocking flag                  | `0` on success or a negative error                              |
-| `0x0E` | `receive_message` (`0xFFFF29E4`)       | `r0` = queue ID, `r1` = writable message-word pointer, `r2` = nonblocking flag | `0` on success or a negative error                              |
-| `0x15` | `get_timer` (`0xFFFF4530`)             | None                                                                           | Current 32 bit `HW_TIMER` value                                 |
-| `0x2A` | `reply_request` (`0xFFFF408C`)         | `r0` = dispatched request pointer, `r1` = signed service result                | Reply delivery result or `-4` for a rejected request            |
-| `0x2F` | `flush_from_device` (`0xFFFF5CC8`)     | `r0` = device                                                                  | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)         |
-| `0x30` | `flush_to_device` (`0xFFFF5CE4`)       | `r0` = device                                                                  | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)         |
-| `0x3F` | `invalidate_data_range` (`0xFFFF5BE0`) | `r0` = address, `r1` = length                                                  | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)         |
-| `0x40` | `flush_data_range` (`0xFFFF5C50`)      | `r0` = address, `r1` = length                                                  | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)         |
+| Index  | Function                               | Arguments                                                                                         | Result                                                                            |
+| ------ | -------------------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `0x03` | `get_thread_id` (`0xFFFF04A0`)         | None                                                                                              | Current thread's index in the kernel thread table                                 |
+| `0x08` | `get_thread_priority` (`0xFFFF0760`)   | `r0` = thread ID (0 selects the current thread)                                                   | Priority or `-4` if the thread ID or process access is rejected                   |
+| `0x09` | `set_thread_priority` (`0xFFFF07B0`)   | `r0` = thread ID (0 selects the current thread), `r1` = priority                                  | `0` on success or `-4` if the thread or priority is rejected                      |
+| `0x0C` | `send_message` (`0xFFFF27F8`)          | `r0` = queue ID, `r1` = message word, `r2` = nonblocking flag                                     | `0` on success or a negative error                                                |
+| `0x0E` | `receive_message` (`0xFFFF29E4`)       | `r0` = queue ID, `r1` = writable message-word pointer, `r2` = nonblocking flag                    | `0` on success or a negative error                                                |
+| `0x11` | `create_timer` (`0xFFFF432C`)          | `r0` = delay in microseconds, `r1` = period in microseconds, `r2` = queue ID, `r3` = message word | Timer index or `-4`, `-1` or `-5`, see [Timers](<#timers>)                        |
+| `0x12` | `restart_timer` (`0xFFFF43DC`)         | `r0` = timer index, `r1` = delay in microseconds, `r2` = period in microseconds                   | `0` on success, `-1` for another process's timer or `-4`, see [Timers](<#timers>) |
+| `0x15` | `get_timer` (`0xFFFF4530`)             | None                                                                                              | Current 32 bit `HW_TIMER` value                                                   |
+| `0x2A` | `reply_request` (`0xFFFF408C`)         | `r0` = dispatched request pointer, `r1` = signed service result                                   | Reply delivery result or `-4` for a rejected request                              |
+| `0x2F` | `flush_from_device` (`0xFFFF5CC8`)     | `r0` = device                                                                                     | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)                           |
+| `0x30` | `flush_to_device` (`0xFFFF5CE4`)       | `r0` = device                                                                                     | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)                           |
+| `0x3F` | `invalidate_data_range` (`0xFFFF5BE0`) | `r0` = address, `r1` = length                                                                     | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)                           |
+| `0x40` | `flush_data_range` (`0xFFFF5C50`)      | `r0` = address, `r1` = length                                                                     | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)                           |
 
 The message queue calls accept a nonblocking flag of `0` or `1`. With `0`, a send to a full queue or a receive from an empty queue suspends the calling thread as described in [Thread waits](<#thread-waits>). With `1`, the call returns without suspending. Both calls check the queue's owning process. A receive also validates the 4 byte message destination before it accesses the queue.
