@@ -66,9 +66,29 @@ After the power delay, initialization submits CMD5 with argument zero through `s
 
 The polling counter starts at 5000 and is decremented after each read. If it reaches zero, the routine requests a command-line reset through the [clock and reset register](#host-setup) and returns `1`. A command timeout makes card initialization fail. The attachment routine retries initialization once before returning a null pointer.
 
-After completion, the routine checks error status. A nonzero error status causes it to return `1`. With no error, `probe_card` (`0x13F1DC8C`) reads the CMD5 response. A zero response causes another CMD5 attempt. After 200 unsuccessful attempts, the probe returns `1` and initialization fails.
+Once the command completion bit is set, the routine acknowledges it and reads the error status halfword at `0x0D080032`. A nonzero value is written back to that halfword to clear the reported errors. The routine then requests a DAT line reset through the [clock and reset register](#host-setup), reads the request bit at most 5001 times until it clears and returns `1`. With no error, `probe_card` (`0x13F1DC8C`) reads the CMD5 response. A zero response causes another CMD5 attempt. After 200 unsuccessful attempts, the probe returns `1` and initialization fails.
 
 The worker's unchecked driver pointer then causes the [receive loop](#sdio-initialization) to use a queue handle read from address `0x000001C8`. If that handle is rejected, the worker immediately retries the receive call without blocking.
+
+### Command submission
+
+Before writing a command, `send_command` reads Present State at `0x0D080024` up to five times and returns `1` if Command Inhibit (CMD) is still set. For CMD53 it then writes the block size and block count to `0x0D080004` and reads Present State up to five more times, returning `1` if Command Inhibit (DAT) is still set. Only then does it write the argument to `0x0D080008` and the command word to `0x0D08000C`.
+
+| Bits | Field                 | Firmware use                                       |
+| ---- | --------------------- | -------------------------------------------------- |
+| `0`  | Command Inhibit (CMD) | Must read clear before any command is written.     |
+| `1`  | Command Inhibit (DAT) | Must read clear before a CMD53 command is written. |
+
+The command word combines the command index with the fields below.
+
+| Bits    | Field                          | Firmware use                                                                                      |
+| ------- | ------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `29:24` | Command Index                  | SDIO command number.                                                                              |
+| `21`    | Data Present Select            | Set for CMD53.                                                                                    |
+| `20`    | Command Index Check Enable     | Set when the word at byte offset `0x44` in the [host object](#card-interrupt-masking) is nonzero. |
+| `19`    | Command CRC Check Enable       | Set under the same condition as bit 20.                                                           |
+| `17:16` | Response Type Select           | `2` selects a 48 bit response.                                                                    |
+| `4`     | Data Transfer Direction Select | Set for CMD53 reads.                                                                              |
 
 ### CMD5 response
 
@@ -169,6 +189,8 @@ The routine then polls Transfer Complete with another counter initialized to 500
 
 For CMD53 accesses, the card helpers store the transfer size at byte offset `0x64` in the host object. The byte at `0x3A` selects polling. With polling enabled, a successful read stores its result as a 32 bit word at the supplied output pointer. A 16 bit result occupies the low halfword of that word.
 
+For 4 byte accesses, `transfer_card` keeps only the low 15 bits of the card address and sets bit 15 before building the command argument. Byte and 16 bit accesses use the address unchanged.
+
 `transfer_card` reverses the four bytes of the data word for chip addresses `0x18001304`, `0x1800130C`, `0x18001314`, `0x1800131C`, `0x18001324`, `0x1800132C`, `0x18001334`, `0x1800133C`, `0x18001344`, `0x1800134C`, `0x18001354` and `0x1800135C`. It changes the caller's data word in place before a write or after a read.
 
 ### Card interrupt masking
@@ -185,6 +207,7 @@ The host object uses native big endian fields:
 | `0x28`      | 2 bytes | Normal interrupt signal mask                                               |
 | `0x3A`      | 1 byte  | Nonzero selects polling for command and data completion                    |
 | `0x3D`      | 1 byte  | Nonzero enables the mask/unmask register writes                            |
+| `0x44`      | 4 bytes | Nonzero enables the command CRC and index checks in the command word       |
 | `0x64`      | 4 bytes | Transfer size in bytes                                                     |
 
 `mask_card_interrupt` (`0x13F1CC0C`) and `unmask_card_interrupt` (`0x13F1CBE8`) return without changing the mask when the byte at `0x3D` is zero. Otherwise they update the Card Interrupt field in the stored mask then write it to the low halfword of Signal Enable at `0x0D080038`, preserving the upper halfword.
@@ -277,7 +300,7 @@ The polling loop starts with a budget of `1000009`. After each unsuccessful read
 WL spams microcode upload which really messes with performance so it's possible to HLE the microcode load mechanism (`0x13ED4D1C`) to counteract that!
 
 ```c
-int __fastcall load_microcode(int wireless, const unsigned int *data, unsigned int size)
+int __fastcall load_microcode(int wireless, const unsigned int* data, unsigned int size)
 {
   unsigned int word_count; // r5
   unsigned int index; // r4
@@ -286,9 +309,9 @@ int __fastcall load_microcode(int wireless, const unsigned int *data, unsigned i
 
   word_count = size >> 2;
   index = 0;
-  for ( result = write_backplane(sdio: 0, address: *(_DWORD *)(wireless + 1956) + 352, size: 4u, value: 0x3000000u);
+  for ( result = write_backplane(sdio: 0, address: *(_DWORD*)(wireless + 1956) + 352, size: 4u, value: 0x3000000u);
         index < word_count;
-        result = write_backplane(sdio: 0, address: *(_DWORD *)(wireless + 1956) + 356, size: 4u, value: word) )
+        result = write_backplane(sdio: 0, address: *(_DWORD*)(wireless + 1956) + 356, size: 4u, value: word) )
   {
     word = data[index++];
   }

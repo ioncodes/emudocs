@@ -42,7 +42,7 @@ Boot2's `NAND_EraseCluster` function looks roughly like this:
 ```C
 int NAND_EraseCluster(uint cluster) {
   int result;
-  astruct_2 *iVar1;
+  astruct_2* iVar1;
   
   if (cluster < (uint)(1 << (_MAX_CLUSTERS - 14 & 0xff))) {
     // possibly NAND_Initialized?

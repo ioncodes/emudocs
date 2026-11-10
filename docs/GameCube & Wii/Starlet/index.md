@@ -52,6 +52,40 @@ Peripheral DMA uses a fixed SRAM bank arrangement. The CPU bank swap and boot RO
 
 Each DMA range starts at byte zero of its bank. [IOS converts SRAM pointers](<ios/index.md#dma-buffer-addresses>) before programming the AES and SHA-1 engines.
 
+## MEM2 write protection
+
+The memory controller protects a programmable MEM2 interval from Broadway writes. Starlet can continue writing the interval. The bounds use 4096 byte pages relative to physical `0x10000000`. Both endpoint pages belong to the protected interval.
+
+`R/W` means readable and writable. Register addresses are physical addresses shared by Starlet and Broadway.
+
+| Address | Width | Access | Reset | Name | Purpose |
+| --- | --- | --- | --- | --- | --- |
+| `0x0D8B420A` | 16 bits | R/W | - | `MEM_PROT` | Enable Broadway write protection. |
+| `0x0D8B420C` | 16 bits | R/W | - | `MEM_PROT_START` | First protected MEM2 page. |
+| `0x0D8B420E` | 16 bits | R/W | - | `MEM_PROT_END` | Last protected MEM2 page. |
+
+### MEM_PROT - 0x0D8B420A (16 bits, R/W)
+
+| Bits | Name | Access | Reset | Description |
+| --- | --- | --- | --- | --- |
+| `0` | Enable | R/W | - | `1` enables protection. `0` disables it. |
+
+Protection applies when a Broadway write reaches memory. A store into Broadway's data cache can change its cached copy without changing protected MEM2. Writing that cache line back does not overwrite the protected memory.
+
+### MEM_PROT_START - 0x0D8B420C (16 bits, R/W)
+
+| Bits | Name | Access | Reset | Description |
+| --- | --- | --- | --- | --- |
+| `15:0` | First page | R/W | - | The interval starts at `0x10000000 + (MEM_PROT_START << 12)`. |
+
+### MEM_PROT_END - 0x0D8B420E (16 bits, R/W)
+
+| Bits | Name | Access | Reset | Description |
+| --- | --- | --- | --- | --- |
+| `15:0` | Last page | R/W | - | The inclusive interval end is `0x10000000 + (MEM_PROT_END << 12) + 0xFFF`. |
+
+[IOS configures this interval](<ios/index.md#mem2-protection>) while preparing its memory.
+
 ## SRAM control
 
 | Starlet physical address | Width   | Name         | Purpose                 |
@@ -79,6 +113,22 @@ Each DMA range starts at byte zero of its bank. [IOS converts SRAM pointers](<io
 While bit 12 is set, the ranges that would otherwise show the boot ROM expose SRAM according to `HW_SRNPROT[SM]`, as listed in [SRAM and boot ROM mapping](#sram-and-boot-rom-mapping).
 
 boot1 polls bits `3:0` while it changes `HW_SPARE0` (`0x0D800188`). [Status wait before device synchronization](<boot1.md#status-wait-before-device-synchronization>) describes the firmware sequence.
+
+## Hardware access
+
+| Starlet physical address | Width | Access | Initial boot value | Name | Purpose |
+| ------------------------ | ----- | ------ | ------------------ | ---- | ------- |
+| `0x0D800064` | 32 bits | R/W | `0xFFFFFFFF` | `HW_AHBPROT` | Hardware access controls |
+
+### HW_AHBPROT - `0x0D800064` (32 bits, R/W)
+
+`R/W` means readable and writable. The register starts at `0xFFFFFFFF` during boot. [IOS title access](<ios/index.md#title-hardware-access>) changes the Broadway controls while preserving the other bits. Broadway reads the register through effective address `0xCD800064`.
+
+| Bits | Field | Access | Initial boot value | Description |
+| ---- | ----- | ------ | ------------------ | ----------- |
+| `31`, `11:10`, `8:1` | Broadway hardware access | R/W | All 1 | IOS sets these bits to enable title hardware access and clears them to disable it. Together they form mask `0x80000DFE`. |
+
+[Homebrew Channel](<homebrew-channel.md#startup-hardware-checks>) requires the complete register value to be `0xFFFFFFFF` during its startup checks.
 
 ## Timer alarm
 

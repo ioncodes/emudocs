@@ -73,6 +73,11 @@ server: \pi\profileid\...\nick\...\uniquenick\...\final\
 
 The first time the player enters Worldwide, Regional or Find a Friend after the server message has arrived, the game shows a three page Wiimmfi notice and a dialog with the choices Permit and Prohibit. Permit makes the game resolve `ca.nas.wiimmfi.de` and `main.nas.wiimmfi.de`. It then opens HTTP (TCP port 80) and HTTPS (TCP port 443) connections to them and logs into GPCM and GPSP again. During this step the patched code reads the Broadway chip ID registers ECID_U, ECID_M and ECID_L (SPR 924 to 926).
 
+The HTTPS server on `main.nas.wiimmfi.de` presents a single certificate issued by `Wiimmfi CA` with a 4096 bit RSA key. `naswii.nintendowifi.net` presents a chain of two certificates under `Nintendo CA` with 1024 bit RSA keys. The IOS [SSL](<Starlet/ios/ssl.md#montgomery-reduction>) module performs the RSA arithmetic for these handshakes.
+
+!!! tip
+    If at this stage you see gigantic performance issues it's very likely that it's Starlet doing a crapload of work for this math. It's genuinely insane how hard this bottlenecks throughput lol. You'll likely have to cache interpreter if not JIT Starlet or outright HLE this module.
+
 Afterwards the server sends room status over the GPCM connection in these forms:
 
 ```text

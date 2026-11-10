@@ -16,7 +16,7 @@ void start(void)
     cp15_control |= 1 << 12;             // enable the instruction cache
     memset32(bss_start, bss_end, 0, 4);  // the range is empty in boot1
     sp = 0x0D40EFFC;
-    void *entry = load_boot2();          // Thumb code
+    void* entry = load_boot2();          // Thumb code
     cp15_control &= ~(1 << 12);          // disable the instruction cache
     goto *entry;                         // MOV PC, R1, stays in ARM state
 }
@@ -29,7 +29,7 @@ void start(void)
 After that, boot1 makes up to two attempts to load boot2. The first attempt searches NAND blocks 1 to 7 in ascending order. If it fails, boot1 waits for the NAND, AES and SHA-1 engines to finish and tries again, this time searching from block 7 down to block 1. If the second attempt also fails, boot1 shows the error code forever.
 
 ```c
-void *load_boot2(void)
+void* load_boot2(void)
 {
     int error;
 
@@ -137,10 +137,10 @@ The certificate names are stored at `0x284`, `0x584` and `0x884`. Before a name 
 boot1b checks each blob with `verify_signed` (`0xFFF003A4`). The function copies the blob to MEM1 at `0x000AC000` with `mem_copy` (`0xFFF03ABC`) and compares its 64 byte issuer field with the expected issuer string using `memcmp` (`0xFFF039D4`). It then hashes everything from the issuer field to the end of the blob with SHA-1 and checks an RSA signature over that hash:
 
 ```c
-int verify_signed(const u8 *blob, const char *issuer, const u8 *modulus,
-                  const u8 *exponent, int kind, u32 size)
+int verify_signed(const u8* blob, const char* issuer, const u8* modulus,
+                  const u8* exponent, int kind, u32 size)
 {
-    u8 *copy = (u8 *)0x000AC000;
+    u8* copy = (u8*)0x000AC000;
     u32 body    = kind == 1 ? 0x240 : 0x140;  // kind 1: RSA-4096, kinds 2-4: RSA-2048
     u32 key_len = kind == 1 ? 0x200 : 0x100;
 
@@ -198,7 +198,7 @@ The SHA-1 engine only processes whole 64 byte blocks, so boot1 adds the padding 
 `ecc_correct` checks a 2048 byte page in four 512 byte chunks. For each chunk it compares the ECC word stored in the spare area at `0x30 + 4 * i` with the word the NAND engine calculated at `0x40 + 4 * i`:
 
 ```c
-int ecc_correct(u8 *data, u8 *spare)
+int ecc_correct(u8* data, u8* spare)
 {
     for (int i = 0; i < 4; i++) {
         u32 stored   = read32(spare + 0x30 + 4 * i);

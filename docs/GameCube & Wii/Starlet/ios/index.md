@@ -22,7 +22,7 @@ IOS80 v6944 contains the following module tags in its embedded `IOSVersion` stri
 | `0x0000000A` | ETH                                 |
 | `0x0000000B` | STM                                 |
 | `0x0000000C` | KBD                                 |
-| `0x0000000D` | SSL                                 |
+| `0x0000000D` | [SSL](<ssl.md>)                     |
 | `0x0000000E` | IOSP, FSP and ES                    |
 
 ## System Menu launch
@@ -63,6 +63,16 @@ Once the System Menu is running, it uses DIP to [detect discs and read Disc Chan
 IOS80's `verify_rsa_sha1` (`0x13A75514`) imports the signature, public modulus and exponent as big integers. It computes `signature^exponent mod modulus` in software through `bigint_power_modulo` (`0x13A77A40`), using multiplication and division for modular reduction. It converts the result back to bytes and checks the signature padding, SHA-1 identifier and supplied 20 byte digest. It returns `0` on success or `7` on failure.
 
 `verify_rsa2048` (`0x13A75664`) selects a 256 byte modulus and `verify_rsa4096` (`0x13A75680`) selects a 512 byte modulus. [Disc partition verification](<dip.md#partition-verification>) uses this path before the partition is marked open.
+
+## Title hardware access
+
+Syscall `0x54` permits only process ID 1 to change title hardware access. A nonzero low byte of `r0` enables access. Zero disables it.
+
+`set_broadway_access` (`0xFFFF6FC0`) sets or clears the [`HW_AHBPROT`](<../index.md#hw_ahbprot-0x0d800064-32-bits-rw>) mask `0x80000DFE` without changing other bits. It also sets or clears `HW_SRNPROT[AHPEN]` to match. Enabling writes the 16 bit value `0` to `0x0D8B4202`. Disabling writes the 16 bit value `0x18` to `0x0D8B4200`.
+
+## MEM2 protection
+
+`protect_mem2` (`0xFFFF6F94`) programs the [MEM2 protection registers](<../index.md#mem2-write-protection>) with 16 bit stores. It writes `1` to `MEM_PROT` then writes `(start - 0x10000000) >> 12` to `MEM_PROT_START` and `(end - 0x10000000) >> 12` to `MEM_PROT_END`. The arguments are physical addresses and the final page is included. The routine delays after the three writes.
 
 ## Thread waits
 
@@ -229,7 +239,7 @@ The re-armed delay for a periodic timer is `delay - elapsed + period_ticks - 1` 
 | A         | `0xFFFF0000`       | `0xFFFFFFFF`                 | `0x0D400000` | `0x0D40FFFF`        |
 | B         | `0xFFFE0000`       | `0xFFFE7FFF`                 | `0x0D410000` | `0x0D417FFF`        |
 
-The conversion preserves the offset within the bank. MEM1 and MEM2 keep their translated physical addresses.
+The conversion preserves the offset within the bank. MEM1 and MEM2 keep their translated physical addresses. The page tables map MEM1, MEM2 and both SRAM windows to their own physical addresses, so translation changes only the SRAM DMA view.
 
 ## Cache and AHB flush
 
@@ -303,5 +313,6 @@ For example, `0xE6000130` selects index 9. Arguments are passed in `r0` through 
 | `0x30` | `flush_to_device` (`0xFFFF5CE4`)       | `r0` = device                                                                                     | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)                           |
 | `0x3F` | `invalidate_data_range` (`0xFFFF5BE0`) | `r0` = address, `r1` = length                                                                     | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)                           |
 | `0x40` | `flush_data_range` (`0xFFFF5C50`)      | `r0` = address, `r1` = length                                                                     | None, see [Cache and AHB flush](<#cache-and-ahb-flush>)                           |
+| `0x54` | `set_title_access` (`0xFFFF6234`)      | Low byte of `r0` = enable flag                                                                    | `0` on success or `-1` unless the caller belongs to process ID 1                  |
 
 The message queue calls accept a nonblocking flag of `0` or `1`. With `0`, a send to a full queue or a receive from an empty queue suspends the calling thread as described in [Thread waits](<#thread-waits>). With `1`, the call returns without suspending. Both calls check the queue's owning process. A receive also validates the 4 byte message destination before it accesses the queue.

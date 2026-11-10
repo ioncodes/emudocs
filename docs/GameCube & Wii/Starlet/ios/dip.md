@@ -152,3 +152,5 @@ This virtual address maps to physical address `0x0D806000`.
 A disc ID read transfers 32 bytes. Raw reads need a 32 byte aligned destination and a length that is a multiple of 32. `start_timed_transfer` (`0x20200E4C`) expects the transfer-complete interrupt to be enabled when it writes transfer control. It starts a command timeout timer right after that write.
 
 The driver then waits for messages on its transaction queue. When the transfer-complete interrupt arrives, it stops the timer, acknowledges the status and checks for a device error before reporting success. The data transfer alone does not complete a read. The driver also needs that interrupt message.
+
+A device-error interrupt also completes the wait without a transfer-complete interrupt. The driver stops the command timer, sets the transferred length to zero for a DMA command and acknowledges the device error while preserving the interrupt enables. `handle_command` returns `0xA000` for this failure.
