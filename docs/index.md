@@ -18,3 +18,7 @@ Notes, gotchas and game fixes collected while writing my emulators. Longer write
 - [BIOS](PSX/BIOS.md): Boot behavior and getting to the BIOS shell
 - [GPU](PSX/GPU.md): Rendering issues and GPU command handling
 - [Games](PSX/Games.md): Game-specific bugs and fixes
+
+## PlayStation Portable (PSP)
+
+- [Executables](PSP/Executables.md): PBP packages, ELF executables and PRX relocations

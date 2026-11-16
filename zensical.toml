@@ -38,6 +38,10 @@ nav = [
       ] },
     ] },
   ] },
+  { "PSP" = [
+    "PSP/index.md",
+    "PSP/Executables.md",
+  ] },
   { "PSX" = [
     "PSX/BIOS.md",
     "PSX/Games.md",
