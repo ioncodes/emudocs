@@ -2,6 +2,7 @@
 site_name = "emudocs"
 site_url = "https://emudocs.layle.dev/"
 repo_url = "https://github.com/ioncodes/emudocs"
+extra_javascript = [{ path = "javascripts/d2.js", type = "module" }]
 
 nav = [
   "index.md",
@@ -91,6 +92,6 @@ toggle = { icon = "material/toggle-switch", name = "Switch to light mode" }
 "pymdownx.highlight" = {}
 "pymdownx.keys" = {}
 "pymdownx.mark" = {}
-"pymdownx.superfences" = {}
+"pymdownx.superfences" = { custom_fences = [{ name = "d2", class = "d2", format = "pymdownx.superfences.fence_code_format" }] }
 "pymdownx.tasklist" = {}
 "pymdownx.tilde" = {}

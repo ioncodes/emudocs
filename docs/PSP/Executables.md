@@ -55,3 +55,93 @@ The relocation types follow the MIPS ELF numbering, with each one targeting a pa
 | 4    | `R_MIPS_26`   | `j` or `jal` instruction                                  |
 | 5    | `R_MIPS_HI16` | `lui` instruction                                         |
 | 6    | `R_MIPS_LO16` | `addiu` or a load or store with a 16 bit immediate offset |
+
+## Module info and imports
+
+Every executable carries a module info structure in its `.rodata.sceModuleInfo` section, which names the module and points to the tables it uses to import functions from libraries in other modules. A PRX additionally stores the file offset of its module info in bits 30:0 of `p_paddr` in its program header. All addresses in these structures are linked addresses, so in a PRX each of them is covered by an `R_MIPS_32` relocation.
+
+```d2
+direction: right
+
+module_info: Module info {
+  shape: sql_table
+  "0x04": name
+  "0x20": gp
+  "0x24": export table start
+  "0x28": export table end
+  "0x2C": import table start
+  "0x30": import table end
+}
+
+import_entry: Import table entry {
+  shape: sql_table
+  "0x00": library name
+  "0x08": entry size
+  "0x0A": function count
+  "0x0C": NID table
+  "0x10": stub table
+  "...": next entry
+}
+
+library_name: Library name {
+  shape: sql_table
+  "zero-terminated string"
+}
+
+stub_table: Stub table {
+  shape: sql_table
+  "stub 0": 'jr $ra; nop'
+  "stub 1": 'jr $ra; nop'
+  "...": ""
+}
+
+nid_table: NID table {
+  shape: sql_table
+  "NID 0"
+  "NID 1"
+  "..."
+}
+
+module_info."0x2C" -> import_entry
+import_entry."0x00" -> library_name
+import_entry."0x10" -> stub_table."stub 0"
+import_entry."0x0C" -> nid_table
+stub_table."stub 0" -- nid_table."NID 0": {style.stroke-dash: 3}
+stub_table."stub 1" -- nid_table."NID 1": {style.stroke-dash: 3}
+```
+
+### Module info
+
+The module info structure is 52 bytes long.
+
+| Offset | Size (bytes) | Description                                  |
+| ------ | ------------ | -------------------------------------------- |
+| `0x04` | 28           | Module name in ASCII, padded with zero bytes |
+| `0x20` | 4            | Value of `$gp` for the module                |
+| `0x24` | 4            | Start of the export table                    |
+| `0x28` | 4            | End of the export table                      |
+| `0x2C` | 4            | Start of the import table                    |
+| `0x30` | 4            | End of the import table                      |
+
+Each end address points just past the last byte of its table, so a module without imports or exports has equal start and end addresses for that table.
+
+### Import table
+
+The import table holds 1 entry for each library the module imports from. Every entry states its own size in 32 bit words in the byte at offset `0x08` and is directly followed by the next entry, which makes the usual 5 word entry 20 bytes long.
+
+| Offset | Size (bytes) | Description                                           |
+| ------ | ------------ | ----------------------------------------------------- |
+| `0x00` | 4            | Address of the library name, a zero-terminated string |
+| `0x08` | 1            | Entry size in 32 bit words                            |
+| `0x0A` | 2            | Number of imported functions                          |
+| `0x0C` | 4            | Address of the NID table                              |
+| `0x10` | 4            | Address of the stub table                             |
+
+The NID table holds a 4 byte NID for every imported function and the stub table holds an 8 byte stub for every imported function, both in the same order, so the NID at index `n` identifies the function behind stub `n`. Code calls an imported function with a `jal` to the start of its stub. In the executable file, every stub consists of `jr $ra` (`0x03E00008`) followed by `nop` (`0x00000000`).
+
+A NID identifies a function by number instead of by name. Most NIDs are the first 4 bytes of the SHA-1 digest of the function name, combined into a 32 bit value as shown below. Some NIDs do not follow this rule, so a loader has to treat every NID as an opaque identifier.
+
+```text
+digest = SHA1(function_name)
+nid = digest[0] | (digest[1] << 8) | (digest[2] << 16) | (digest[3] << 24)
+```

@@ -21,4 +21,4 @@ Notes, gotchas and game fixes collected while writing my emulators. Longer write
 
 ## PlayStation Portable (PSP)
 
-- [Executables](PSP/Executables.md): PBP packages, ELF executables and PRX relocations
+- [Executables](PSP/Executables.md): PBP packages, ELF executables, PRX relocations and imports
