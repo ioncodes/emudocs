@@ -56,6 +56,20 @@ The relocation types follow the MIPS ELF numbering, with each one targeting a pa
 | 5    | `R_MIPS_HI16` | `lui` instruction                                         |
 | 6    | `R_MIPS_LO16` | `addiu` or a load or store with a 16 bit immediate offset |
 
+`R_MIPS_32` adds the load address to the data word. `R_MIPS_26` adds `load_address >> 2` to the 26 bit jump target in bits 25:0 of the instruction while leaving the opcode in bits 31:26 unchanged. `R_MIPS_HI16` and `R_MIPS_LO16` patch the 2 halves of an address that is built by a `lui` followed by an instruction with a sign extended 16 bit immediate. Because the entries have no addends, the upper half alone does not give the full address. An `R_MIPS_HI16` therefore takes its low half from the next `R_MIPS_LO16` entry that follows it. Several `R_MIPS_HI16` entries can share the same `R_MIPS_LO16`. The upper half is rounded so that it compensates for a low half that becomes negative after relocation.
+
+```text
+// R_MIPS_HI16 at hi_address, paired with the next R_MIPS_LO16 at lo_address
+u32 low = (u32)(s16)(Read32(lo_address) & 0xFFFF)
+u32 full = (Read32(hi_address) << 16) + low + load_address
+Write16(hi_address, (full + 0x8000) >> 16)
+
+// R_MIPS_LO16 at lo_address
+Write16(lo_address, (Read32(lo_address) + load_address) & 0xFFFF)
+```
+
+`Read32` reads the original instruction, before any relocation has patched it. `Write16` replaces the immediate in bits 15:0 of the instruction while leaving the upper 16 bits unchanged.
+
 ## Module info and imports
 
 Every executable carries a module info structure in its `.rodata.sceModuleInfo` section, which names the module and points to the tables it uses to import functions from libraries in other modules. A PRX additionally stores the file offset of its module info in bits 30:0 of `p_paddr` in its program header. All addresses in these structures are linked addresses, so in a PRX each of them is covered by an `R_MIPS_32` relocation.
