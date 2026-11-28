@@ -41,7 +41,10 @@ nav = [
   ] },
   { "PSP" = [
     "PSP/index.md",
+    "PSP/Controller.md",
+    "PSP/Display.md",
     "PSP/Executables.md",
+    "PSP/GE.md",
     "PSP/Libraries.md",
     "PSP/Threads.md",
   ] },

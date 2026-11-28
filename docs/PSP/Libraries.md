@@ -109,15 +109,39 @@ Programs import firmware functions by library name and NID as described in [Exec
 
 ## IoFileMgrForUser
 
-| NID          | Function      | Arguments                                                           | Result                              |
-| ------------ | ------------- | ------------------------------------------------------------------- | ----------------------------------- |
-| `0x109F50BC` | `sceIoOpen`   | `filename`, `flags`, `mode`                                         | File descriptor                     |
-| `0x42EC03AC` | `sceIoWrite`  | `fd`, `data`, `size`                                                | Number of bytes written             |
-| `0x54F5FB11` | `sceIoDevctl` | `device`, `command`, `input`, `input_size`, `output`, `output_size` | Driver-dependent non-negative value |
+| NID          | Function       | Arguments                                                           | Result                              |
+| ------------ | -------------- | ------------------------------------------------------------------- | ----------------------------------- |
+| `0x109F50BC` | `sceIoOpen`    | `filename`, `flags`, `mode`                                         | File descriptor                     |
+| `0x42EC03AC` | `sceIoWrite`   | `fd`, `data`, `size`                                                | Number of bytes written             |
+| `0x54F5FB11` | `sceIoDevctl`  | `device`, `command`, `input`, `input_size`, `output`, `output_size` | Driver-dependent non-negative value |
+| `0x55F4717D` | `sceIoChdir`   | `dirname`                                                           | 0                                   |
+| `0x68963324` | `sceIoLseek32` | `fd`, `offset`, `whence`                                            | New byte offset from start of file  |
+| `0x6A638D83` | `sceIoRead`    | `fd`, `buffer`, `size`                                              | Number of bytes read                |
+| `0x810C4BC3` | `sceIoClose`   | `fd`                                                                | 0                                   |
+| `0xB29DDF9C` | `sceIoDopen`   | `dirname`                                                           | Directory descriptor                |
+| `0xEB092469` | `sceIoDclose`  | `fd`                                                                | 0                                   |
 
 ### sceIoOpen
 
-`sceIoOpen` opens the file named `filename` with access and creation `flags` and returns a non-negative file descriptor. `mode` sets the file permissions when creating a new file.
+`sceIoOpen` opens the file named `filename` with access and creation `flags`, applying `mode` as the file permissions when creating a new file. It returns a non-negative file descriptor on success or `SCE_ERROR_ERRNO_ENOENT` (`0x80010002`) when the file does not exist. A filename consists of a device name with its unit number, a colon and the path within that device, such as `host0:file.bin` or `disc0:/PSP_GAME/USRDIR/movie.pmf`. Omitting the unit number selects unit 0, so `tty:` refers to the same device as `tty0:`.
+
+`flags` holds exactly 1 access mode, optionally combined with modifier bits. Devices may ignore or reject modifiers they do not support.
+
+| Value        | Name           | Description                                                                |
+| ------------ | -------------- | -------------------------------------------------------------------------- |
+| `0x00000001` | `SCE_O_RDONLY` | Open for reading only                                                      |
+| `0x00000002` | `SCE_O_WRONLY` | Open for writing only                                                      |
+| `0x00000003` | `SCE_O_RDWR`   | Open for reading and writing                                               |
+| `0x00000100` | `SCE_O_APPEND` | Perform every write at the end of the file                                 |
+| `0x00000200` | `SCE_O_CREAT`  | Create the file if it does not exist                                       |
+| `0x00000400` | `SCE_O_TRUNC`  | Discard the contents of a file opened for writing                          |
+| `0x00000800` | `SCE_O_EXCL`   | Fail if the file already exists when combined with `SCE_O_CREAT`           |
+| `0x01000000` | `SCE_O_FDEXCL` | Fail when a thread other than the opening thread uses the file descriptor  |
+| `0x02000000` | `SCE_O_PWLOCK` | Prevent power state changes from the open until the file descriptor closes |
+
+### sceIoRead
+
+`sceIoRead` reads up to `size` bytes from the open file descriptor `fd` into `buffer` and returns the number of bytes read.
 
 ### sceIoWrite
 
@@ -127,6 +151,32 @@ Programs import firmware functions by library name and NID as described in [Exec
 
 `sceIoDevctl` sends a driver-specific `command` to `device` with an `input_size` byte parameter buffer at `input` and an `output_size` byte response buffer at `output`.
 
+### sceIoChdir
+
+`sceIoChdir` changes the current directory of the device named in `dirname` and returns 0 on success.
+
+### sceIoLseek32
+
+`sceIoLseek32` moves the read and write position of file descriptor `fd` by the signed 32 bit `offset` relative to the origin selected by `whence` and returns the resulting 32 bit byte offset from the start of the file. It returns a negative error code such as `SCE_KERNEL_ERROR_BADF` (`0x80020323`) when `fd` is not an open descriptor or when the seek fails.
+
+| Value | Name           | Origin                       |
+| ----- | -------------- | ---------------------------- |
+| 0     | `SCE_SEEK_SET` | Start of the file            |
+| 1     | `SCE_SEEK_CUR` | Current position in the file |
+| 2     | `SCE_SEEK_END` | End of the file              |
+
+### sceIoClose
+
+`sceIoClose` closes the file descriptor `fd` returned by `sceIoOpen`, returning 0 on success or `SCE_KERNEL_ERROR_BADF` (`0x80020323`) when `fd` is not open.
+
+### sceIoDopen
+
+`sceIoDopen` opens the directory `dirname` and returns a non-negative descriptor for listing its entries or `SCE_ERROR_ERRNO_ENOENT` (`0x80010002`) when the directory does not exist.
+
+### sceIoDclose
+
+`sceIoDclose` closes the directory descriptor `fd` returned by `sceIoDopen`, returning 0 on success or `SCE_KERNEL_ERROR_BADF` (`0x80020323`) when `fd` is not open.
+
 ## LoadExecForUser
 
 | NID          | Function                        | Arguments     | Result |
@@ -135,22 +185,80 @@ Programs import firmware functions by library name and NID as described in [Exec
 
 `sceKernelRegisterExitCallback` registers the callback that runs when the user chooses to exit the game from the HOME menu.
 
+## UtilsForUser
+
+| NID          | Function                    | Arguments             | Result |
+| ------------ | --------------------------- | --------------------- | ------ |
+| `0x71EC4271` | `sceKernelLibcGettimeofday` | `timeval`, `timezone` | 0      |
+
+`sceKernelLibcGettimeofday` writes the current time into the 8 byte `timeval` structure and returns 0.
+
+| Offset | Size (bytes) | Description  |
+| ------ | ------------ | ------------ |
+| `0x00` | 4            | Seconds      |
+| `0x04` | 4            | Microseconds |
+
 ## sceDisplay
 
-| NID          | Function                | Arguments                                                       | Result |
-| ------------ | ----------------------- | --------------------------------------------------------------- | ------ |
-| `0x0E20F177` | `sceDisplaySetMode`     | `mode`, `width`, `height`                                       | 0      |
-| `0x289D82FE` | `sceDisplaySetFrameBuf` | `frame_buffer`, `buffer_width`, `pixel_format`, `update_timing` | 0      |
+| NID          | Function                    | Arguments                                                       | Result |
+| ------------ | --------------------------- | --------------------------------------------------------------- | ------ |
+| `0x0E20F177` | `sceDisplaySetMode`         | `mode`, `width`, `height`                                       | 0      |
+| `0x289D82FE` | `sceDisplaySetFrameBuf`     | `frame_buffer`, `buffer_width`, `pixel_format`, `update_timing` | 0      |
+| `0x984C27E7` | `sceDisplayWaitVblankStart` | none                                                            | 0      |
 
-`sceDisplaySetFrameBuf` sets the framebuffer the display shows. `frame_buffer` points to its top left pixel and `buffer_width` gives its row stride in pixels as a multiple of 64.
+### sceDisplaySetMode
+
+`sceDisplaySetMode` sets the display output `mode` (`0` for `SCE_DISPLAY_MODE_LCD`) and dimensions `width` (a multiple of 8) by `height` (see [Display](Display.md)). Switching modes outside vertical blanking blocks until the start of the next vertical blanking interval.
+
+### sceDisplaySetFrameBuf
+
+`sceDisplaySetFrameBuf` configures the displayed framebuffer, where `frame_buffer` points to the top left pixel (or NULL with `buffer_width` set to 0 to black out the screen), `buffer_width` gives the row stride in pixels as a multiple of 64, `pixel_format` selects the pixel layout and `update_timing` chooses whether the change takes effect on the next horizontal sync (`0`) or next vertical blanking interval (`1`) (see [Display](Display.md#framebuffer)).
+
+### sceDisplayWaitVblankStart
+
+`sceDisplayWaitVblankStart` places the calling thread in the WAIT state until the start of the next vertical blanking interval, even if vertical blanking is already in progress, without executing thread callbacks during the wait.
 
 ## sceGe_user
 
-| NID          | Function            | Arguments | Result                                   |
-| ------------ | ------------------- | --------- | ---------------------------------------- |
-| `0xE47E40E4` | `sceGeEdramGetAddr` | none      | Physical address of the GE's local eDRAM |
+| NID          | Function                   | Arguments                             | Result                                   |
+| ------------ | -------------------------- | ------------------------------------- | ---------------------------------------- |
+| `0xA4FC06A4` | `sceGeSetCallback`         | `callback_data`                       | Callback ID                              |
+| `0xAB49E76A` | `sceGeListEnQueue`         | `list`, `stall`, `callback_id`, `opt` | Display list ID                          |
+| `0xE0D68148` | `sceGeListUpdateStallAddr` | `list_id`, `stall`                    | 0                                        |
+| `0xE47E40E4` | `sceGeEdramGetAddr`        | none                                  | Physical address of the GE's local eDRAM |
+
+### sceGeEdramGetAddr
 
 `sceGeEdramGetAddr` returns the physical address at which the CPU reaches the graphics engine's local eDRAM. Used directly as a virtual address it lies in the cached user space (see [Address space](index.md#address-space)). Adding `0x40000000` gives the uncached view.
+
+### sceGeListEnQueue
+
+`sceGeListEnQueue` appends a display list starting at `list` to the graphics engine queue and returns a non-negative display list ID, with up to 63 lists queued simultaneously (see [Graphics Engine](GE.md#display-lists)). Execution pauses when the read address reaches `stall` or runs without stalling when `stall` is NULL. Passing a valid `callback_id` from `sceGeSetCallback` attaches its signal and finish handlers to the list while a negative value disables callbacks. `opt` optionally points to a `SceGeListOptParam` structure for context saving or extended signal call stacks (or NULL when neither is needed).
+
+### sceGeListUpdateStallAddr
+
+`sceGeListUpdateStallAddr` updates the stall address of the queued display list `list_id` to `stall` and returns 0. If the list is already running it overwrites the hardware stall register immediately, while for a list that has not started yet it updates the initial stall address.
+
+### sceGeSetCallback
+
+`sceGeSetCallback` registers a pair of graphics engine interrupt handlers described by the 16 byte `SceGeCbParam` structure at `callback_data` and returns a non-negative callback ID. Up to 16 callback sets can be registered simultaneously.
+
+| Offset | Size (bytes) | Description                   |
+| ------ | ------------ | ----------------------------- |
+| `0x00` | 4            | Signal callback function      |
+| `0x04` | 4            | Signal callback user argument |
+| `0x08` | 4            | Finish callback function      |
+| `0x0C` | 4            | Finish callback user argument |
+
+When a display list completes a `FINISH` followed by `END` and has a non-null finish callback, the kernel invokes that handler in interrupt context with the low 16 bits of the `FINISH` command as the 1st argument, the registered user argument as the 2nd and the display list address where the list ended as the 3rd.
+
+## sceCtrl
+
+| NID          | Function                    | Arguments           | Result                 |
+| ------------ | --------------------------- | ------------------- | ---------------------- |
+| `0x1F803938` | `sceCtrlReadBufferPositive` | `pad_data`, `count` | Number of samples read |
+
+`sceCtrlReadBufferPositive` reads up to `count` (1 to 64) unread controller samples into the `SceCtrlData` array at `pad_data` in positive logic, advancing the service read pointer across its 64 sample buffer (see [Controller](Controller.md)). If no new sample has been recorded since the previous read, the calling thread blocks until the next sample arrives, so a successful call always returns between 1 and `count`.
 
 ## sceUtility
 

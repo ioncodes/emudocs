@@ -20,6 +20,35 @@ The offset table never decreases, because the packaged files are stored back to 
 
 The parameter file sits directly after the header at offset `0x28` and is recognizable by its magic `00 50 53 46` (`"\0PSF"`). The executable fills the bytes between the offsets at `0x20` and `0x24` and takes either of the 2 forms described below.
 
+### PARAM.SFO
+
+The parameter file is a table of named values. A 20 byte header is followed directly by 1 index entry of 16 bytes per value and each entry points into a key table holding the NULL-terminated value names and a data table holding the values themselves. The header gives both table offsets relative to the start of the parameter file.
+
+| Offset | Size (bytes) | Description                     |
+| ------ | ------------ | ------------------------------- |
+| `0x00` | 4            | Magic `00 50 53 46` (`"\0PSF"`) |
+| `0x04` | 4            | Version `0x00000101`            |
+| `0x08` | 4            | Offset of the key table         |
+| `0x0C` | 4            | Offset of the data table        |
+| `0x10` | 4            | Number of index entries         |
+
+Each index entry locates its name relative to the key table and its value relative to the data table.
+
+| Offset | Size (bytes) | Description                                    |
+| ------ | ------------ | ---------------------------------------------- |
+| `0x00` | 2            | Offset of the name within the key table        |
+| `0x02` | 2            | Value format                                   |
+| `0x04` | 4            | Length of the stored value in bytes            |
+| `0x08` | 4            | Space reserved for the value in the data table |
+| `0x0C` | 4            | Offset of the value within the data table      |
+
+| Format   | Value          |
+| -------- | -------------- |
+| `0x0204` | String         |
+| `0x0404` | 32 bit integer |
+
+A string's stored length may or may not count its terminating NULL and the reserved space may be larger than the stored length, so readers take the string up to the first NULL or the stored length, whichever comes first. The `TITLE` entry holds the program's title as a string.
+
 ## ELF executables and PRX modules
 
 The ELF type in `e_type` decides whether an executable is tied to fixed addresses or can be relocated.
@@ -58,17 +87,17 @@ The relocation types follow the MIPS ELF numbering, with each one targeting a pa
 
 `R_MIPS_32` adds the load address to the data word. `R_MIPS_26` adds `load_address >> 2` to the 26 bit jump target in bits 25:0 of the instruction while leaving the opcode in bits 31:26 unchanged. `R_MIPS_HI16` and `R_MIPS_LO16` patch the 2 halves of an address that is built by a `lui` followed by an instruction with a sign extended 16 bit immediate. Because the entries have no addends, the upper half alone does not give the full address. An `R_MIPS_HI16` therefore takes its low half from the next `R_MIPS_LO16` entry that follows it. Several `R_MIPS_HI16` entries can share the same `R_MIPS_LO16`. The upper half is rounded so that it compensates for a low half that becomes negative after relocation.
 
-```text
+```rust
 // R_MIPS_HI16 at hi_address, paired with the next R_MIPS_LO16 at lo_address
-u32 low = (u32)(s16)(Read32(lo_address) & 0xFFFF)
-u32 full = (Read32(hi_address) << 16) + low + load_address
-Write16(hi_address, (full + 0x8000) >> 16)
+let low = (read32(lo_address) as i16) as u32;
+let full = (read32(hi_address) << 16).wrapping_add(low).wrapping_add(load_address);
+write16(hi_address, (full.wrapping_add(0x8000) >> 16) as u16);
 
 // R_MIPS_LO16 at lo_address
-Write16(lo_address, (Read32(lo_address) + load_address) & 0xFFFF)
+write16(lo_address, read32(lo_address).wrapping_add(load_address) as u16);
 ```
 
-`Read32` reads the original instruction, before any relocation has patched it. `Write16` replaces the immediate in bits 15:0 of the instruction while leaving the upper 16 bits unchanged.
+`read32` reads the original instruction, before any relocation has patched it. `write16` replaces the immediate in bits 15:0 of the instruction while leaving the upper 16 bits unchanged.
 
 ## Module info and imports
 
@@ -155,7 +184,7 @@ The NID table holds a 4 byte NID for every imported function and the stub table 
 
 A NID identifies a function by number instead of by name. Most NIDs are the first 4 bytes of the SHA-1 digest of the function name, combined into a 32 bit value as shown below. Some NIDs do not follow this rule, so a loader has to treat every NID as an opaque identifier.
 
-```text
-digest = SHA1(function_name)
-nid = digest[0] | (digest[1] << 8) | (digest[2] << 16) | (digest[3] << 24)
+```rust
+let digest = sha1(function_name);
+let nid = u32::from_le_bytes([digest[0], digest[1], digest[2], digest[3]]);
 ```
