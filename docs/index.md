@@ -21,4 +21,10 @@ Notes, gotchas and game fixes collected while writing my emulators. Longer write
 
 ## PlayStation Portable (PSP)
 
-- [Executables](PSP/Executables.md): PBP packages, ELF executables, PRX relocations and imports
+- [Overview](PSP/index.md): Byte order and virtual address space
+- [Controller](PSP/Controller.md): Button bitfield and analog stick input
+- [Display](PSP/Display.md): Screen resolution, vertical sync timing and framebuffer layout
+- [Executables](PSP/Executables.md): PBP packages, PARAM.SFO, ELF executables, PRX relocations and imports
+- [Graphics Engine](PSP/GE.md): Display lists, color formats, vertices, textures, CLUT and alpha testing
+- [Library Functions](PSP/Libraries.md): Imported firmware functions with their NIDs, arguments and results
+- [Threads](PSP/Threads.md): Thread states and scheduling

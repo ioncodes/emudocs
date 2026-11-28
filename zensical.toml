@@ -7,9 +7,11 @@ extra_javascript = [{ path = "javascripts/d2.js", type = "module" }]
 nav = [
   "index.md",
   { "GBA" = [
+    "GBA/index.md",
     "GBA/PPU.md",
   ] },
   { "GameCube & Wii" = [
+    "GameCube & Wii/index.md",
     "GameCube & Wii/Games.md",
     "GameCube & Wii/GX.md",
     "GameCube & Wii/Memory.md",
@@ -49,6 +51,7 @@ nav = [
     "PSP/Threads.md",
   ] },
   { "PSX" = [
+    "PSX/index.md",
     "PSX/BIOS.md",
     "PSX/Games.md",
     "PSX/GPU.md",

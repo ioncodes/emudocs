@@ -1,8 +1,8 @@
 # Graphics Engine
 
-The Graphics Engine (GE) is a fixed-function 3D and 2D rendering processor that acts as a bus master on the system bus and renders into 2 MiB of on-chip local eDRAM (reachable at physical address `0x04000000` via `sceGeEdramGetAddr`). Display lists, vertex buffers, index buffers, textures and CLUT buffers can live in either main memory or eDRAM, whereas framebuffers and depth buffers reside in eDRAM. Because GE command registers hold indeterminate values after reset, programs typically submit an initialization list that zeroes state registers before drawing. Programs submit display lists and register interrupt callbacks through `sceGe_user` (see [Library functions](Libraries.md#scege_user)).
+The Graphics Engine (GE) is a fixed-function 3D and 2D rendering processor that acts as a bus master on the system bus and renders into 2 MiB of on-chip local eDRAM (reachable at physical address `0x04000000` via `sceGeEdramGetAddr`). Display lists, vertex buffers, index buffers, textures and CLUT buffers can live in either main memory or eDRAM, whereas framebuffers and depth buffers reside in eDRAM. Because GE command registers hold indeterminate values after reset, programs typically submit an initialization list that zeroes state registers before drawing. Programs submit display lists and register interrupt callbacks through `sceGe_user` (see [Library Functions](Libraries.md#scege_user)).
 
-## Display lists
+## Display Lists
 
 A display list is a sequence of 32 bit commands in memory. Each command places an 8 bit opcode in bits 31:24 and a 24 bit argument in bits 23:0.
 
@@ -13,7 +13,7 @@ A display list is a sequence of 32 bit commands in memory. Each command places a
 
 The GE tracks its current read pointer (`MADR`) and a stall address (`SADR`), advancing `MADR` by 4 bytes per command. When `SADR` is non-zero, reading pauses as soon as `MADR` reaches `SADR` and resumes once the program updates `SADR` past `MADR` or clears it to 0, letting the CPU append commands while the GE is already executing earlier ones.
 
-### Flow control and addressing
+### Flow Control and Addressing
 
 | Opcode | Name     | Description                                             |
 | ------ | -------- | ------------------------------------------------------- |
@@ -53,11 +53,11 @@ let address = ((base << 24) | operand) + (offset << 8);
 | ---- | ------- | -------------------------------------------------------- |
 | 23:0 | `LABEL` | Label whose low 16 bits are passed to the finish handler |
 
-## Color formats
+## Color Formats
 
 Framebuffers (`FPF`), direct-color textures (`TPF`), CLUT entries (`CPF`), vertex colors (`CT`) and display scanout all share the same 4 color encodings. Red occupies the least significant bits and alpha occupies the most significant bits, so a 32 bit `8:8:8:8` pixel lies in memory as `[R, G, B, A]`. In framebuffers, the alpha bits of `5:5:5:1`, `4:4:4:4` and `8:8:8:8` also act as the stencil buffer.
 
-#### 16 bit 5:6:5:0 (`RGB565`)
+### 16 Bit 5:6:5:0 (`RGB565`)
 
 | Bits  | Channel |
 | ----- | ------- |
@@ -65,7 +65,7 @@ Framebuffers (`FPF`), direct-color textures (`TPF`), CLUT entries (`CPF`), verte
 | 10:5  | Green   |
 | 4:0   | Red     |
 
-#### 16 bit 5:5:5:1 (`RGBA5551`)
+### 16 Bit 5:5:5:1 (`RGBA5551`)
 
 | Bits  | Channel |
 | ----- | ------- |
@@ -74,7 +74,7 @@ Framebuffers (`FPF`), direct-color textures (`TPF`), CLUT entries (`CPF`), verte
 | 9:5   | Green   |
 | 4:0   | Red     |
 
-#### 16 bit 4:4:4:4 (`RGBA4444`)
+### 16 Bit 4:4:4:4 (`RGBA4444`)
 
 | Bits  | Channel |
 | ----- | ------- |
@@ -83,7 +83,7 @@ Framebuffers (`FPF`), direct-color textures (`TPF`), CLUT entries (`CPF`), verte
 | 7:4   | Green   |
 | 3:0   | Red     |
 
-#### 32 bit 8:8:8:8 (`RGBA8888`)
+### 32 Bit 8:8:8:8 (`RGBA8888`)
 
 | Bits  | Channel |
 | ----- | ------- |
@@ -92,7 +92,7 @@ Framebuffers (`FPF`), direct-color textures (`TPF`), CLUT entries (`CPF`), verte
 | 15:8  | Green   |
 | 7:0   | Red     |
 
-## Vertices and primitives
+## Vertices and Primitives
 
 | Opcode | Name    | Description                                    |
 | ------ | ------- | ---------------------------------------------- |
@@ -104,7 +104,7 @@ Framebuffers (`FPF`), direct-color textures (`TPF`), CLUT entries (`CPF`), verte
 
 `PRIM` (`0x04`) draws `COUNT` vertices starting at the address set by `VADR` (`0x01`) and advances the vertex pointer past the consumed vertices.
 
-#### PRIM (`0x04`)
+### PRIM (`0x04`)
 
 | Bits  | Name    | Description        |
 | ----- | ------- | ------------------ |
@@ -123,7 +123,7 @@ Framebuffers (`FPF`), direct-color textures (`TPF`), CLUT entries (`CPF`), verte
 
 `Rectangles` (`6`) consumes vertices in pairs representing opposite corners of an axis-aligned rectangle in drawing coordinates, allowing multiple rectangles per `PRIM` when `COUNT` is a multiple of 2. Every pixel of the rectangle uses the color and depth of the 2nd vertex, while texture coordinates interpolate between the 2 corners (which allows flipping the texture horizontally or vertically by swapping endpoint coordinates). Pixels on the left and top edges are drawn while pixels on the right and bottom edges are excluded.
 
-#### VTYPE (`0x12`)
+### VTYPE (`0x12`)
 
 | Bits  | Name  | Description                |
 | ----- | ----- | -------------------------- |
@@ -158,7 +158,7 @@ Within each vertex, present attributes appear in the fixed order of weights, tex
 
 When `CT` is 0, vertices take their RGB color from `MAC` (`0x55`) and their alpha from `MAA` (`0x58`).
 
-#### MAC (`0x55`)
+### MAC (`0x55`)
 
 | Bits  | Name | Description     |
 | ----- | ---- | --------------- |
@@ -166,13 +166,13 @@ When `CT` is 0, vertices take their RGB color from `MAC` (`0x55`) and their alph
 | 15:8  | `G`  | Green component |
 | 7:0   | `R`  | Red component   |
 
-#### MAA (`0x58`)
+### MAA (`0x58`)
 
 | Bits | Name | Description     |
 | ---- | ---- | --------------- |
 | 7:0  | `A`  | Alpha component |
 
-## Framebuffer and clear mode
+## Framebuffer and Clear Mode
 
 | Opcode | Name    | Description                                         |
 | ------ | ------- | --------------------------------------------------- |
@@ -183,20 +183,20 @@ When `CT` is 0, vertices take their RGB color from `MAC` (`0x55`) and their alph
 
 `FBP` (`0x9C`) specifies the framebuffer base in 8 KiB units with its low 13 bits set to 0. `FBW` (`0x9D`) holds the upper 8 bits of the base address in `BASE` and the pixel stride in `FBW`, which must be a multiple of 64 from 64 to 1024 (the low 6 bits are ignored).
 
-#### FBW (`0x9D`)
+### FBW (`0x9D`)
 
 | Bits  | Name   | Description                                  |
 | ----- | ------ | -------------------------------------------- |
 | 23:16 | `BASE` | Upper 8 bits of the framebuffer base address |
 | 10:0  | `FBW`  | Framebuffer row stride in pixels (64-1024)   |
 
-#### FPF (`0xD2`)
+### FPF (`0xD2`)
 
 | Bits | Name  | Description                                                                   |
 | ---- | ----- | ----------------------------------------------------------------------------- |
 | 1:0  | `FPF` | Framebuffer pixel format (`0` 5:6:5:0, `1` 5:5:5:1, `2` 4:4:4:4, `3` 8:8:8:8) |
 
-#### CMODE (`0xD3`)
+### CMODE (`0xD3`)
 
 | Bits | Name  | Description                                |
 | ---- | ----- | ------------------------------------------ |
@@ -226,7 +226,7 @@ When clear mode is active (`SET = 1`), the GE switches to a clearing context tha
 
 Each texture level's base address is `((TBWn.BASE << 24) | TBPn)` aligned to 16 bytes (the low 4 bits of `TBPn` are ignored) and its dimensions are `1 << TW` pixels wide by `1 << TH` pixels tall, with `TW` and `TH` ranging from 0 to 9 (1 to 512 pixels).
 
-#### TBW0-7 (`0xA8`-`0xAF`)
+### TBW0-7 (`0xA8`-`0xAF`)
 
 | Bits  | Name   | Description                                     |
 | ----- | ------ | ----------------------------------------------- |
@@ -235,14 +235,14 @@ Each texture level's base address is `((TBWn.BASE << 24) | TBPn)` aligned to 16 
 
 Because texture rows must align to 16 bytes, `TBW` is restricted to multiples of 4 for 32 bit formats (`8:8:8:8`, `Index32`, `DXT3` and `DXT5`), multiples of 8 for 16 bit formats (`5:6:5:0`, `5:5:5:1`, `4:4:4:4`, `Index16` and `DXT1`), multiples of 16 for `Index8` and multiples of 32 for `Index4`.
 
-#### TSIZE0-7 (`0xB8`-`0xBF`)
+### TSIZE0-7 (`0xB8`-`0xBF`)
 
 | Bits | Name | Description                              |
 | ---- | ---- | ---------------------------------------- |
 | 11:8 | `TH` | Texture height exponent (`1 << TH`, 0-9) |
 | 3:0  | `TW` | Texture width exponent (`1 << TW`, 0-9)  |
 
-#### TMODE (`0xC2`)
+### TMODE (`0xC2`)
 
 | Bits  | Name  | Description                                        |
 | ----- | ----- | -------------------------------------------------- |
@@ -252,7 +252,7 @@ Because texture rows must align to 16 bytes, `TBW` is restricted to multiples of
 
 In linear layout (`HSM = 0`), rows are stored sequentially in memory with a stride of `TBW` texels per row even when `TBW` is wider than `1 << TW`, so decoding reads `TBW * height` texels and takes the first `1 << TW` texels of each row. In fast layout (`HSM = 1`), texels are rearranged into 16 byte by 8 pixel blocks matching the replacement unit of the GE's 8 KiB, 4-way set-associative texture cache, requiring `TBW` to match the texture width and excluding DXT formats. Because the texture cache retains previously read texels, software must issue `TFLUSH` (`0xCB`) after modifying or switching texture data before drawing with it.
 
-#### TPF (`0xC3`)
+### TPF (`0xC3`)
 
 | Bits | Name  | Description                         |
 | ---- | ----- | ----------------------------------- |
@@ -275,7 +275,7 @@ In linear layout (`HSM = 0`), rows are stored sequentially in memory with a stri
 
 In `Index4` textures, each byte holds 2 texels with the first texel in bits 3:0 and the second in bits 7:4 (8 texels per 32 bit word). In `Index8` textures, each byte is 1 texel index (4 texels per 32 bit word).
 
-#### TFUNC (`0xC9`)
+### TFUNC (`0xC9`)
 
 | Bits | Name  | Description                |
 | ---- | ----- | -------------------------- |
@@ -320,14 +320,14 @@ let shifted = ((index as u32) >> sft) & 0xFF;
 let entry = (shifted & (msk as u32)) | ((csa as u32) << 4);
 ```
 
-## Alpha test
+## Alpha Test
 
 | Opcode | Name    | Description                             |
 | ------ | ------- | --------------------------------------- |
 | `0x22` | `ATE`   | Enable or disable alpha test (bit 0)    |
 | `0xDB` | `ATEST` | Alpha test function, reference and mask |
 
-#### ATEST (`0xDB`)
+### ATEST (`0xDB`)
 
 | Bits  | Name   | Description                                    |
 | ----- | ------ | ---------------------------------------------- |

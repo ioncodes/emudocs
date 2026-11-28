@@ -1,6 +1,6 @@
 # Controller
 
-The controller service samples the digital buttons and analog stick and keeps a buffer of the 64 most recent samples. Programs read buffered samples through `sceCtrl` (see [Library functions](Libraries.md#scectrl)). By default the service operates in digital-only mode (`0`), where only digital buttons are sampled, while switching to digital and analog mode (`1`) also samples the analog stick.
+The controller service samples the digital buttons and analog stick and keeps a buffer of the 64 most recent samples. Programs read buffered samples through `sceCtrl` (see [Library Functions](Libraries.md#scectrl)). By default the service operates in digital-only mode (`0`), where only digital buttons are sampled, while switching to digital and analog mode (`1`) also samples the analog stick.
 
 ## SceCtrlData
 
@@ -14,7 +14,7 @@ Each sample is stored in a 16 byte `SceCtrlData` structure. The analog stick axe
 | `0x09` | 1            | `Ly`        | Analog stick Y axis (`0x00` top, `0x80` center, `0xFF` bottom) |
 | `0x0A` | 6            | `Rsrv`      | Reserved                                                       |
 
-## Button bitfield
+## Button Bitfield
 
 In positive logic (returned by `sceCtrlReadBufferPositive`), a 1 bit means the button or state is active.
 

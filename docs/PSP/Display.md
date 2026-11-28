@@ -1,6 +1,6 @@
 # Display
 
-The PSP's LCD panel has a fixed active resolution of 480 by 272 square pixels and a theoretical vertical sync frequency of 59.94005995 Hz. Each vertical frame period spans 286 scanlines in total, combining the 272 active lines with a 14 line vertical blanking interval. Programs configure the display mode, flip framebuffers and synchronize to vertical blanking through `sceDisplay` (see [Library functions](Libraries.md#scedisplay)).
+The PSP's LCD panel has a fixed active resolution of 480 by 272 square pixels and a theoretical vertical sync frequency of 59.94005995 Hz. Each vertical frame period spans 286 scanlines in total, combining the 272 active lines with a 14 line vertical blanking interval. Programs configure the display mode, flip framebuffers and synchronize to vertical blanking through `sceDisplay` (see [Library Functions](Libraries.md#scedisplay)).
 
 ## Framebuffer
 
@@ -8,7 +8,7 @@ The display scans out a linear framebuffer from the graphics engine's local eDRA
 
 Updates to the framebuffer address can take effect either on the next horizontal sync (`0`, `SCE_DISPLAY_UPDATETIMING_NEXTHSYNC`) or during the next vertical blanking interval (`1`, `SCE_DISPLAY_UPDATETIMING_NEXTVSYNC`). Changing the stride or pixel format cannot occur mid-frame and must use `SCE_DISPLAY_UPDATETIMING_NEXTVSYNC`.
 
-The 4 supported pixel formats share the same bit layouts as the graphics engine (see [Color formats](GE.md#color-formats)).
+The 4 supported pixel formats share the same bit layouts as the graphics engine (see [Color Formats](GE.md#color-formats)).
 
 | Value | Name                         | Format  | Bytes per pixel |
 | ----- | ---------------------------- | ------- | --------------- |

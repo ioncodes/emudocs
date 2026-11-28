@@ -49,7 +49,7 @@ Each index entry locates its name relative to the key table and its value relati
 
 A string's stored length may or may not count its terminating NULL and the reserved space may be larger than the stored length, so readers take the string up to the first NULL or the stored length, whichever comes first. The `TITLE` entry holds the program's title as a string.
 
-## ELF executables and PRX modules
+## ELF Executables and PRX Modules
 
 The ELF type in `e_type` decides whether an executable is tied to fixed addresses or can be relocated.
 
@@ -60,7 +60,7 @@ The ELF type in `e_type` decides whether an executable is tied to fixed addresse
 
 Since a PRX is linked with its loadable segment at virtual address `0x00000000`, it carries relocation sections that list the locations whose contents depend on the address the module ends up loaded at.
 
-### PRX relocation sections
+### PRX Relocation Sections
 
 Rather than using the standard `SHT_REL` (`9`) section type, PRX relocation sections are marked with `0x700000A0` in `sh_type`. Each section is an array of 8 byte entries without addends, where every entry names the location to patch and the kind of relocation to apply there.
 
@@ -99,7 +99,7 @@ write16(lo_address, read32(lo_address).wrapping_add(load_address) as u16);
 
 `read32` reads the original instruction, before any relocation has patched it. `write16` replaces the immediate in bits 15:0 of the instruction while leaving the upper 16 bits unchanged.
 
-## Module info and imports
+## Module Info and Imports
 
 Every executable carries a module info structure in its `.rodata.sceModuleInfo` section, which names the module and points to the tables it uses to import functions from libraries in other modules. A PRX additionally stores the file offset of its module info in bits 30:0 of `p_paddr` in its program header. All addresses in these structures are linked addresses, so in a PRX each of them is covered by an `R_MIPS_32` relocation.
 
@@ -153,7 +153,7 @@ stub_table."stub 0" -- nid_table."NID 0": {style.stroke-dash: 3}
 stub_table."stub 1" -- nid_table."NID 1": {style.stroke-dash: 3}
 ```
 
-### Module info
+### Module Info
 
 The module info structure is 52 bytes long.
 
@@ -168,7 +168,7 @@ The module info structure is 52 bytes long.
 
 Each end address points just past the last byte of its table, so a module without imports or exports has equal start and end addresses for that table.
 
-### Import table
+### Import Table
 
 The import table holds 1 entry for each library the module imports from. Every entry states its own size in 32 bit words in the byte at offset `0x08` and is directly followed by the next entry, which makes the usual 5 word entry 20 bytes long.
 

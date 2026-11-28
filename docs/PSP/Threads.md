@@ -2,7 +2,7 @@
 
 The kernel runs user code in threads and schedules them by priority.
 
-## Thread states
+## Thread States
 
 | State        | Meaning                                                                      |
 | ------------ | ---------------------------------------------------------------------------- |

@@ -1,4 +1,4 @@
-# Library functions
+# Library Functions
 
 Programs import firmware functions by library name and NID as described in [Executables](Executables.md#import-table). Arguments and results are listed in the order of the C prototype.
 
@@ -229,7 +229,7 @@ Programs import firmware functions by library name and NID as described in [Exec
 
 ### sceGeEdramGetAddr
 
-`sceGeEdramGetAddr` returns the physical address at which the CPU reaches the graphics engine's local eDRAM. Used directly as a virtual address it lies in the cached user space (see [Address space](index.md#address-space)). Adding `0x40000000` gives the uncached view.
+`sceGeEdramGetAddr` returns the physical address at which the CPU reaches the graphics engine's local eDRAM. Used directly as a virtual address it lies in the cached user space (see [Address Space](index.md#address-space)). Adding `0x40000000` gives the uncached view.
 
 ### sceGeListEnQueue
 
