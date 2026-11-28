@@ -1,0 +1,3607 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://emudocs.layle.dev/PSP/GE/">
+      
+      
+      
+        <link rel="prev" href="../Executables/">
+      
+      
+        <link rel="next" href="../Libraries/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.71">
+    
+    
+      
+        <title>Graphics Engine - emudocs</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.e442bf79.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="emudocs" class="md-header__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            emudocs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Graphics Engine
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="emudocs" class="md-nav__button md-logo" aria-label="emudocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    emudocs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ioncodes/emudocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Emulator Field Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../GBA/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GBA
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GBA
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GBA/PPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../GameCube%20%26%20Wii/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GameCube & Wii
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  GameCube & Wii
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/GX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GX
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Memory
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Wiimmfi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Wiimmfi
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../GameCube%20%26%20Wii/Starlet/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Starlet
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Starlet
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/boot0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot0
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/boot1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot1
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/boot2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  boot2
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/bootmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BootMii
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/homebrew-channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Homebrew Channel
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/hackmii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HackMii Installer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/nand/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NAND
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/seeprom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SEEPROM
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../GameCube%20%26%20Wii/Starlet/ios/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  IOS
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6_10" id="__nav_3_6_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_10_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_6_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  IOS
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/ohci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/ehci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  EHCI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/sdi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SO
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/ssl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SSL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_10_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../GameCube%20%26%20Wii/Starlet/ios/wl/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WL
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6_10_7" id="__nav_3_6_10_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_6_10_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_6_10_7">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  WL
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/wl/microcode-hle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Microcode HLE
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GameCube%20%26%20Wii/Starlet/ios/ncd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  NCD
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PSP
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  PSP
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Controller/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Controller
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Display
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Executables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Executables
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Graphics Engine
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Graphics Engine
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#display-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Display Lists
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Display Lists">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow-control-and-addressing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Flow Control and Addressing
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flow Control and Addressing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-0x10" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        BASE (<code>0x10</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#offset-0x13" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OFFSET (<code>0x13</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finish-0x0f" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        FINISH (<code>0x0F</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#color-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Color Formats
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Color Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#16-bit-5650-rgb565" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        16 Bit 5:6:5:0 (<code>RGB565</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-bit-5551-rgba5551" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        16 Bit 5:5:5:1 (<code>RGBA5551</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-bit-4444-rgba4444" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        16 Bit 4:4:4:4 (<code>RGBA4444</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-bit-8888-rgba8888" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        32 Bit 8:8:8:8 (<code>RGBA8888</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vertices-and-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vertices and Primitives
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vertices and Primitives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prim-0x04" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PRIM (<code>0x04</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vtype-0x12" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        VTYPE (<code>0x12</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mac-0x55" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MAC (<code>0x55</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maa-0x58" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MAA (<code>0x58</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#framebuffer-and-clear-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Framebuffer and Clear Mode
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Framebuffer and Clear Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fbw-0x9d" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        FBW (<code>0x9D</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fpf-0xd2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        FPF (<code>0xD2</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmode-0xd3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CMODE (<code>0xD3</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textures-and-clut" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Textures and CLUT
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textures and CLUT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tbw0-7-0xa8-0xaf" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TBW0-7 (<code>0xA8</code>-<code>0xAF</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tsize0-7-0xb8-0xbf" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TSIZE0-7 (<code>0xB8</code>-<code>0xBF</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tmode-0xc2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TMODE (<code>0xC2</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tpf-0xc3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TPF (<code>0xC3</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tfunc-0xc9" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TFUNC (<code>0xC9</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clut" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CLUT
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLUT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cload-0xc4" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CLOAD (<code>0xC4</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clut-0xc5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CLUT (<code>0xC5</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alpha-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Alpha Test
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Alpha Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atest-0xdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ATEST (<code>0xDB</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Libraries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Library Functions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Threads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Threads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../PSX/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PSX
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  PSX
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PSX/BIOS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BIOS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PSX/Games/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Games
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PSX/GPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GPU
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#display-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Display Lists
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Display Lists">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow-control-and-addressing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Flow Control and Addressing
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flow Control and Addressing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-0x10" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        BASE (<code>0x10</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#offset-0x13" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OFFSET (<code>0x13</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finish-0x0f" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        FINISH (<code>0x0F</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#color-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Color Formats
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Color Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#16-bit-5650-rgb565" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        16 Bit 5:6:5:0 (<code>RGB565</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-bit-5551-rgba5551" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        16 Bit 5:5:5:1 (<code>RGBA5551</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-bit-4444-rgba4444" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        16 Bit 4:4:4:4 (<code>RGBA4444</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-bit-8888-rgba8888" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        32 Bit 8:8:8:8 (<code>RGBA8888</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vertices-and-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vertices and Primitives
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vertices and Primitives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prim-0x04" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PRIM (<code>0x04</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vtype-0x12" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        VTYPE (<code>0x12</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mac-0x55" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MAC (<code>0x55</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maa-0x58" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        MAA (<code>0x58</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#framebuffer-and-clear-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Framebuffer and Clear Mode
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Framebuffer and Clear Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fbw-0x9d" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        FBW (<code>0x9D</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fpf-0xd2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        FPF (<code>0xD2</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmode-0xd3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CMODE (<code>0xD3</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textures-and-clut" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Textures and CLUT
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textures and CLUT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tbw0-7-0xa8-0xaf" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TBW0-7 (<code>0xA8</code>-<code>0xAF</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tsize0-7-0xb8-0xbf" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TSIZE0-7 (<code>0xB8</code>-<code>0xBF</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tmode-0xc2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TMODE (<code>0xC2</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tpf-0xc3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TPF (<code>0xC3</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tfunc-0xc9" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TFUNC (<code>0xC9</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clut" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CLUT
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLUT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cload-0xc4" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CLOAD (<code>0xC4</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clut-0xc5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CLUT (<code>0xC5</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alpha-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Alpha Test
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Alpha Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atest-0xdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ATEST (<code>0xDB</code>)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="graphics-engine">Graphics Engine</h1>
+<p>The Graphics Engine (GE) is a fixed-function 3D and 2D rendering processor that acts as a bus master on the system bus and renders into 2 MiB of on-chip local eDRAM (reachable at physical address <code>0x04000000</code> via <code>sceGeEdramGetAddr</code>). Display lists, vertex buffers, index buffers, textures and CLUT buffers can live in either main memory or eDRAM, whereas framebuffers and depth buffers reside in eDRAM. Because GE command registers hold indeterminate values after reset, programs typically submit an initialization list that zeroes state registers before drawing. Programs submit display lists and register interrupt callbacks through <code>sceGe_user</code> (see <a href="../Libraries/#scege_user">Library Functions</a>).</p>
+<h2 id="display-lists">Display Lists</h2>
+<p>A display list is a sequence of 32 bit commands in memory. Each command places an 8 bit opcode in bits 31:24 and a 24 bit argument in bits 23:0.</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>31:24</td>
+<td><code>OPCODE</code></td>
+<td>Command opcode</td>
+</tr>
+<tr>
+<td>23:0</td>
+<td><code>ARGUMENT</code></td>
+<td>Command-specific parameters</td>
+</tr>
+</tbody>
+</table>
+<p>The GE tracks its current read pointer (<code>MADR</code>) and a stall address (<code>SADR</code>), advancing <code>MADR</code> by 4 bytes per command. When <code>SADR</code> is non-zero, reading pauses as soon as <code>MADR</code> reaches <code>SADR</code> and resumes once the program updates <code>SADR</code> past <code>MADR</code> or clears it to 0, letting the CPU append commands while the GE is already executing earlier ones.</p>
+<h3 id="flow-control-and-addressing">Flow Control and Addressing</h3>
+<table>
+<thead>
+<tr>
+<th>Opcode</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x08</code></td>
+<td><code>JUMP</code></td>
+<td>Set the list address to a relative target address</td>
+</tr>
+<tr>
+<td><code>0x0A</code></td>
+<td><code>CALL</code></td>
+<td>Push the next list address and jump to a target</td>
+</tr>
+<tr>
+<td><code>0x0B</code></td>
+<td><code>RET</code></td>
+<td>Pop a return address pushed by <code>CALL</code></td>
+</tr>
+<tr>
+<td><code>0x0C</code></td>
+<td><code>END</code></td>
+<td>Stop reading the display list and raise <code>INTEND</code></td>
+</tr>
+<tr>
+<td><code>0x0F</code></td>
+<td><code>FINISH</code></td>
+<td>Raise <code>INTFIN</code> once prior drawing completes</td>
+</tr>
+<tr>
+<td><code>0x10</code></td>
+<td><code>BASE</code></td>
+<td>Set the upper address bits for relative addresses</td>
+</tr>
+<tr>
+<td><code>0x13</code></td>
+<td><code>OFFSET</code></td>
+<td>Set the upper 24 bits of the offset register</td>
+</tr>
+<tr>
+<td><code>0x14</code></td>
+<td><code>ORIGIN</code></td>
+<td>Load the command's own address into the offset register</td>
+</tr>
+</tbody>
+</table>
+<p><code>JUMP</code> (<code>0x08</code>) and <code>CALL</code> (<code>0x0A</code>) ignore the low 2 bits of the computed target address. Hardware <code>CALL</code> and <code>RET</code> support at most 2 nested levels of subroutine calls, while deeper nesting is handled by the graphics engine manager through <code>CMD_SIGNAL</code> extensions. <code>END</code> (<code>0x0C</code>) stops display list reading and raises a read-ended interrupt (<code>INTEND</code>), whereas <code>FINISH</code> (<code>0x0F</code>) waits for all preceding drawing operations to complete before raising a drawing-finished interrupt (<code>INTFIN</code>).</p>
+<p>Commands that carry a 24 bit relative address (<code>VADR</code>, <code>IADR</code>, <code>JUMP</code>, <code>BJUMP</code> and <code>CALL</code>) form a 32 bit address by combining their 24 bit operand with <code>BASE</code> (<code>0x10</code>) and the offset register loaded by <code>OFFSET</code> (<code>0x13</code>) or <code>ORIGIN</code> (<code>0x14</code>).</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Relative address calculation for VADR, IADR, JUMP, BJUMP and CALL</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">base</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">24</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">operand</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">offset</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+</code></pre></div>
+<h4 id="base-0x10">BASE (<code>0x10</code>)</h4>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>23:16</td>
+<td><code>BASE</code></td>
+<td>Upper 8 bits of subsequent relative addresses</td>
+</tr>
+</tbody>
+</table>
+<h4 id="offset-0x13">OFFSET (<code>0x13</code>)</h4>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>23:0</td>
+<td><code>ADDR</code></td>
+<td>Upper 24 bits of the offset register (low 8 bits zeroed)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="finish-0x0f">FINISH (<code>0x0F</code>)</h4>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>23:0</td>
+<td><code>LABEL</code></td>
+<td>Label whose low 16 bits are passed to the finish handler</td>
+</tr>
+</tbody>
+</table>
+<h2 id="color-formats">Color Formats</h2>
+<p>Framebuffers (<code>FPF</code>), direct-color textures (<code>TPF</code>), CLUT entries (<code>CPF</code>), vertex colors (<code>CT</code>) and display scanout all share the same 4 color encodings. Red occupies the least significant bits and alpha occupies the most significant bits, so a 32 bit <code>8:8:8:8</code> pixel lies in memory as <code>[R, G, B, A]</code>. In framebuffers, the alpha bits of <code>5:5:5:1</code>, <code>4:4:4:4</code> and <code>8:8:8:8</code> also act as the stencil buffer.</p>
+<h3 id="16-bit-5650-rgb565">16 Bit 5:6:5:0 (<code>RGB565</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>15:11</td>
+<td>Blue</td>
+</tr>
+<tr>
+<td>10:5</td>
+<td>Green</td>
+</tr>
+<tr>
+<td>4:0</td>
+<td>Red</td>
+</tr>
+</tbody>
+</table>
+<h3 id="16-bit-5551-rgba5551">16 Bit 5:5:5:1 (<code>RGBA5551</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>15</td>
+<td>Alpha</td>
+</tr>
+<tr>
+<td>14:10</td>
+<td>Blue</td>
+</tr>
+<tr>
+<td>9:5</td>
+<td>Green</td>
+</tr>
+<tr>
+<td>4:0</td>
+<td>Red</td>
+</tr>
+</tbody>
+</table>
+<h3 id="16-bit-4444-rgba4444">16 Bit 4:4:4:4 (<code>RGBA4444</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>15:12</td>
+<td>Alpha</td>
+</tr>
+<tr>
+<td>11:8</td>
+<td>Blue</td>
+</tr>
+<tr>
+<td>7:4</td>
+<td>Green</td>
+</tr>
+<tr>
+<td>3:0</td>
+<td>Red</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-bit-8888-rgba8888">32 Bit 8:8:8:8 (<code>RGBA8888</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>31:24</td>
+<td>Alpha</td>
+</tr>
+<tr>
+<td>23:16</td>
+<td>Blue</td>
+</tr>
+<tr>
+<td>15:8</td>
+<td>Green</td>
+</tr>
+<tr>
+<td>7:0</td>
+<td>Red</td>
+</tr>
+</tbody>
+</table>
+<h2 id="vertices-and-primitives">Vertices and Primitives</h2>
+<table>
+<thead>
+<tr>
+<th>Opcode</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x01</code></td>
+<td><code>VADR</code></td>
+<td>Set the vertex data pointer (relative address)</td>
+</tr>
+<tr>
+<td><code>0x04</code></td>
+<td><code>PRIM</code></td>
+<td>Draw a primitive from the current vertex data</td>
+</tr>
+<tr>
+<td><code>0x12</code></td>
+<td><code>VTYPE</code></td>
+<td>Select the vertex layout and transform mode</td>
+</tr>
+<tr>
+<td><code>0x55</code></td>
+<td><code>MAC</code></td>
+<td>Model ambient RGB color</td>
+</tr>
+<tr>
+<td><code>0x58</code></td>
+<td><code>MAA</code></td>
+<td>Model ambient alpha</td>
+</tr>
+</tbody>
+</table>
+<p><code>PRIM</code> (<code>0x04</code>) draws <code>COUNT</code> vertices starting at the address set by <code>VADR</code> (<code>0x01</code>) and advances the vertex pointer past the consumed vertices.</p>
+<h3 id="prim-0x04">PRIM (<code>0x04</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>18:16</td>
+<td><code>PRIM</code></td>
+<td>Primitive type</td>
+</tr>
+<tr>
+<td>15:0</td>
+<td><code>COUNT</code></td>
+<td>Number of vertices</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Primitive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Points</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Lines</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Line strip</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Triangles</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Triangle strip</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Triangle fan</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Rectangles</td>
+</tr>
+</tbody>
+</table>
+<p><code>Rectangles</code> (<code>6</code>) consumes vertices in pairs representing opposite corners of an axis-aligned rectangle in drawing coordinates, allowing multiple rectangles per <code>PRIM</code> when <code>COUNT</code> is a multiple of 2. Every pixel of the rectangle uses the color and depth of the 2nd vertex, while texture coordinates interpolate between the 2 corners (which allows flipping the texture horizontally or vertically by swapping endpoint coordinates). Pixels on the left and top edges are drawn while pixels on the right and bottom edges are excluded.</p>
+<h3 id="vtype-0x12">VTYPE (<code>0x12</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>23</td>
+<td><code>TRU</code></td>
+<td>Transform mode</td>
+</tr>
+<tr>
+<td>20:18</td>
+<td><code>MC</code></td>
+<td>Morph vertex count minus 1</td>
+</tr>
+<tr>
+<td>16:14</td>
+<td><code>WC</code></td>
+<td>Weight count minus 1</td>
+</tr>
+<tr>
+<td>12:11</td>
+<td><code>IT</code></td>
+<td>Index format</td>
+</tr>
+<tr>
+<td>10:9</td>
+<td><code>WT</code></td>
+<td>Weight format</td>
+</tr>
+<tr>
+<td>8:7</td>
+<td><code>VT</code></td>
+<td>Position format</td>
+</tr>
+<tr>
+<td>6:5</td>
+<td><code>NT</code></td>
+<td>Normal format</td>
+</tr>
+<tr>
+<td>4:2</td>
+<td><code>CT</code></td>
+<td>Color format</td>
+</tr>
+<tr>
+<td>1:0</td>
+<td><code>TT</code></td>
+<td>Texture coordinate format</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th><code>TT</code>, <code>WT</code> format</th>
+<th><code>NT</code>, <code>VT</code> format</th>
+<th><code>IT</code> format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>None</td>
+<td>None (reserved for <code>VT</code>)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>1</td>
+<td>8 bit unsigned fixed</td>
+<td>8 bit signed fixed</td>
+<td>8 bit</td>
+</tr>
+<tr>
+<td>2</td>
+<td>16 bit unsigned fixed</td>
+<td>16 bit signed fixed</td>
+<td>16 bit</td>
+</tr>
+<tr>
+<td>3</td>
+<td>32 bit float</td>
+<td>32 bit float</td>
+<td>Reserved</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th><code>CT</code> color format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>None</td>
+</tr>
+<tr>
+<td>4</td>
+<td>16 bit 5:6:5:0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>16 bit 5:5:5:1</td>
+</tr>
+<tr>
+<td>6</td>
+<td>16 bit 4:4:4:4</td>
+</tr>
+<tr>
+<td>7</td>
+<td>32 bit 8:8:8:8</td>
+</tr>
+</tbody>
+</table>
+<p>When <code>TRU</code> is 0 (normal mode), vertices pass through the full geometry pipeline. When <code>TRU</code> is 1 (through mode), coordinates are supplied directly in drawing space with <code>(0, 0)</code> at the top left and the GE bypasses vertex blending, lighting, non-UV texture mapping, clipping, fogging, the depth range test, object culling and patch culling. Weights and normals cannot be used in through mode. Instead, texel coordinates (<code>U</code>, <code>V</code>) are read as 16 bit unsigned integers in texel units rather than normalized <code>0.0</code> to <code>1.0</code> values, while drawing coordinates (<code>X</code>, <code>Y</code>, <code>Z</code>) are either 16 bit signed integers for <code>X</code> and <code>Y</code> paired with an unsigned 16 bit <code>Z</code> or 32 bit floats.</p>
+<p>Within each vertex, present attributes appear in the fixed order of weights, texture coordinates (<code>U</code>, <code>V</code>), color, normal (<code>X</code>, <code>Y</code>, <code>Z</code>) and position (<code>X</code>, <code>Y</code>, <code>Z</code>). Vertex storage follows C structure alignment rules, so 16 bit fields align to 2 bytes, 32 bit fields align to 4 bytes and the total vertex stride rounds up to the alignment of its largest component.</p>
+<p>When <code>CT</code> is 0, vertices take their RGB color from <code>MAC</code> (<code>0x55</code>) and their alpha from <code>MAA</code> (<code>0x58</code>).</p>
+<h3 id="mac-0x55">MAC (<code>0x55</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>23:16</td>
+<td><code>B</code></td>
+<td>Blue component</td>
+</tr>
+<tr>
+<td>15:8</td>
+<td><code>G</code></td>
+<td>Green component</td>
+</tr>
+<tr>
+<td>7:0</td>
+<td><code>R</code></td>
+<td>Red component</td>
+</tr>
+</tbody>
+</table>
+<h3 id="maa-0x58">MAA (<code>0x58</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7:0</td>
+<td><code>A</code></td>
+<td>Alpha component</td>
+</tr>
+</tbody>
+</table>
+<h2 id="framebuffer-and-clear-mode">Framebuffer and Clear Mode</h2>
+<table>
+<thead>
+<tr>
+<th>Opcode</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x9C</code></td>
+<td><code>FBP</code></td>
+<td>Low 24 bits of the draw framebuffer offset in eDRAM</td>
+</tr>
+<tr>
+<td><code>0x9D</code></td>
+<td><code>FBW</code></td>
+<td>Framebuffer stride in pixels and upper address bits</td>
+</tr>
+<tr>
+<td><code>0xD2</code></td>
+<td><code>FPF</code></td>
+<td>Framebuffer pixel format</td>
+</tr>
+<tr>
+<td><code>0xD3</code></td>
+<td><code>CMODE</code></td>
+<td>Clear mode enable and target buffer masks</td>
+</tr>
+</tbody>
+</table>
+<p><code>FBP</code> (<code>0x9C</code>) specifies the framebuffer base in 8 KiB units with its low 13 bits set to 0. <code>FBW</code> (<code>0x9D</code>) holds the upper 8 bits of the base address in <code>BASE</code> and the pixel stride in <code>FBW</code>, which must be a multiple of 64 from 64 to 1024 (the low 6 bits are ignored).</p>
+<h3 id="fbw-0x9d">FBW (<code>0x9D</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>23:16</td>
+<td><code>BASE</code></td>
+<td>Upper 8 bits of the framebuffer base address</td>
+</tr>
+<tr>
+<td>10:0</td>
+<td><code>FBW</code></td>
+<td>Framebuffer row stride in pixels (64-1024)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fpf-0xd2">FPF (<code>0xD2</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1:0</td>
+<td><code>FPF</code></td>
+<td>Framebuffer pixel format (<code>0</code> 5:6:5:0, <code>1</code> 5:5:5:1, <code>2</code> 4:4:4:4, <code>3</code> 8:8:8:8)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cmode-0xd3">CMODE (<code>0xD3</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td><code>ZEN</code></td>
+<td>Update depth buffer when clear mode is on</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>AEN</code></td>
+<td>Update alpha/stencil when clear mode is on</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>CEN</code></td>
+<td>Update color buffer when clear mode is on</td>
+</tr>
+<tr>
+<td>0</td>
+<td><code>SET</code></td>
+<td>0 for normal drawing, 1 for clear mode</td>
+</tr>
+</tbody>
+</table>
+<p>When clear mode is active (<code>SET = 1</code>), the GE switches to a clearing context that disables back face culling, texturing, fogging, antialiasing, the stencil test, the color test, alpha blending and logical operations while forcing both the alpha test and depth test to ALWAYS. Primitives drawn in clear mode (typically through-mode rectangles) then write their color, alpha and depth directly to whichever buffers are enabled by <code>CEN</code>, <code>AEN</code> and <code>ZEN</code>.</p>
+<h2 id="textures-and-clut">Textures and CLUT</h2>
+<table>
+<thead>
+<tr>
+<th>Opcode</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x1E</code></td>
+<td><code>TME</code></td>
+<td>Enable or disable texturing (bit 0)</td>
+</tr>
+<tr>
+<td><code>0xA0</code>-<code>0xA7</code></td>
+<td><code>TBP0</code>-<code>7</code></td>
+<td>Low 24 bits of mipmap level 0-7 address</td>
+</tr>
+<tr>
+<td><code>0xA8</code>-<code>0xAF</code></td>
+<td><code>TBW0</code>-<code>7</code></td>
+<td>Level 0-7 texture stride and upper address</td>
+</tr>
+<tr>
+<td><code>0xB0</code></td>
+<td><code>CBP</code></td>
+<td>Low 24 bits of CLUT source address</td>
+</tr>
+<tr>
+<td><code>0xB1</code></td>
+<td><code>CBW</code></td>
+<td>Upper 8 bits of CLUT source address</td>
+</tr>
+<tr>
+<td><code>0xB8</code>-<code>0xBF</code></td>
+<td><code>TSIZE0</code>-<code>7</code></td>
+<td>Level 0-7 texture width and height exponents</td>
+</tr>
+<tr>
+<td><code>0xC2</code></td>
+<td><code>TMODE</code></td>
+<td>Texture storage mode and mipmap settings</td>
+</tr>
+<tr>
+<td><code>0xC3</code></td>
+<td><code>TPF</code></td>
+<td>Texture pixel format</td>
+</tr>
+<tr>
+<td><code>0xC4</code></td>
+<td><code>CLOAD</code></td>
+<td>Load entries into the internal CLUT</td>
+</tr>
+<tr>
+<td><code>0xC5</code></td>
+<td><code>CLUT</code></td>
+<td>CLUT format, shift, mask and entry offset</td>
+</tr>
+<tr>
+<td><code>0xC9</code></td>
+<td><code>TFUNC</code></td>
+<td>Texture combine function</td>
+</tr>
+<tr>
+<td><code>0xCB</code></td>
+<td><code>TFLUSH</code></td>
+<td>Flush the texture cache</td>
+</tr>
+</tbody>
+</table>
+<p>Each texture level's base address is <code>((TBWn.BASE &lt;&lt; 24) | TBPn)</code> aligned to 16 bytes (the low 4 bits of <code>TBPn</code> are ignored) and its dimensions are <code>1 &lt;&lt; TW</code> pixels wide by <code>1 &lt;&lt; TH</code> pixels tall, with <code>TW</code> and <code>TH</code> ranging from 0 to 9 (1 to 512 pixels).</p>
+<h3 id="tbw0-7-0xa8-0xaf">TBW0-7 (<code>0xA8</code>-<code>0xAF</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>23:16</td>
+<td><code>BASE</code></td>
+<td>Upper 8 bits of the texture buffer base address</td>
+</tr>
+<tr>
+<td>10:0</td>
+<td><code>TBW</code></td>
+<td>Texture row stride in texels (maximum 1024)</td>
+</tr>
+</tbody>
+</table>
+<p>Because texture rows must align to 16 bytes, <code>TBW</code> is restricted to multiples of 4 for 32 bit formats (<code>8:8:8:8</code>, <code>Index32</code>, <code>DXT3</code> and <code>DXT5</code>), multiples of 8 for 16 bit formats (<code>5:6:5:0</code>, <code>5:5:5:1</code>, <code>4:4:4:4</code>, <code>Index16</code> and <code>DXT1</code>), multiples of 16 for <code>Index8</code> and multiples of 32 for <code>Index4</code>.</p>
+<h3 id="tsize0-7-0xb8-0xbf">TSIZE0-7 (<code>0xB8</code>-<code>0xBF</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11:8</td>
+<td><code>TH</code></td>
+<td>Texture height exponent (<code>1 &lt;&lt; TH</code>, 0-9)</td>
+</tr>
+<tr>
+<td>3:0</td>
+<td><code>TW</code></td>
+<td>Texture width exponent (<code>1 &lt;&lt; TW</code>, 0-9)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tmode-0xc2">TMODE (<code>0xC2</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>18:16</td>
+<td><code>MXL</code></td>
+<td>Maximum mipmap level (0-7)</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>MC</code></td>
+<td>Use separate CLUT ranges per mipmap level when set</td>
+</tr>
+<tr>
+<td>0</td>
+<td><code>HSM</code></td>
+<td>0 for linear layout, 1 for swizzled fast layout</td>
+</tr>
+</tbody>
+</table>
+<p>In linear layout (<code>HSM = 0</code>), rows are stored sequentially in memory with a stride of <code>TBW</code> texels per row even when <code>TBW</code> is wider than <code>1 &lt;&lt; TW</code>, so decoding reads <code>TBW * height</code> texels and takes the first <code>1 &lt;&lt; TW</code> texels of each row. In fast layout (<code>HSM = 1</code>), texels are rearranged into 16 byte by 8 pixel blocks matching the replacement unit of the GE's 8 KiB, 4-way set-associative texture cache, requiring <code>TBW</code> to match the texture width and excluding DXT formats. Because the texture cache retains previously read texels, software must issue <code>TFLUSH</code> (<code>0xCB</code>) after modifying or switching texture data before drawing with it.</p>
+<h3 id="tpf-0xc3">TPF (<code>0xC3</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td><code>EXT</code></td>
+<td>DXT 5:6:5 expansion (0 zero, 1 MSB)</td>
+</tr>
+<tr>
+<td>3:0</td>
+<td><code>TPF</code></td>
+<td>Texture pixel format</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>16 bit 5:6:5:0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>16 bit 5:5:5:1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>16 bit 4:4:4:4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>32 bit 8:8:8:8</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4 bit index (<code>Index4</code>)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>8 bit index (<code>Index8</code>)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>16 bit index (<code>Index16</code>)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>32 bit index (<code>Index32</code>)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>DXT1</td>
+</tr>
+<tr>
+<td>9</td>
+<td>DXT3</td>
+</tr>
+<tr>
+<td>10</td>
+<td>DXT5</td>
+</tr>
+</tbody>
+</table>
+<p>In <code>Index4</code> textures, each byte holds 2 texels with the first texel in bits 3:0 and the second in bits 7:4 (8 texels per 32 bit word). In <code>Index8</code> textures, each byte is 1 texel index (4 texels per 32 bit word).</p>
+<h3 id="tfunc-0xc9">TFUNC (<code>0xC9</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16</td>
+<td><code>CD</code></td>
+<td>Double output RGB when set</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>TCC</code></td>
+<td>0 for RGB only, 1 for RGBA</td>
+</tr>
+<tr>
+<td>2:0</td>
+<td><code>TXF</code></td>
+<td>Texture combine function</td>
+</tr>
+</tbody>
+</table>
+<p><code>TFUNC</code> combines the sampled texture color <code>t</code> with the primary fragment color <code>p</code> (and texture environment color <code>e</code> from <code>TEC</code> <code>0xCA</code> for <code>BLEND</code>) before clamping each channel to 0-255. Below, <code>mul(x, y)</code> denotes <code>x * y / 255</code>.</p>
+<table>
+<thead>
+<tr>
+<th><code>TXF</code></th>
+<th>Function</th>
+<th><code>TCC = 0</code> (RGB)</th>
+<th><code>TCC = 1</code> (RGBA)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Modulate</td>
+<td><code>rgb = mul(t, p)</code>, <code>a = p.a</code></td>
+<td><code>rgb = mul(t, p)</code>, <code>a = mul(t.a, p.a)</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Decal</td>
+<td><code>rgb = t</code>, <code>a = p.a</code></td>
+<td><code>rgb = mul(255 - t.a, p) + mul(t.a, t)</code>, <code>a = p.a</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Blend</td>
+<td><code>rgb = mul(255 - t, p) + mul(t, e)</code>, <code>a = p.a</code></td>
+<td><code>rgb = mul(255 - t, p) + mul(t, e)</code>, <code>a = mul(t.a, p.a)</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Replace</td>
+<td><code>rgb = t</code>, <code>a = p.a</code></td>
+<td><code>rgb = t</code>, <code>a = t.a</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Add</td>
+<td><code>rgb = t + p</code>, <code>a = p.a</code></td>
+<td><code>rgb = t + p</code>, <code>a = mul(t.a, p.a)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="clut">CLUT</h3>
+<p>The GE contains a 1024 byte internal color lookup table (CLUT) that holds up to 512 entries in 16 bit color formats or 256 entries in 32 bit <code>8:8:8:8</code>. <code>CLOAD</code> (<code>0xC4</code>) copies <code>NP * 32</code> bytes into the CLUT from physical address <code>((CBW.BASE &lt;&lt; 24) | CBP)</code> (<code>CBP</code> is 16 byte aligned with its low 4 bits ignored). That corresponds to <code>16 * NP</code> entries for 16 bit formats or <code>8 * NP</code> entries for 32 bit <code>8:8:8:8</code>, with <code>NP</code> ranging from 1 to 32.</p>
+<h4 id="cload-0xc4">CLOAD (<code>0xC4</code>)</h4>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5:0</td>
+<td><code>NP</code></td>
+<td>Number of 32 byte blocks to load (1-32)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="clut-0xc5">CLUT (<code>0xC5</code>)</h4>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20:16</td>
+<td><code>CSA</code></td>
+<td>Palette start offset in 16 entry units</td>
+</tr>
+<tr>
+<td>15:8</td>
+<td><code>MSK</code></td>
+<td>Mask applied to the shifted 8 bit texel index</td>
+</tr>
+<tr>
+<td>6:2</td>
+<td><code>SFT</code></td>
+<td>Right shift applied to the zero-extended index</td>
+</tr>
+<tr>
+<td>1:0</td>
+<td><code>CPF</code></td>
+<td>Entry color format (<code>0</code> 5:6:5:0, <code>1</code> 5:5:5:1, <code>2</code> 4:4:4:4, <code>3</code> 8:8:8:8)</td>
+</tr>
+</tbody>
+</table>
+<p>To look up a texel index from an indexed texture, the GE zero-extends the index to 32 bits, shifts right by <code>SFT</code>, takes the low 8 bits masked by <code>MSK</code> and combines <code>CSA * 16</code> using a bitwise OR rather than addition (so <code>MSK</code> must leave any bits used by <code>CSA</code> clear).</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// CLUT entry lookup</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">shifted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">index</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">u32</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">sft</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">shifted</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">msk</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">u32</span><span class="p">))</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">((</span><span class="n">csa</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">u32</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="alpha-test">Alpha Test</h2>
+<table>
+<thead>
+<tr>
+<th>Opcode</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x22</code></td>
+<td><code>ATE</code></td>
+<td>Enable or disable alpha test (bit 0)</td>
+</tr>
+<tr>
+<td><code>0xDB</code></td>
+<td><code>ATEST</code></td>
+<td>Alpha test function, reference and mask</td>
+</tr>
+</tbody>
+</table>
+<h3 id="atest-0xdb">ATEST (<code>0xDB</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>23:16</td>
+<td><code>AMSK</code></td>
+<td>Mask applied to both fragment alpha and <code>AREF</code></td>
+</tr>
+<tr>
+<td>15:8</td>
+<td><code>AREF</code></td>
+<td>Reference alpha value (0-255)</td>
+</tr>
+<tr>
+<td>2:0</td>
+<td><code>ATF</code></td>
+<td>Comparison function</td>
+</tr>
+</tbody>
+</table>
+<p>When alpha testing is enabled, a fragment is kept only when <code>(alpha &amp; amsk)</code> satisfies <code>ATF</code> against <code>(aref &amp; amsk)</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Never</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Always</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Equal</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Not equal</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Less</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Less or equal</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Greater</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Greater or equal</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.top","search.highlight","search.suggest","content.code.annotate","content.code.copy","content.tabs.link","header.autohide","palette.toggle","navigation.sections","navigation.instant","navigation.indexes"],"redirect":null,"search":"../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a2388154.min.js"></script>
+      
+        <script src="../../javascripts/d2.js" type="module"></script>
+      
+    
+  </body>
+</html>
